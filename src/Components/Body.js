@@ -2,33 +2,46 @@ import React from "react";
 import "../Css/Body.css";
 
 export default function Body() {
-  const [hello, setHello] = React.useState([]);
+  //States in der todoList wird der Value vom input gespeichert und danach bei Tasks gespeichert
+  const [Tasks, setTasks] = React.useState([]);
   const [todoList, setTodoList] = React.useState("");
 
+  //Todo zur Ul hinzufügen Funktion
   function add() {
-    if(todoList === "") {
-      alert("Kein Todo vorhanden")
+    if (todoList === "") {
+      alert("Kein Todo vorhanden");
     } else {
-      setHello([...hello, <li className="list-items" key={hello}>{todoList}</li>]);
+      setTasks([
+        ...Tasks,
+        <li  className="list-items" key={Tasks}>
+          {todoList}
+          <button onClick={deleteTodo}>❌</button>
+        </li>,
+      ]);
       setTodoList("");
+      
     }
   }
 
-  React.useEffect(() => {
-    const enter = event => {
-      console.log("hey")
+  //Todo löschen Funktion
+  function deleteTodo () { 
+    console.log("hey")
+   }
 
-      if(event.key === "Enter"){
-        
-        add()
+//Enter Funktion
+  React.useEffect(() => {
+    const enter = (event) => {
+
+      if (event.key === "Enter") {
+        add();
       }
-    }
-    document.addEventListener("keypress", enter)
+    };
+    document.addEventListener("keypress", enter);
 
     return () => {
-      document.removeEventListener("keypress" ,enter)
-    }
-  })
+      document.removeEventListener("keypress", enter);
+    };
+  });
 
   return (
     <div className="container-body">
@@ -44,7 +57,7 @@ export default function Body() {
         </button>
       </div>
       <div className="list-wrapper">
-        <ul className="todo-list">{hello}</ul>
+        <ul className="todo-list">{Tasks}</ul>
       </div>
     </div>
   );
