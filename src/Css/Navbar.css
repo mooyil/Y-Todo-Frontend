@@ -13,3 +13,11 @@
     box-shadow: 0px 3px 20px 5px turquoise;
 
 }
+
+.signup-link {
+    font-size: 20px;
+    color: turquoise;
+    margin-right: 0px;
+    margin-left: 90%;
+    margin-top: -80px;
+}

@@ -1,3 +1,5 @@
+
+
 .input-wrapper {
     padding-top: 150px;
     display: flex;
@@ -7,7 +9,7 @@
 }
 
 .input-text {
-  
+    background-color: white;
     width: 500px;
     height: 30px;
     border-radius: 10px;
@@ -23,7 +25,7 @@
     font-size: larger;
     font-weight: bold;
     background-color: white;
-    color: turquoise;
+    color: black;
 }
 
 .list-wrapper{
@@ -45,4 +47,3 @@
     
     
 }
-

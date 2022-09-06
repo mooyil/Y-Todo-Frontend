@@ -1,34 +1,61 @@
 import React from "react";
 import "../Css/Body.css";
+import axios from "axios"
 
 export default function Body() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, settodoInputValue] = React.useState("");
 
+  let todoItem = {
+    content: todoInputValue,
+    userId: "mikail",
+    done: false
+  }
+
+  //GET Method vom Server
   React.useEffect(() => {
-    if (localStorage.getItem("todosData")) {
-      setTasks(JSON.parse(localStorage.getItem("todosData")));
-    }
-    return () => {
-      localStorage.clear();
-    };
+    axios.get("http://localhost:8087/todo/get?username=mikail")
+    .then((response) => {
+    setTasks(response.data)
+    })
   }, []);
 
-  React.useEffect(() => {
-    localStorage.setItem("todosData", JSON.stringify(tasks));
-  }, [tasks]);
+  function createPost () { 
+    fetch(`http://localhost:8087/todo/add`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(todoItem)
+    }).then(response => response.json())
+    .then((todoItem) => { 
+      setTasks([...tasks].concat(todoItem));
+    })
+    }
+    
+
+    function deleteFromServer (id) { 
+      fetch("http://localhost:8087/todo/delete?todoItemId="+id,
+       { 
+         method: "DELETE",
+      }
+       ).then(response => {
+          // console.log(response.status);
+         });
+     }
+  
+  console.log(tasks)
 
   //Todo zur Ul hinzufügen Funktion
+  //TODO: Guck dir das genauer an
   function add(event) {
     const newTodo = {
       id: Math.floor(Math.random() * 1000000),
-      text: todoInputValue,
+      content: todoInputValue,
     };
     if (todoInputValue === "") {
       alert("Bitte schreiben Sie ein Todo");
     } else {
-      setTasks([...tasks].concat(newTodo));
+      // setTasks([...tasks].concat(newTodo));
       settodoInputValue("");
     }
   }
@@ -38,6 +65,7 @@ export default function Body() {
     const enter = (event) => {
       if (event.key === "Enter") {
         add();
+        createPost();
       }
     };
     document.addEventListener("keypress", enter);
@@ -50,7 +78,6 @@ export default function Body() {
   //Todo lösch Funktion
   function deleteTodo(id) {
     const updatedTodo = [...tasks].filter((todo) => todo.id !== id);
-    console.log(tasks);
     setTasks(updatedTodo);
   }
 
@@ -63,7 +90,10 @@ export default function Body() {
           type="text"
           className="input-text"
         />
-        <button onClick={add} className="input-button">
+        <button onClick={() => {
+          add()
+          createPost()
+        }} className="input-button">
           Add
         </button>
       </div>
@@ -71,8 +101,11 @@ export default function Body() {
         {tasks.map((todo) => {
           return (
             <li className="list-items" key={todo.id}>
-              {todo.text}
-              <button onClick={() => deleteTodo(todo.id)}>delete</button>
+              {todo.content}
+              <button onClick={() => {
+                deleteTodo(todo.id)
+                deleteFromServer(todo.id)
+                }}>delete</button>
             </li>
           );
         })}

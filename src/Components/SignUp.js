@@ -3,6 +3,7 @@ import "../Css/SignUp.css"
 export default function SignUp () { 
     return (
         <div className="sign-up-container">
+            <p>Y-Todo</p>
             <h1>Sign Up Now</h1>
             <form className="sign-up-form">
                 <input type="email" className="input-text-signup" placeholder="Enter Your E-Mail" ></input>

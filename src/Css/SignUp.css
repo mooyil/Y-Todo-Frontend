@@ -1,11 +1,17 @@
+body{
+    background-color: grey;
+}
+
 .sign-up-container{
-    color: white;
+    color: turquoise;
     width: 300px;
-    box-shadow: 0px 3px 0px 0px turquoise  ;
+    box-shadow: 0px 3px 5px 5px turquoise  ;
     background: black;
     padding: 20px;
     margin: 8% auto 0;
     text-align: center;
+    border-radius: 10px;
+    height: 450px;
 
 }
 
@@ -19,7 +25,7 @@
 }
 
 .signup-button{
-    color: #fff;
+    color: white;
     width: 100%;
     padding: 10px;
     border-radius: 20px;
@@ -28,4 +34,5 @@
     border: none;
     outline: none;
     cursor: pointer;
+    color: black;
 }
