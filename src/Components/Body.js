@@ -2,8 +2,10 @@ import React from "react";
 import "../Css/Body.css";
 import axios from "axios";
 import Snackbar from "./Snackbar";
+import { todoService } from "../services/todoService";
 
 export default function Body() {
+ 
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, settodoInputValue] = React.useState("");
@@ -67,11 +69,17 @@ export default function Body() {
 
   //GET Method vom Server
   React.useEffect(() => {
-    axios
-      .get("http://localhost:8087/todo/get?username=mikail")
-      .then((response) => {
-        setTasks(response.data);
-      });
+    const TodoService = new todoService()
+    
+    TodoService.getTodos("mikail").then( (response) => {
+      setTasks(response.data);
+    })
+
+    // axios
+    //   .get("http://localhost:8087/todo/get?username=mikail")
+    //   .then((response) => {
+    //     setTasks(response.data);
+    //   });
   }, []);
 
   function createPost() {
