@@ -1,11 +1,9 @@
-body{
-    background-color: grey;
-}
+
 
 .sign-up-container{
     color: turquoise;
     width: 300px;
-    box-shadow: 0px 3px 5px 5px turquoise  ;
+    box-shadow: 2px 3px 3px 3px turquoise  ;
     background: black;
     padding: 20px;
     margin: 8% auto 0;
@@ -22,6 +20,10 @@ body{
     width: 80%;
     border: 1px solid #999;
     outline: none;
+}
+
+.input-text-signup:focus{
+    border: 2px solid turquoise;
 }
 
 .signup-button{

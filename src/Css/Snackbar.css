@@ -1,0 +1,126 @@
+
+
+.snackbarNotShow{
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: hidden;
+    
+    
+    
+}
+
+.snackbarShowSuccess::after{
+    animation: fadein 0.5s , fadeout 0.5s 2.5s;
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: visible;
+    content: "Todo successfully added";
+    padding-top: 25px;
+    border-radius: 10px;
+
+}
+
+
+
+.snackbarShowError::after{
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: visible;
+    content: "Server error";
+    padding-top: 25px;
+    border-radius: 10px;
+
+}
+
+
+.snackbarShowEmpty::after{
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: visible;
+    content: "Input is empty";
+    padding-top: 25px;
+    border-radius: 10px;
+
+}
+
+
+.snackbarSuccessfulDelete::after{
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: visible;
+    content: "deleted";
+    padding-top: 25px;
+    border-radius: 10px;
+
+}
+
+
+.snackbarFailedDelete::after{
+    text-align: center;
+    color: white;
+    background-color: black;
+    width: 20%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 39%;
+    visibility: visible;
+    content: "delete failed";
+    padding-top: 25px;
+    border-radius: 10px;
+
+}
+
+
+
+@keyframes fadein {
+    from{
+        bottom: 0px;
+        opacity: 0;
+    }
+    to{
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from{
+        bottom: 30px;
+        opacity: 1;
+    }
+    to{
+        bottom: 0px;
+        opacity: 0;
+    }
+}

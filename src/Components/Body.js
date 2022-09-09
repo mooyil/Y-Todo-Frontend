@@ -1,61 +1,106 @@
 import React from "react";
 import "../Css/Body.css";
-import axios from "axios"
+import axios from "axios";
+import Snackbar from "./Snackbar";
 
 export default function Body() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, settodoInputValue] = React.useState("");
+  const [snackbar, setSnackbar] = React.useState("");
+
+  //Snackbar anzeigen wenn nicht erfolgreich Todod gelöscht
+  function snackbarFailedDelete () { 
+    setTimeout(() => {
+      setSnackbar("snackbarShowSuccess");
+      setTimeout(() => {
+        setSnackbar("snackbarNotShow");
+      }, 1000);
+    }, 200);
+   }
+
+  //Snackbar anzeigen wenn erfolgreich Todod gelöscht
+  function snackbarTodoDeleted () { 
+    setTimeout(() => {
+      setSnackbar("snackbarSuccessfulDelete");
+      setTimeout(() => {
+        setSnackbar("snackbarNotShow");
+      }, 1000);
+    }, 200);
+   }
+
+  //Snackbar anzeigen wenn die Todo erfolgreich hinzugefügt wurde
+  function showSuccessSnackbar() {
+    setTimeout(() => {
+      setSnackbar("snackbarShowSuccess");
+      setTimeout(() => {
+        setSnackbar("snackbarNotShow");
+      }, 1000);
+    }, 200);
+  }
+
+  //Snackbar anzeigen wenn die Todo nicht hinzugefügt werden konnte
+  function showFailedSnackbar() {
+    setTimeout(() => {
+      setSnackbar("snackbarShowError");
+      setTimeout(() => {
+        setSnackbar("snackbarNotShow");
+      }, 1000);
+    }, 200);
+  }
+
+  //Snackbar anzeigen, wenn das Input Feld leer ist
+  function showEmptySnackbar() {
+    setTimeout(() => {
+      setSnackbar("snackbarShowEmpty");
+      setTimeout(() => {
+        setSnackbar("snackbarNotShow");
+      }, 1000);
+    }, 200);
+  }
 
   let todoItem = {
     content: todoInputValue,
     userId: "mikail",
-    done: false
-  }
+    done: false,
+  };
 
   //GET Method vom Server
   React.useEffect(() => {
-    axios.get("http://localhost:8087/todo/get?username=mikail")
-    .then((response) => {
-    setTasks(response.data)
-    })
+    axios
+      .get("http://localhost:8087/todo/get?username=mikail")
+      .then((response) => {
+        setTasks(response.data);
+      });
   }, []);
 
-  function createPost () { 
+  function createPost() {
     fetch(`http://localhost:8087/todo/add`, {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(todoItem)
-    }).then(response => response.json())
-    .then((todoItem) => { 
-      setTasks([...tasks].concat(todoItem));
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(todoItem),
     })
-    }
-    
+      .then((response) => response.json())
+      .then((todoItem) => {
+        setTasks([...tasks].concat(todoItem));
+        showSuccessSnackbar();
+      })
+      .catch(() => {
+        showFailedSnackbar();
+      });
+  }
 
-    function deleteFromServer (id) { 
-      fetch("http://localhost:8087/todo/delete?todoItemId="+id,
-       { 
-         method: "DELETE",
-      }
-       ).then(response => {
-          // console.log(response.status);
-         });
-     }
-  
-  console.log(tasks)
+  function deleteFromServer(id) {
+    fetch("http://localhost:8087/todo/delete?todoItemId=" + id, {
+      method: "DELETE",
+    })
+  }
 
-  //Todo zur Ul hinzufügen Funktion
-  //TODO: Guck dir das genauer an
   function add(event) {
-    const newTodo = {
-      id: Math.floor(Math.random() * 1000000),
-      content: todoInputValue,
-    };
     if (todoInputValue === "") {
-      alert("Bitte schreiben Sie ein Todo");
+      showEmptySnackbar();
     } else {
-      // setTasks([...tasks].concat(newTodo));
+      createPost();
       settodoInputValue("");
     }
   }
@@ -65,7 +110,6 @@ export default function Body() {
     const enter = (event) => {
       if (event.key === "Enter") {
         add();
-        createPost();
       }
     };
     document.addEventListener("keypress", enter);
@@ -90,10 +134,12 @@ export default function Body() {
           type="text"
           className="input-text"
         />
-        <button onClick={() => {
-          add()
-          createPost()
-        }} className="input-button">
+        <button
+          onClick={() => {
+            add();
+          }}
+          className="input-button"
+        >
           Add
         </button>
       </div>
@@ -102,14 +148,19 @@ export default function Body() {
           return (
             <li className="list-items" key={todo.id}>
               {todo.content}
-              <button onClick={() => {
-                deleteTodo(todo.id)
-                deleteFromServer(todo.id)
-                }}>delete</button>
+              <button
+                onClick={() => {
+                  deleteTodo(todo.id);
+                  deleteFromServer(todo.id);
+                }}
+              >
+                delete
+              </button>
             </li>
           );
         })}
       </div>
+      <Snackbar Classname={snackbar} />
     </div>
   );
 }
