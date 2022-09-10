@@ -21,7 +21,7 @@
 }
 
 .input-text:focus{
-    transition:  0.5s;
+    transition:  1s;
     box-shadow: inset 540px 0   turquoise;
     border: 2px solid turquoise;
 }

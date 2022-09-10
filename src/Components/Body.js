@@ -5,56 +5,15 @@ import Snackbar from "./Snackbar";
 import { todoService } from "../services/todoService";
 
 export default function Body() {
- 
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, settodoInputValue] = React.useState("");
   const [snackbar, setSnackbar] = React.useState("");
 
   //Snackbar anzeigen wenn nicht erfolgreich Todod gelöscht
-  function snackbarFailedDelete () { 
+  function snackbarShow(snackbarClassName) {
     setTimeout(() => {
-      setSnackbar("snackbarShowSuccess");
-      setTimeout(() => {
-        setSnackbar("snackbarNotShow");
-      }, 1000);
-    }, 200);
-   }
-
-  //Snackbar anzeigen wenn erfolgreich Todod gelöscht
-  function snackbarTodoDeleted () { 
-    setTimeout(() => {
-      setSnackbar("snackbarSuccessfulDelete");
-      setTimeout(() => {
-        setSnackbar("snackbarNotShow");
-      }, 1000);
-    }, 200);
-   }
-
-  //Snackbar anzeigen wenn die Todo erfolgreich hinzugefügt wurde
-  function showSuccessSnackbar() {
-    setTimeout(() => {
-      setSnackbar("snackbarShowSuccess");
-      setTimeout(() => {
-        setSnackbar("snackbarNotShow");
-      }, 1000);
-    }, 200);
-  }
-
-  //Snackbar anzeigen wenn die Todo nicht hinzugefügt werden konnte
-  function showFailedSnackbar() {
-    setTimeout(() => {
-      setSnackbar("snackbarShowError");
-      setTimeout(() => {
-        setSnackbar("snackbarNotShow");
-      }, 1000);
-    }, 200);
-  }
-
-  //Snackbar anzeigen, wenn das Input Feld leer ist
-  function showEmptySnackbar() {
-    setTimeout(() => {
-      setSnackbar("snackbarShowEmpty");
+      setSnackbar(snackbarClassName);
       setTimeout(() => {
         setSnackbar("snackbarNotShow");
       }, 1000);
@@ -69,11 +28,11 @@ export default function Body() {
 
   //GET Method vom Server
   React.useEffect(() => {
-    const TodoService = new todoService()
-    
-    TodoService.getTodos("mikail").then( (response) => {
+    const TodoService = new todoService();
+
+    TodoService.getTodos("mikail").then((response) => {
       setTasks(response.data);
-    })
+    });
 
     // axios
     //   .get("http://localhost:8087/todo/get?username=mikail")
@@ -91,22 +50,22 @@ export default function Body() {
       .then((response) => response.json())
       .then((todoItem) => {
         setTasks([...tasks].concat(todoItem));
-        showSuccessSnackbar();
+        snackbarShow("snackbarShowSuccess");
       })
       .catch(() => {
-        showFailedSnackbar();
+        snackbarShow("snackbarShowError");
       });
   }
 
   function deleteFromServer(id) {
     fetch("http://localhost:8087/todo/delete?todoItemId=" + id, {
       method: "DELETE",
-    })
+    });
   }
 
   function add(event) {
     if (todoInputValue === "") {
-      showEmptySnackbar();
+      snackbarShow("snackbarShowEmpty");
     } else {
       createPost();
       settodoInputValue("");
