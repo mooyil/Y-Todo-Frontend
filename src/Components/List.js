@@ -1,14 +1,14 @@
 import React from "react";
-import "../Css/Body.css";
-import axios from "axios";
+import "../Css/List.css";
 import Snackbar from "./Snackbar";
 import { todoService } from "../services/todoService";
-
-export default function Body() {
+export default function List() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, settodoInputValue] = React.useState("");
   const [snackbar, setSnackbar] = React.useState("");
+  const [updatedTodo, setUpdatedTodo] = React.useState(null)
+  const [updatedTodoValue, setUpdatedInputValue] = React.useState("");
 
   //Snackbar anzeigen wenn nicht erfolgreich Todod gelöscht
   function snackbarShow(snackbarClassName) {
@@ -26,28 +26,16 @@ export default function Body() {
     done: false,
   };
 
+  const TodoService = new todoService();
+
   //GET Method vom Server
   React.useEffect(() => {
-    const TodoService = new todoService();
-
     TodoService.getTodos("mikail").then((response) => {
       setTasks(response.data);
-    });
-
-    // axios
-    //   .get("http://localhost:8087/todo/get?username=mikail")
-    //   .then((response) => {
-    //     setTasks(response.data);
-    //   });
+    }, []);
   }, []);
-
   function createPost() {
-    fetch(`http://localhost:8087/todo/add`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(todoItem),
-    })
-      .then((response) => response.json())
+    TodoService.createPostService(todoItem)
       .then((todoItem) => {
         setTasks([...tasks].concat(todoItem));
         snackbarShow("snackbarShowSuccess");
@@ -56,14 +44,11 @@ export default function Body() {
         snackbarShow("snackbarShowError");
       });
   }
-
   function deleteFromServer(id) {
-    fetch("http://localhost:8087/todo/delete?todoItemId=" + id, {
-      method: "DELETE",
-    });
+    TodoService.deleteFromServerService(id);
   }
 
-  function add(event) {
+  function add() {
     if (todoInputValue === "") {
       snackbarShow("snackbarShowEmpty");
     } else {
@@ -92,8 +77,19 @@ export default function Body() {
     setTasks(updatedTodo);
   }
 
+  function editIt (id) {
+    const updatedTodo = [...tasks].map((todo) => {
+      if(todo.id === id){
+        todo.content = updatedTodoValue
+      }
+      return todo
+    })
+    setTasks(updatedTodo)
+    setUpdatedTodo(null)
+  }
+
   return (
-    <div className="container-body">
+    <div className="container-list">
       <div className="input-wrapper">
         <input
           value={todoInputValue}
@@ -114,8 +110,18 @@ export default function Body() {
         {tasks.map((todo) => {
           return (
             <li className="list-items" key={todo.id}>
-              {todo.content}
+              {updatedTodo === todo.id ? (
+                <input
+                  onChange={(event) => setUpdatedInputValue(event.target.value)}
+                  type="text"
+                  value={updatedTodoValue}
+                ></input>
+              ) : (
+                <p className="todo-content">{todo.content}</p>
+              )}
+
               <button
+                className="delete-button"
                 onClick={() => {
                   deleteTodo(todo.id);
                   deleteFromServer(todo.id);
@@ -123,6 +129,13 @@ export default function Body() {
               >
                 delete
               </button>
+              <button
+                onClick={() => setUpdatedTodo(todo.id)}
+                className="todo-update-button"
+              >
+                update
+              </button>
+              <button onClick={() => editIt(todo.id)}>edit it</button>
             </li>
           );
         })}

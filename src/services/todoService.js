@@ -10,29 +10,20 @@ export class todoService {
   }
 
 
-  createPost(todoItem) {
-    fetch(this.serverUrl + "/todo/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(todoItem),
-    })
+  createPostService(todoItem) {
+   return (fetch(this.serverUrl + "/todo/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(todoItem),
+  })) 
       .then((response) => response.json())
-      .then((todoItem) => {
-        console.log(todoItem);
-      })
-      .catch(() => {
-        console.log("tschau");
-      });
-  }
 
-  deleteFromServer(id) {
+}
+
+  deleteFromServerService(id) {
     fetch(this.serverUrl + "/todo/delete?todoItemId=" + id, {
       method: "DELETE",
     });
-  }
-
-  duhund() {
-    console.log("du hund");
   }
 
 
