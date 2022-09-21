@@ -1,14 +1,18 @@
 import React from "react";
-import "../Css/List.css";
 import Snackbar from "./Snackbar";
 import { todoService } from "../services/todoService";
+import { Button, TextField, Box, Stack, Container, ListItem } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { OwnTextField, OwnButton } from "../styles/ListStyles";
+import "../styles/List.css";
+
 export default function List() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
-  const [todoInputValue, settodoInputValue] = React.useState("");
+  const [todoInputValue, setTodoInputValue] = React.useState("");
   const [snackbar, setSnackbar] = React.useState("");
-  const [updatedTodo, setUpdatedTodo] = React.useState(null)
-  const [updatedTodoValue, setUpdatedInputValue] = React.useState("");
+  const [updatedTodo, setUpdatedTodo] = React.useState([]);
+  const [updatedInputValue, setUpdatedInputValue] = React.useState("");
 
   //Snackbar anzeigen wenn nicht erfolgreich Todod gelöscht
   function snackbarShow(snackbarClassName) {
@@ -53,7 +57,7 @@ export default function List() {
       snackbarShow("snackbarShowEmpty");
     } else {
       createPost();
-      settodoInputValue("");
+      setTodoInputValue("");
     }
   }
 
@@ -77,70 +81,77 @@ export default function List() {
     setTasks(updatedTodo);
   }
 
-  function editIt (id) {
+
+  function editIt(id) {
     const updatedTodo = [...tasks].map((todo) => {
-      if(todo.id === id){
-        todo.content = updatedTodoValue
+      if (todo.id === id) {
+        todo.content = updatedInputValue;
       }
-      return todo
-    })
-    setTasks(updatedTodo)
-    setUpdatedTodo(null)
+      return todo;
+    });
+    setTasks(updatedTodo);
+    setUpdatedTodo([]);
   }
 
   return (
-    <div className="container-list">
-      <div className="input-wrapper">
-        <input
+    <Box >
+    <Stack
+        sx={{ marginTop: 12 }}
+        direction="row"
+        justifyContent="center"
+        spacing={1}
+      >
+        <OwnTextField
+          sx={{ width: 600 }}
           value={todoInputValue}
-          onChange={(event) => settodoInputValue(event.target.value)}
-          type="text"
-          className="input-text"
+          onChange={(event) => setTodoInputValue(event.target.value)}
+          fullWidth
+          label="Write your next Todo..."
         />
-        <button
+        <OwnButton
+          endIcon={<Add />}
+          variant="contained"
           onClick={() => {
             add();
           }}
-          className="input-button"
         >
           Add
-        </button>
-      </div>
-      <div className="list-wrapper">
-        {tasks.map((todo) => {
-          return (
-            <li className="list-items" key={todo.id}>
-              {updatedTodo === todo.id ? (
-                <input
-                  onChange={(event) => setUpdatedInputValue(event.target.value)}
-                  type="text"
-                  value={updatedTodoValue}
-                ></input>
-              ) : (
-                <p className="todo-content">{todo.content}</p>
-              )}
+        </OwnButton>
+      </Stack>
+      <Stack alignItems="center">
+      {tasks.map((todo) => {
+        return (
+          <ListItem key={todo.id}>
+            {updatedTodo === todo.id ? (
+              <input
+                onChange={(event) => setUpdatedInputValue(event.target.value)}
+                type="text"
+              ></input>
+            ) : (
+              <p className="todo-content">{todo.content}</p>
+            )}
 
-              <button
-                className="delete-button"
-                onClick={() => {
-                  deleteTodo(todo.id);
-                  deleteFromServer(todo.id);
-                }}
-              >
-                delete
-              </button>
-              <button
-                onClick={() => setUpdatedTodo(todo.id)}
-                className="todo-update-button"
-              >
-                update
-              </button>
-              <button onClick={() => editIt(todo.id)}>edit it</button>
-            </li>
-          );
-        })}
-      </div>
+            <Button
+              className="delete-button"
+              onClick={() => {
+                deleteTodo(todo.id);
+                deleteFromServer(todo.id);
+              }}
+            >
+              delete
+            </Button>
+            <Button
+              onClick={() => setUpdatedTodo(todo.id)}
+              className="todo-update-button"
+            >
+              update
+            </Button>
+            <Button onClick={() => editIt(todo.id)}>edit it</Button>
+          </ListItem>
+        );
+      })}
+      </Stack>
       <Snackbar Classname={snackbar} />
-    </div>
+      </Box>
   );
 }

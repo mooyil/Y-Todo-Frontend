@@ -1,4 +1,4 @@
-import "../Css/Snackbar.css";
+import "../styles/Snackbar.css";
 
 export default function Snackbar(props) {
 
