@@ -1,5 +1,17 @@
 .list-items{
+    position: relative;
     list-style: none;
-    width: 695px;
     line-break: anywhere;
+    border: 1px solid black;
+    list-style: none;
+    display: flex;
+    width: 592px;
+    padding-left: 5px;
+}
+
+.ol{
+    width: 695px;
+    padding: 0px;
+    padding-bottom: 5px ;
+    height: 60px;
 }

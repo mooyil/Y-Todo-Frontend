@@ -5,18 +5,27 @@ import {
   AppBar,
   Box,
   Typography,
-  Button,
+  IconButton,
+  Toolbar,
 } from "@mui/material";
 import { LinkTypography, OwnNavbar } from "../styles/navbarStyles";
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import MenuIcon from '@mui/icons-material/Menu';
 export default function Navbar() {
 
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <OwnNavbar>
-            <ListAltIcon sx={{marginRight: 1}}/>
+      <AppBar sx={{height: 70, backgroundColor: "primary.main"}} position="static">
+        <Toolbar >
+        <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Y-Todo
           </Typography>
@@ -25,7 +34,7 @@ export default function Navbar() {
               Sign Up
             </LinkTypography>
           </Link>
-        </OwnNavbar>
+        </Toolbar>
       </AppBar>
     </Box>
 

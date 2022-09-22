@@ -1,12 +1,22 @@
 import React from "react";
 import Snackbar from "./Snackbar";
 import { todoService } from "../services/todoService";
-import { Button, TextField, Box, Stack, Container, ListItem } from "@mui/material";
-import { Add } from "@mui/icons-material";
-import { OwnTextField, OwnButton } from "../styles/ListStyles";
+import {
+  Button,
+  TextField,
+  Box,
+  Stack,
+  ListItem,
+  IconButton,
+  List,
+  Divider,
+  Typography,
+} from "@mui/material";
+import { Add, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { OwnButton } from "../styles/ListStyles";
 import "../styles/List.css";
 
-export default function List() {
+export default function Liste() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
   const [tasks, setTasks] = React.useState([]);
   const [todoInputValue, setTodoInputValue] = React.useState("");
@@ -81,7 +91,6 @@ export default function List() {
     setTasks(updatedTodo);
   }
 
-
   function editIt(id) {
     const updatedTodo = [...tasks].map((todo) => {
       if (todo.id === id) {
@@ -94,14 +103,14 @@ export default function List() {
   }
 
   return (
-    <Box >
-    <Stack
+    <Box>
+      <Stack
         sx={{ marginTop: 12 }}
         direction="row"
         justifyContent="center"
         spacing={1}
       >
-        <OwnTextField
+        <TextField
           sx={{ width: 600 }}
           value={todoInputValue}
           onChange={(event) => setTodoInputValue(event.target.value)}
@@ -119,39 +128,63 @@ export default function List() {
         </OwnButton>
       </Stack>
       <Stack alignItems="center">
-      {tasks.map((todo) => {
-        return (
-          <ListItem key={todo.id}>
-            {updatedTodo === todo.id ? (
-              <input
-                onChange={(event) => setUpdatedInputValue(event.target.value)}
-                type="text"
-              ></input>
-            ) : (
-              <p className="todo-content">{todo.content}</p>
-            )}
-
-            <Button
-              className="delete-button"
-              onClick={() => {
-                deleteTodo(todo.id);
-                deleteFromServer(todo.id);
-              }}
-            >
-              delete
-            </Button>
-            <Button
-              onClick={() => setUpdatedTodo(todo.id)}
-              className="todo-update-button"
-            >
-              update
-            </Button>
-            <Button onClick={() => editIt(todo.id)}>edit it</Button>
-          </ListItem>
-        );
-      })}
+        <List
+          sx={{
+            bgcolor: "primary.main",
+            marginTop: 2,
+            marginRight: 12,
+            borderRadius: 1,
+          }}
+        >
+          {tasks.map((todo) => {
+            return (
+                <ListItem
+                  sx={{ width: 600, color: "white" }}
+                  key={todo.id}
+                  secondaryAction={
+                    <Box>
+                      <IconButton
+                        sx={{ color: "white" }}
+                        onClick={() => {
+                          deleteTodo(todo.id);
+                          deleteFromServer(todo.id);
+                        }}
+                      >
+                        <Delete />
+                      </IconButton>
+                      <IconButton
+                        sx={{ color: "white" }}
+                        onClick={() => setUpdatedTodo(todo.id)}
+                      >
+                        <Edit />
+                      </IconButton>
+                      <IconButton
+                        sx={{ color: "white" }}
+                        onClick={() => editIt(todo.id)}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </Box>
+                  }
+                >
+                  {updatedTodo === todo.id ? (
+                    <TextField
+                    sx={{backgroundColor: "white"}}
+                      onChange={(event) =>
+                        setUpdatedInputValue(event.target.value)
+                      }
+                      type="text"
+                    />
+                  ) : (
+                    <Typography sx={{display: "flex"}}><ListAlt sx={{marginRight: 0.5}} />{todo.content}</Typography>
+                  )}
+                </ListItem>
+            );
+          })}
+        </List>
       </Stack>
+
       <Snackbar Classname={snackbar} />
-      </Box>
+    </Box>
   );
 }

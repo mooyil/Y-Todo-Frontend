@@ -22,6 +22,6 @@ export const LinkTypography = styled(Typography)({
 });
 
 export const OwnNavbar = styled(Toolbar)({
-  backgroundColor: " #2874a6  ",
+  backgroundColor: "#2874a6",
   padding: 10,
 });

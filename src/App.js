@@ -1,4 +1,4 @@
-import List from "./Components/List";
+import Liste from "./Components/Liste";
 import Navbar from "./Components/Navbar"
 // import Navbar from "./Components/Navbar";
 // import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="app-container">
       <Navbar/>
-       <List />
+       <Liste />
        </div>
      
 
