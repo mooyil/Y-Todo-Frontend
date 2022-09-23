@@ -2,32 +2,18 @@ import React from "react";
 import Snackbar from "./Snackbar";
 import { todoService } from "../services/todoService";
 import {
-  Button,
   TextField,
   Box,
   Stack,
   ListItem,
   IconButton,
   List,
-  Divider,
   Typography,
-  Modal
+  Modal,
 } from "@mui/material";
-import { Add, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { Add, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
-import "../styles/List.css";
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 export default function Liste() {
   //States in der todoInputValue wird der Value vom input gespeichert und danach bei Tasks gespeichert
@@ -37,10 +23,6 @@ export default function Liste() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
-
-  function handleClose () { 
-    setOpen(false)
-   }
 
   //Snackbar anzeigen wenn nicht erfolgreich Todod gelöscht
   function snackbarShow(snackbarClassName) {
@@ -118,6 +100,8 @@ export default function Liste() {
     });
     setTasks(updatedTodo);
     setUpdatedTodo([]);
+    setUpdatedInputValue("")
+    setOpen(false)
   }
 
   return (
@@ -172,33 +156,47 @@ export default function Liste() {
                     </IconButton>
                     <IconButton
                       sx={{ color: "white" }}
-                      onClick={() => {setUpdatedTodo(todo.id); setOpen(true)}}
+                      onClick={() => {
+                        setUpdatedTodo(todo.id);
+                        setOpen(true);
+                      }}
                     >
                       <Edit />
                     </IconButton>
-                    <IconButton
-                      sx={{ color: "white" }}
-                      onClick={() => editIt(todo.id)}
+                    <Modal
+                      keepMounted
+                      open={open}
+                      aria-labelledby="keep-mounted-modal-title"
+                      aria-describedby="keep-mounted-modal-description"
                     >
-                      <Delete />
-                    </IconButton>
+                      <Box sx={modalStyle}>
+                        <TextField
+                          label="Update todo..."
+                          sx={{ backgroundColor: "white", width: 400, mt: 7}}
+                          onChange={(event) =>
+                            setUpdatedInputValue(event.target.value)
+                          }
+                          type="text"
+                        />
+                        <OwnButton
+                        variant="contained"
+                          sx={{ color: "white", height: 50, mt:1 }}
+                          onClick={() => editIt(todo.id)}
+                        >
+                          Update
+                        </OwnButton>
+                        <IconButton style={modalCloseIconStyle} onClick={() => setOpen(false)}>
+                          <Close/>
+                        </IconButton>
+                      </Box>
+                    </Modal>
                   </Box>
                 }
               >
-                {updatedTodo === todo.id ? (
-                  <TextField
-                    sx={{ backgroundColor: "white" }}
-                    onChange={(event) =>
-                      setUpdatedInputValue(event.target.value)
-                    }
-                    type="text"
-                  />
-                ) : (
-                  <Typography sx={{ display: "flex" }}>
-                    <ListAlt sx={{ marginRight: 0.5 }} />
-                    {todo.content}
-                  </Typography>
-                )}
+                <Typography sx={{ display: "flex" }}>
+                  <ListAlt sx={{ marginRight: 0.5 }} />
+                  {todo.content}
+                </Typography>
               </ListItem>
             );
           })}
@@ -206,22 +204,6 @@ export default function Liste() {
       </Stack>
 
       <Snackbar Classname={snackbar} />
-      <Modal
-        keepMounted
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
     </Box>
   );
 }
