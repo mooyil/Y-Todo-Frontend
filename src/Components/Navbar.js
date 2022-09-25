@@ -37,11 +37,5 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
     </Box>
-
-    // <nav className="navbar">
-    //     <h1 className="header">Y-Todo</h1>
-    //       {/* Link für meine SignUp Seite */}
-    //
-    // </nav>
   );
 }
