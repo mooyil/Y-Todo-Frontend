@@ -10,8 +10,8 @@ export default function TextFeldundButton({
   tasks,
   setTasks,
   setSnackbar,
+  todoItem,
 }) {
-
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
       setSnackbar(snackbarClassName);
@@ -23,13 +23,6 @@ export default function TextFeldundButton({
 
   const TodoService = new todoService();
 
-  let todoItem = {
-    content: todoInputValue,
-    userId: "mikail",
-    done: false,
-  };
-
-
   function add() {
     if (todoInputValue === "") {
       snackbarShow("snackbarShowEmpty");
@@ -40,10 +33,9 @@ export default function TextFeldundButton({
   }
 
   React.useEffect(() => {
-    TodoService.getTodos("mikail")
-    .then((resp) => setTasks(resp.data))
-  }, [])
-  
+    TodoService.getTodos().then((resp) => setTasks(resp.data));
+  }, []);
+
   React.useEffect(() => {
     const enter = (event) => {
       if (event.key === "Enter") {

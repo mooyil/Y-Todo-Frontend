@@ -2,30 +2,24 @@ import axios from "axios";
 
 export class todoService {
   constructor() {
-    this.serverUrl = "http://localhost:8087" ;
+    this.serverUrl = "http://localhost:8087";
   }
 
-  getTodos(username) {
-   return axios.get(this.serverUrl + "/todo/get?username=" + username)
+  getTodos(id) {
+    return axios.get("http://localhost:5200/todos");
   }
-
 
   createPostService(todoItem) {
-   return (fetch(this.serverUrl + "/todo/add", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(todoItem),
-  })) 
-      .then((response) => response.json())
-
-}
+    return fetch("http://localhost:5200/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(todoItem),
+    }).then((resp) => resp.json());
+  }
 
   deleteFromServerService(id) {
-    fetch(this.serverUrl + "/todo/delete?todoItemId=" + id, {
+    fetch("http://localhost:5200/todos2", {
       method: "DELETE",
     });
   }
-
-
-
 }
