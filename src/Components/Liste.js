@@ -26,17 +26,14 @@ export default function Liste({
 
   const TodoService = new todoService();
 
-  // function deleteFromServer(id) {
-  //   TodoService.deleteFromServerService(id);
-  // }
 
-  function deleteFromServer (id) { 
-    fetch("http://localhost:5200/todos/delete/" + id , {
-      method: "DELETE"
+  function deleteFromServer(id) {
+    fetch("http://localhost:5200/todos/delete/" + id, {
+      method: "DELETE",
     })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-   }
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
 
   //Todo lösch Funktion
   function deleteTodo(id) {
@@ -52,23 +49,25 @@ export default function Liste({
       return todo;
     });
     setTasks(updatedTodo);
-    createUpdatePost();
+    createUpdatePost(id);
     setUpdatedTodo([]);
     setUpdatedInputValue("");
     setOpen(false);
   }
 
-  function createUpdatePost() {
-    fetch("http://localhost:8087/todo/change", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(todoItem),
-    })
-      .then((resp) => resp.json())
-      .then((todoItem) => {
-        setUpdatedTodo([...tasks].concat(todoItem));
-      });
+  let update = {
+    content: updatedInputValue
   }
+
+  function createUpdatePost (id) { 
+    fetch("http://localhost:5200/todos/change/" + id, {
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(update)
+    })
+    .then((resp) => resp.json())
+    .then((data) => console.log(data))
+   }
 
   return (
     <Box>
