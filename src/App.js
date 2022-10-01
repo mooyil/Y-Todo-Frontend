@@ -3,6 +3,10 @@ import Navbar from "./Components/Navbar";
 import Snackbar from "./Components/Snackbar";
 import TextFeldundButton from "./Components/TextFeldundButton";
 import React from "react";
+import Sidebar from "./Components/Sidebar";
+import { Link } from "react-router-dom";
+import { SidebarProvider } from "./Context/SidebarContext";
+import TodoButton from "./Components/TodoButton";
 
 function App() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
@@ -18,7 +22,10 @@ function App() {
 
   return (
     <div className="app-container">
-      <Navbar />
+      <SidebarProvider>
+        <Navbar />
+        <Sidebar />
+      </SidebarProvider>
       <TextFeldundButton
         todoItem={todoItem}
         tasks={tasks}
@@ -35,6 +42,15 @@ function App() {
         setUpdatedTodo={setUpdatedTodo}
       />
       <Snackbar Classname={snackbar} />
+      <TodoButton
+        todoInputValue={todoInputValue}
+        setTodoInputValue={setTodoInputValue}
+        tasks={tasks}
+        setTasks={setTasks}
+        todoItem={todoItem}
+        snackbar={snackbar}
+        setSnackbar={setSnackbar}
+      />
     </div>
   );
 }

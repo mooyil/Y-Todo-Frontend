@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export class todoService {
+export class todoApiService {
   constructor() {
-    this.serverUrl = "http://localhost:8087";
+    this.serverUrl = "http://localhost:5200";
   }
 
   getTodos(id) {
@@ -18,8 +18,10 @@ export class todoService {
   }
 
   deleteFromServerService(id) {
-    fetch("http://localhost:5200/todos2", {
+    return fetch("http://localhost:5200/todos/delete/" + id, {
       method: "DELETE",
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 }

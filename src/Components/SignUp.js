@@ -3,7 +3,6 @@ import { Box, TextField, Button, Typography } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Avatar } from "@mui/joy";
-import "../styles/SignUp.css";
 
 export default function SignUp() {
   return (

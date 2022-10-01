@@ -1,7 +1,7 @@
 import { Stack, TextField } from "@mui/material";
 import { OwnButton } from "../styles/ListStyles";
 import { Add } from "@mui/icons-material";
-import { todoService } from "../services/todoService";
+import { todoApiService } from "../services/todoApiService";
 import React from "react";
 
 export default function TextFeldundButton({
@@ -21,7 +21,7 @@ export default function TextFeldundButton({
     }, 200);
   }
 
-  const TodoService = new todoService();
+  const TodoApiService = new todoApiService();
 
   function add() {
     if (todoInputValue === "") {
@@ -33,7 +33,7 @@ export default function TextFeldundButton({
   }
 
   React.useEffect(() => {
-    TodoService.getTodos().then((resp) => setTasks(resp.data));
+    TodoApiService.getTodos().then((resp) => setTasks(resp.data));
   }, []);
 
   React.useEffect(() => {
@@ -50,7 +50,7 @@ export default function TextFeldundButton({
   });
 
   function createPost() {
-    TodoService.createPostService(todoItem)
+    TodoApiService.createPostService(todoItem)
       .then((todoItem) => {
         setTasks([...tasks].concat(todoItem));
         snackbarShow("snackbarShowSuccess");
@@ -68,7 +68,7 @@ export default function TextFeldundButton({
       spacing={1}
     >
       <TextField
-        sx={{ width: 600 }}
+        sx={{ maxWidth: 600 }}
         value={todoInputValue}
         onChange={(event) => setTodoInputValue(event.target.value)}
         fullWidth

@@ -1,5 +1,5 @@
 import React from "react";
-import { todoService } from "../services/todoService";
+import { todoApiService } from "../services/todoApiService";
 import {
   TextField,
   Box,
@@ -19,20 +19,14 @@ export default function Liste({
   setTasks,
   updatedTodo,
   setUpdatedTodo,
-  todoItem,
 }) {
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
-  const TodoService = new todoService();
-
+  const TodoApiService = new todoApiService();
 
   function deleteFromServer(id) {
-    fetch("http://localhost:5200/todos/delete/" + id, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    TodoApiService.deleteFromServerService(id);
   }
 
   //Todo lösch Funktion
@@ -55,25 +49,26 @@ export default function Liste({
     setOpen(false);
   }
 
-  let update = {
-    content: updatedInputValue
-  }
+  let updatedTodoContent = {
+    content: updatedInputValue,
+  };
 
-  function createUpdatePost (id) { 
+  function createUpdatePost(id) {
     fetch("http://localhost:5200/todos/change/" + id, {
-    method: "PUT",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(update)
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTodoContent),
     })
-    .then((resp) => resp.json())
-    .then((data) => console.log(data))
-   }
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
+  }
 
   return (
     <Box>
       <Stack alignItems="center">
         <List
           sx={{
+            transition: 2,
             bgcolor: "primary.main",
             marginTop: 2,
             marginRight: 12,
@@ -83,7 +78,7 @@ export default function Liste({
           {tasks.map((todo) => {
             return (
               <ListItem
-                sx={{ width: 600, color: "white" }}
+                sx={{ width: 600, color: "white", height: "60px" }}
                 key={todo.id}
                 secondaryAction={
                   <Box>

@@ -3,7 +3,7 @@
 .snackbarNotShow{
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
@@ -20,7 +20,7 @@
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
@@ -39,7 +39,7 @@
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
@@ -58,7 +58,7 @@
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
@@ -76,7 +76,7 @@
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
@@ -94,7 +94,7 @@
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
-    background-color: black;
+    background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
