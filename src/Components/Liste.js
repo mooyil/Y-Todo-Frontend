@@ -1,4 +1,5 @@
 import React from "react";
+import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { todoApiService } from "../services/todoApiService";
 import {
   TextField,
@@ -14,12 +15,8 @@ import { Add, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 
-export default function Liste({
-  tasks,
-  setTasks,
-  updatedTodo,
-  setUpdatedTodo,
-}) {
+export default function Liste({ updatedTodo, setUpdatedTodo }) {
+  const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
 

@@ -4,53 +4,37 @@ import Snackbar from "./Components/Snackbar";
 import TextFeldundButton from "./Components/TextFeldundButton";
 import React from "react";
 import Sidebar from "./Components/Sidebar";
-import { Link } from "react-router-dom";
 import { SidebarProvider } from "./Context/SidebarContext";
 import TodoButton from "./Components/TodoButton";
+import { TextFeldundButtonProvider } from "./Context/TextFeldundButtonContext";
 
 function App() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
-  const [tasks, setTasks] = React.useState([]);
-  const [todoInputValue, setTodoInputValue] = React.useState("");
   const [snackbar, setSnackbar] = React.useState("");
-
-  let todoItem = {
-    content: todoInputValue,
-    userId: "mikail",
-    done: false,
-  };
 
   return (
     <div className="app-container">
-      <SidebarProvider>
-        <Navbar />
-        <Sidebar />
-      </SidebarProvider>
-      <TextFeldundButton
-        todoItem={todoItem}
-        tasks={tasks}
-        setTasks={setTasks}
-        todoInputValue={todoInputValue}
-        setTodoInputValue={setTodoInputValue}
-        setSnackbar={setSnackbar}
-      />
-      <Liste
-        todoItem={todoItem}
-        tasks={tasks}
-        setTasks={setTasks}
-        updatedTodo={updatedTodo}
-        setUpdatedTodo={setUpdatedTodo}
-      />
+      <TextFeldundButtonProvider>
+        <SidebarProvider>
+          <Navbar />
+          <Sidebar />
+        </SidebarProvider>
+        <TextFeldundButton
+          // todoItem={todoItem}
+          setSnackbar={setSnackbar}
+        />
+        <Liste
+          // todoItem={todoItem}
+          updatedTodo={updatedTodo}
+          setUpdatedTodo={setUpdatedTodo}
+        />
+        <TodoButton
+          // todoItem={todoItem}
+          snackbar={snackbar}
+          setSnackbar={setSnackbar}
+        />
+      </TextFeldundButtonProvider>
       <Snackbar Classname={snackbar} />
-      <TodoButton
-        todoInputValue={todoInputValue}
-        setTodoInputValue={setTodoInputValue}
-        tasks={tasks}
-        setTasks={setTasks}
-        todoItem={todoItem}
-        snackbar={snackbar}
-        setSnackbar={setSnackbar}
-      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { todoApiService } from "../services/todoApiService";
@@ -6,21 +7,22 @@ import "../styles/Navbar.css";
 import {
   TextField,
   Box,
-  Stack,
-  ListItem,
   IconButton,
-  List,
-  Typography,
   Modal,
 } from "@mui/material";
-import { Add, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 
-export default function TodoButton({todoInputValue, setTodoInputValue, tasks, setTasks, todoItem, snackbar, setSnackbar}) {
+export default function TodoButton({ snackbar, setSnackbar }) {
   const TodoApiService = new todoApiService();
 
+
+  const { todoInputValue, setTodoInputValue, tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [modal, setModal] = React.useState(false);
+
+
+  const {todoItem} = React.useContext(TextFeldundButtonContext)
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
@@ -52,7 +54,7 @@ export default function TodoButton({todoInputValue, setTodoInputValue, tasks, se
   }
 
   return (
-    <Box sx={{ position: "absolute", right: 5, bottom: 5 }}>
+    <Box sx={{ position: "absolute", right: 10, bottom: 10 }}>
       <Fab color="primary" aria-label="add">
         <AddIcon onClick={() => setModal(true)} />
       </Fab>
@@ -70,7 +72,10 @@ export default function TodoButton({todoInputValue, setTodoInputValue, tasks, se
             type="text"
           />
           <OwnButton
-            onClick={() => {add(); setModal(false)}}
+            onClick={() => {
+              add();
+              setModal(false);
+            }}
             variant="contained"
             sx={{ color: "white", height: 50, mt: 1 }}
           >

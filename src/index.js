@@ -3,12 +3,14 @@ import ReactDOM from "react-dom/client";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import "./index.css";
 import App from "./App";
+// import { TextFeldundButtonProvider } from "./Context/TextFeldundButtonContext";
 // import Sidebar from "./Components/Sidebar";
 // import store from "./features/store";
 import SignUp from "./Components/SignUp";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  // <TextFeldundButtonProvider>
     <BrowserRouter>
      <Routes> 
        <Route path="/" element={<App />}/>  
@@ -16,6 +18,7 @@ root.render(
        {/* <Route path="/sidebar" element={<Sidebar/>}/> */}
        </Routes> 
     </BrowserRouter>
+    // </TextFeldundButtonProvider>
 
 );
 

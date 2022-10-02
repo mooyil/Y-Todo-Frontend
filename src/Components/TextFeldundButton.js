@@ -3,15 +3,16 @@ import { OwnButton } from "../styles/ListStyles";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
+import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 
 export default function TextFeldundButton({
-  todoInputValue,
-  setTodoInputValue,
-  tasks,
-  setTasks,
   setSnackbar,
-  todoItem,
 }) {
+
+  const {todoInputValue, setTodoInputValue, tasks, setTasks} = React.useContext(TextFeldundButtonContext)
+
+  const {todoItem} = React.useContext(TextFeldundButtonContext)
+
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
       setSnackbar(snackbarClassName);
@@ -48,6 +49,7 @@ export default function TextFeldundButton({
       document.removeEventListener("keypress", enter);
     };
   });
+  console.log("von Textfeldundbutton" , tasks)
 
   function createPost() {
     TodoApiService.createPostService(todoItem)

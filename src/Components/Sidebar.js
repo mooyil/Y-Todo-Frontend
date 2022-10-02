@@ -7,8 +7,6 @@ import React from "react";
 import "../styles/Sidebar.css";
 import { SidebarContext } from "../Context/SidebarContext";
 
-
-
 export default function Sidebar() {
   const [sidebar, setSidebar] = React.useContext(SidebarContext)
 
