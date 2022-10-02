@@ -1,16 +1,15 @@
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import { OwnButton } from "../styles/ListStyles";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
+import { SnackbarContext } from "../Context/SnackbarContext";
 
-export default function TextFeldundButton({
-  setSnackbar,
-}) {
+export default function TextFeldundButton() {
 
   const {todoInputValue, setTodoInputValue, tasks, setTasks} = React.useContext(TextFeldundButtonContext)
-
+  const [snackbar, setSnackbar] = React.useContext(SnackbarContext)
   const {todoItem} = React.useContext(TextFeldundButtonContext)
 
   function snackbarShow(snackbarClassName) {
@@ -49,7 +48,6 @@ export default function TextFeldundButton({
       document.removeEventListener("keypress", enter);
     };
   });
-  console.log("von Textfeldundbutton" , tasks)
 
   function createPost() {
     TodoApiService.createPostService(todoItem)
@@ -83,7 +81,7 @@ export default function TextFeldundButton({
           add();
         }}
       >
-        Add
+        <Typography variant="button">Add</Typography>
       </OwnButton>
     </Stack>
   );

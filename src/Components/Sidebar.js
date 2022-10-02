@@ -6,6 +6,9 @@ import { Box } from "@mui/system";
 import React from "react";
 import "../styles/Sidebar.css";
 import { SidebarContext } from "../Context/SidebarContext";
+import DateAndTimePicker from "./DateAndTimePicker";
+import { Link } from "react-router-dom";
+
 
 export default function Sidebar() {
   const [sidebar, setSidebar] = React.useContext(SidebarContext)
@@ -25,6 +28,9 @@ export default function Sidebar() {
               </ListItem>
             </List>
         </Box>
+        <Link to="/date" element={<DateAndTimePicker />}>
+            <h1>Date</h1>
+          </Link>
       </Drawer>
     </Box>
   );

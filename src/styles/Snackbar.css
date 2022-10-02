@@ -1,14 +1,13 @@
 
 
 .snackbarNotShow{
-    text-align: center;
+    left: 10px;
+    bottom: 10px;
     color: white;
     background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: hidden;
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
 
@@ -17,6 +16,8 @@
 }
 
 .snackbarShowSuccess::after{
+    left: 10px;
+    bottom: 10px;
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
     color: white;
@@ -24,12 +25,10 @@
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: visible;
     content: "Todo successfully added";
     padding-top: 25px;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
@@ -37,18 +36,18 @@
 
 .snackbarShowError::before{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
+    left: 10px;
+    bottom: 10px;
     text-align: center;
     color: white;
     background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: visible;
     content: "Server error";
     padding-top: 25px;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
@@ -56,54 +55,54 @@
 
 .snackbarShowEmpty::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
+    left: 10px;
+    bottom: 10px;
     text-align: center;
     color: white;
     background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: visible;
     content: "Input is empty";
     padding-top: 25px;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
 
 .snackbarSuccessfulDelete::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
+    left: 10px;
+    bottom: 10px;
     text-align: center;
     color: white;
     background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: visible;
     content: "deleted";
     padding-top: 25px;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
 
 .snackbarFailedDelete::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
+    left: 10px;
+    bottom: 10px;
     text-align: center;
     color: white;
     background-color: #1565c0;
     width: 20%;
     height: 50px;
     position: fixed;
-    bottom: 30px;
-    left: 39%;
     visibility: visible;
     content: "delete failed";
     padding-top: 25px;
-    border-radius: 10px;
+    border-radius: 5px;
 
 }
 
@@ -115,14 +114,14 @@
         opacity: 0;
     }
     to{
-        bottom: 30px;
+        bottom: 10px;
         opacity: 1;
     }
 }
 
 @keyframes fadeout {
     from{
-        bottom: 30px;
+        bottom: 10px;
         opacity: 1;
     }
     to{

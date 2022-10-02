@@ -1,5 +1,6 @@
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
+import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { todoApiService } from "../services/todoApiService";
 import {
   TextField,
@@ -11,7 +12,7 @@ import {
   Typography,
   Modal,
 } from "@mui/material";
-import { Add, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 
@@ -19,8 +20,12 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
+  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext)
 
   const TodoApiService = new todoApiService();
+
+  const datum = JSON.stringify(dateValue)
+  console.log(datum)
 
   function deleteFromServer(id) {
     TodoApiService.deleteFromServerService(id);
@@ -132,10 +137,13 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
                   </Box>
                 }
               >
+                <Stack >
                 <Typography sx={{ display: "flex" }}>
                   <ListAlt sx={{ marginRight: 0.5 }} />
                   {todo.content}
                 </Typography>
+                {datum}
+                </Stack>
               </ListItem>
             );
           })}
