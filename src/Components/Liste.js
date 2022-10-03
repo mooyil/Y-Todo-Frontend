@@ -20,12 +20,9 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext)
+  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
 
   const TodoApiService = new todoApiService();
-
-  const datum = JSON.stringify(dateValue)
-  console.log(datum)
 
   function deleteFromServer(id) {
     TodoApiService.deleteFromServerService(id);
@@ -137,12 +134,11 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
                   </Box>
                 }
               >
-                <Stack >
-                <Typography sx={{ display: "flex" }}>
-                  <ListAlt sx={{ marginRight: 0.5 }} />
-                  {todo.content}
-                </Typography>
-                {datum}
+                <Stack>
+                  <Typography sx={{ display: "flex" }}>
+                    <ListAlt sx={{ marginRight: 0.5 }} />
+                    {todo.content}
+                  </Typography>
                 </Stack>
               </ListItem>
             );

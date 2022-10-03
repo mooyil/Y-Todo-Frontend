@@ -10,24 +10,28 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import Stack from '@mui/material/Stack';
+import { Button } from '@mui/material';
 
 export default function DateAndTimePicker() {
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const [dateWithInitialValue, setDateWithInitialValue] = React.useState(
-    dayjs('2019-01-01T18:54'),
-  );
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack sx={{width:300, backgroundColor: "white", mt: 1}} spacing={3}>
+      <Stack spacing={3}>
         <DateTimePicker
+        inputFormat='DD/MM/YY HH:mm'
+          renderInput={(params) => <TextField {...params}  />}
           value={dateValue}
-          onChange={(newValue) => setDateValue(newValue)}
-          renderInput={(params) => (
-            <TextField {...params} />
-          )}
+          onChange={(newValue) => {
+            setDateValue(newValue);
+          }}
+          minDateTime={dayjs('2022-04-02T12:00')}
         />
+        
       </Stack>
     </LocalizationProvider>
   );
 }
+
+
+// InputProps={{sx: {"& .MuiSvgIcon-root": {color: "#1565c0"}} }}
