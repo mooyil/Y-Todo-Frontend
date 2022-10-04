@@ -5,12 +5,13 @@ import { todoApiService } from "../services/todoApiService";
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
+import { DateTimePicker } from "@mui/x-date-pickers";
+import DateAndTimePicker from "./DateAndTimePicker";
 
-export default function TextFeldundButton() {
+export default function TextFeldundButton({todoItem}) {
 
   const {todoInputValue, setTodoInputValue, tasks, setTasks} = React.useContext(TextFeldundButtonContext)
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext)
-  const {todoItem} = React.useContext(TextFeldundButtonContext)
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {

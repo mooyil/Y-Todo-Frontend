@@ -11,12 +11,13 @@ import {
   List,
   Typography,
   Modal,
+  Divider,
 } from "@mui/material";
-import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { CalendarMonth, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 
-export default function Liste({ updatedTodo, setUpdatedTodo }) {
+export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -61,6 +62,7 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
       .then((resp) => resp.json())
       .then((data) => console.log(data));
   }
+
 
   return (
     <Box>
@@ -135,10 +137,11 @@ export default function Liste({ updatedTodo, setUpdatedTodo }) {
                 }
               >
                 <Stack>
-                  <Typography sx={{ display: "flex" }}>
+                  <Typography onClick={() => console.log(todo)} sx={{ display: "flex" }}>
                     <ListAlt sx={{ marginRight: 0.5 }} />
                     {todo.content}
                   </Typography>
+                  <Typography variant="caption">{todo.date}</Typography>
                 </Stack>
               </ListItem>
             );

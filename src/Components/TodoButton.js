@@ -11,7 +11,7 @@ import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 import DateAndTimePicker from "./DateAndTimePicker";
 
-export default function TodoButton() {
+export default function TodoButton({todoItem}) {
   const TodoApiService = new todoApiService();
 
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
@@ -19,7 +19,6 @@ export default function TodoButton() {
   const { todoInputValue, setTodoInputValue, tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [modal, setModal] = React.useState(false);
 
-  const { todoItem } = React.useContext(TextFeldundButtonContext);
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {

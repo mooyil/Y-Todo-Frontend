@@ -4,27 +4,34 @@ import Snackbar from "./Components/Snackbar";
 import TextFeldundButton from "./Components/TextFeldundButton";
 import React from "react";
 import Sidebar from "./Components/Sidebar";
-// import { SidebarProvider } from "./Context/SidebarContext";
+import { TextFeldundButtonContext } from "./Context/TextFeldundButtonContext";
 import TodoButton from "./Components/TodoButton";
 import { SnackbarContext } from "./Context/SnackbarContext";
-// import { TextFeldundButtonProvider } from "./Context/TextFeldundButtonContext";
+import { DateTimePickerContext } from "./Context/DateTimePickerContext";
 
 function App() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
-  const [snackbar, setSnackbar] = React.useContext(SnackbarContext)
+  const [snackbar] = React.useContext(SnackbarContext);
+  const [dateValue] = React.useContext(DateTimePickerContext);
+  const {todoInputValue} = React.useContext(TextFeldundButtonContext)
+
+
+const displayedDate = dateValue.$d.toDateString()
+
+  let todoItem = {
+    content: todoInputValue,
+    userId: "mikail",
+    done: false,
+    date: displayedDate,
+  };
 
   return (
     <div className="app-container">
-          <Navbar />
-          <Sidebar />
-        <TextFeldundButton
-        />
-        <Liste
-          updatedTodo={updatedTodo}
-          setUpdatedTodo={setUpdatedTodo}
-        />
-        <TodoButton
-        />
+      <Navbar />
+      <Sidebar />
+      <TextFeldundButton todoItem={todoItem} />
+      <Liste todoItem={todoItem} updatedTodo={updatedTodo} setUpdatedTodo={setUpdatedTodo} />
+      <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />
     </div>
   );
