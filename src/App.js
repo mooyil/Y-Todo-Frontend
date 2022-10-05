@@ -8,26 +8,29 @@ import { TextFeldundButtonContext } from "./Context/TextFeldundButtonContext";
 import TodoButton from "./Components/TodoButton";
 import { SnackbarContext } from "./Context/SnackbarContext";
 import { DateTimePickerContext } from "./Context/DateTimePickerContext";
+import { TabsContext } from "./Context/TabsContext";
 
 function App() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue } = React.useContext(TextFeldundButtonContext);
+  const { tabValue, setTabValue, TabPanel, handleTabsValue } =
+    React.useContext(TabsContext);
 
-  let displayedDate
+  let displayedDate;
 
   if (dateValue != null) {
-     displayedDate = dateValue.$d.toDateString();
+    displayedDate = dateValue.$d.toDateString();
   } else {
-    console.log("dateValue is null")
+    console.log("dateValue is null");
   }
 
   let todoItem = {
     content: todoInputValue,
     userId: "mikail",
     done: false,
-    date: displayedDate
+    date: displayedDate,
   };
 
   return (
@@ -35,12 +38,31 @@ function App() {
       <Navbar />
       <Sidebar />
       <TextFeldundButton todoItem={todoItem} />
-      <Liste
-        displayedDate={displayedDate}
-        todoItem={todoItem}
-        updatedTodo={updatedTodo}
-        setUpdatedTodo={setUpdatedTodo}
-      />
+
+      <TabPanel value={tabValue} index={0}>
+        <Liste
+          displayedDate={displayedDate}
+          todoItem={todoItem}
+          updatedTodo={updatedTodo}
+          setUpdatedTodo={setUpdatedTodo}
+        />
+      </TabPanel>
+      <TabPanel value={tabValue} index={1}>
+        <Liste
+          displayedDate={displayedDate}
+          todoItem={todoItem}
+          updatedTodo={updatedTodo}
+          setUpdatedTodo={setUpdatedTodo}
+        />
+      </TabPanel>
+      <TabPanel value={tabValue} index={2}>
+        <Liste
+          displayedDate={displayedDate}
+          todoItem={todoItem}
+          updatedTodo={updatedTodo}
+          setUpdatedTodo={setUpdatedTodo}
+        />
+      </TabPanel>
       <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />
     </div>

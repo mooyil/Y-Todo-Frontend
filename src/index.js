@@ -7,24 +7,25 @@ import { TextFeldundButtonProvider } from "./Context/TextFeldundButtonContext";
 import { SidebarProvider } from "./Context/SidebarContext";
 import { SnackbarProvider } from "./Context/SnackbarContext";
 import SignUp from "./Components/SignUp";
-import DateAndTimePicker from "./Components/DateAndTimePicker";
-import {DateTimePickerProvider} from "./Context/DateTimePickerContext";
+import { DateTimePickerProvider } from "./Context/DateTimePickerContext";
+import { TabsProvider } from "./Context/TabsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <TextFeldundButtonProvider>
     <SidebarProvider>
-      <SnackbarProvider>
-        <DateTimePickerProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/date" element={<DateAndTimePicker />} />
-            </Routes>
-          </BrowserRouter>
-        </DateTimePickerProvider>
-      </SnackbarProvider>
+        <SnackbarProvider>
+          <DateTimePickerProvider>
+            <TabsProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<App />} />
+                  <Route path="/signup" element={<SignUp />} />
+                </Routes>
+              </BrowserRouter>
+            </TabsProvider>
+          </DateTimePickerProvider>
+        </SnackbarProvider>
     </SidebarProvider>
   </TextFeldundButtonProvider>
 );

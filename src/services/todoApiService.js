@@ -24,4 +24,17 @@ export class todoApiService {
       .then((res) => res.json())
       .then((data) => console.log(data));
   }
+
+
+createUpdatePostService(id, updatedTodoRequest){
+  return fetch("http://localhost:5200/todos/change/" + id,{
+    method: "PUT",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(updatedTodoRequest)
+  })
+
+  .then((resp) => resp.json())
+  .then((data) => console.log(data))
+}
+
 }

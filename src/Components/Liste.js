@@ -27,7 +27,7 @@ export default function Liste({
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const [count,setCount] = React.useState(0)
+  const [count, setCount] = React.useState(0);
 
   const TodoApiService = new todoApiService();
 
@@ -37,22 +37,20 @@ export default function Liste({
 
   //Sortieren
   React.useEffect(() => {
-  function hello (datee,date1) {  
-    const dateA = new Date(datee.date);
-    const dateB = new Date(date1.date);
+    function hello(datee, date1) {
+      const dateA = new Date(datee.date);
+      const dateB = new Date(date1.date);
 
-    if (dateA > dateB) {
-      return 1;
-    } else if (dateA < dateB) {
-      return -1;
-    } else {
-      return 0;
+      if (dateA > dateB) {
+        return 1;
+      } else if (dateA < dateB) {
+        return -1;
+      } else {
+        return 0;
+      }
     }
-  }
-  tasks.sort(hello);
-
-},[count])
-  
+    tasks.sort(hello);
+  }, [count]);
 
   //Todo lösch Funktion
   function deleteTodo(id) {
@@ -81,18 +79,12 @@ export default function Liste({
   };
 
   function createUpdatePost(id) {
-    fetch("http://localhost:5200/todos/change/" + id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedTodoRequest),
-    })
-      .then((resp) => resp.json())
-      .then((data) => console.log(data));
+    TodoApiService.createUpdatePostService(id, updatedTodoRequest);
   }
 
   return (
     <Box>
-      <button onClick={() => setCount( count + 1)}>sort</button>
+      <button onClick={() => setCount(count + 1)}>sort</button>
       <Stack alignItems="center">
         <List
           sx={{
