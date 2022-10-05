@@ -11,17 +11,23 @@ import {
   List,
   Typography,
   Modal,
-  Divider,
 } from "@mui/material";
-import { CalendarMonth, Close, Delete, Edit, ListAlt } from "@mui/icons-material";
+import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
+import DateAndTimePicker from "./DateAndTimePicker";
 
-export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
+export default function Liste({
+  updatedTodo,
+  setUpdatedTodo,
+  todoItem,
+  displayedDate,
+}) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
+  const [count,setCount] = React.useState(0)
 
   const TodoApiService = new todoApiService();
 
@@ -29,16 +35,36 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
     TodoApiService.deleteFromServerService(id);
   }
 
+  //Sortieren
+  React.useEffect(() => {
+  function hello (datee,date1) {  
+    const dateA = new Date(datee.date);
+    const dateB = new Date(date1.date);
+
+    if (dateA > dateB) {
+      return 1;
+    } else if (dateA < dateB) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+  tasks.sort(hello);
+
+},[count])
+  
+
   //Todo lösch Funktion
   function deleteTodo(id) {
     const updatedTodo = [...tasks].filter((todo) => todo.id !== id);
     setTasks(updatedTodo);
   }
 
-  function editIt(id) {
+  function editIt(id, date) {
     const updatedTodo = [...tasks].map((todo) => {
       if (todo.id === id) {
         todo.content = updatedInputValue;
+        todo.date = displayedDate;
       }
       return todo;
     });
@@ -49,23 +75,24 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
     setOpen(false);
   }
 
-  let updatedTodoContent = {
+  let updatedTodoRequest = {
     content: updatedInputValue,
+    date: displayedDate,
   };
 
   function createUpdatePost(id) {
     fetch("http://localhost:5200/todos/change/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedTodoContent),
+      body: JSON.stringify(updatedTodoRequest),
     })
       .then((resp) => resp.json())
       .then((data) => console.log(data));
   }
 
-
   return (
     <Box>
+      <button onClick={() => setCount( count + 1)}>sort</button>
       <Stack alignItems="center">
         <List
           sx={{
@@ -97,6 +124,7 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
                       onClick={() => {
                         setUpdatedTodo(todo.id);
                         setOpen(true);
+                        setUpdatedInputValue(todo.content);
                       }}
                     >
                       <Edit />
@@ -110,6 +138,7 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
                       >
                         <Box sx={modalStyle}>
                           <TextField
+                            value={updatedInputValue}
                             label="Update todo..."
                             sx={{ backgroundColor: "white", width: 400, mt: 7 }}
                             onChange={(event) =>
@@ -117,10 +146,14 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
                             }
                             type="text"
                           />
+                          <DateAndTimePicker />
                           <OwnButton
                             variant="contained"
                             sx={{ color: "white", height: 50, mt: 1 }}
-                            onClick={() => editIt(todo.id)}
+                            onClick={() => {
+                              editIt(todo.id);
+                              setDateValue(null);
+                            }}
                           >
                             Update
                           </OwnButton>
@@ -137,7 +170,7 @@ export default function Liste({ updatedTodo, setUpdatedTodo, todoItem }) {
                 }
               >
                 <Stack>
-                  <Typography onClick={() => console.log(todo)} sx={{ display: "flex" }}>
+                  <Typography sx={{ display: "flex" }}>
                     <ListAlt sx={{ marginRight: 0.5 }} />
                     {todo.content}
                   </Typography>

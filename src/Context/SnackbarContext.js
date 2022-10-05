@@ -8,7 +8,7 @@ export function SnackbarProvider(props) {
 
   return (
     <SnackbarContext.Provider value={[snackbar, setSnackbar]}>
-        {props.children}
+      {props.children}
     </SnackbarContext.Provider>
-  )
+  );
 }

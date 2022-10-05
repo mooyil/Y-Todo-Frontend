@@ -1,8 +1,6 @@
 import "../styles/Snackbar.css";
 
 export default function Snackbar(props) {
-
-
   return (
     <div>
       <div className={props.Classname}>

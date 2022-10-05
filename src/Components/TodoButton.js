@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import Fab from "@mui/material/Fab";
@@ -11,14 +12,14 @@ import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 import DateAndTimePicker from "./DateAndTimePicker";
 
-export default function TodoButton({todoItem}) {
+export default function TodoButton({ todoItem }) {
   const TodoApiService = new todoApiService();
 
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
-
-  const { todoInputValue, setTodoInputValue, tasks, setTasks } = React.useContext(TextFeldundButtonContext);
+  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
+  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
+    React.useContext(TextFeldundButtonContext);
   const [modal, setModal] = React.useState(false);
-
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
@@ -62,6 +63,7 @@ export default function TodoButton({todoItem}) {
       >
         <Box sx={modalStyle}>
           <TextField
+            value={todoInputValue}
             onChange={(event) => setTodoInputValue(event.target.value)}
             label="Add todo..."
             sx={{ backgroundColor: "white", width: 400, mt: 7 }}
@@ -72,6 +74,7 @@ export default function TodoButton({todoItem}) {
             onClick={() => {
               add();
               setModal(false);
+              setDateValue(null);
             }}
             variant="contained"
             sx={{ color: "white", height: 50, mt: 1 }}

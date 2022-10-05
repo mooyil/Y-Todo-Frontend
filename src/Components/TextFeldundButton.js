@@ -1,17 +1,22 @@
 import { Stack, TextField, Typography } from "@mui/material";
+import dayjs from "dayjs";
 import { OwnButton } from "../styles/ListStyles";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
-import { DateTimePicker } from "@mui/x-date-pickers";
-import DateAndTimePicker from "./DateAndTimePicker";
+import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 
-export default function TextFeldundButton({todoItem}) {
+export default function TextFeldundButton({ todoItem }) {
+  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
+    React.useContext(TextFeldundButtonContext);
+  const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
+  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
 
-  const {todoInputValue, setTodoInputValue, tasks, setTasks} = React.useContext(TextFeldundButtonContext)
-  const [snackbar, setSnackbar] = React.useContext(SnackbarContext)
+  React.useEffect(() => {
+    setDateValue(null);
+  }, []);
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
@@ -79,6 +84,7 @@ export default function TextFeldundButton({todoItem}) {
         endIcon={<Add />}
         variant="contained"
         onClick={() => {
+          setDateValue(null);
           add();
         }}
       >

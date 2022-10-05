@@ -13,16 +13,21 @@ function App() {
   const [updatedTodo, setUpdatedTodo] = React.useState([]);
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
-  const {todoInputValue} = React.useContext(TextFeldundButtonContext)
+  const { todoInputValue } = React.useContext(TextFeldundButtonContext);
 
+  let displayedDate
 
-const displayedDate = dateValue.$d.toDateString()
+  if (dateValue != null) {
+     displayedDate = dateValue.$d.toDateString();
+  } else {
+    console.log("dateValue is null")
+  }
 
   let todoItem = {
     content: todoInputValue,
     userId: "mikail",
     done: false,
-    date: displayedDate,
+    date: displayedDate
   };
 
   return (
@@ -30,7 +35,12 @@ const displayedDate = dateValue.$d.toDateString()
       <Navbar />
       <Sidebar />
       <TextFeldundButton todoItem={todoItem} />
-      <Liste todoItem={todoItem} updatedTodo={updatedTodo} setUpdatedTodo={setUpdatedTodo} />
+      <Liste
+        displayedDate={displayedDate}
+        todoItem={todoItem}
+        updatedTodo={updatedTodo}
+        setUpdatedTodo={setUpdatedTodo}
+      />
       <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />
     </div>

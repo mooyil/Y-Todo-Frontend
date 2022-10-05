@@ -13,11 +13,15 @@ export default function SignUp() {
         alignItems: "center",
       }}
     >
-          <Avatar sx={{backgroundColor: "#0288d1", color: "white" }} src="/broken-image.jpg" />
-      <Typography variant="h5" mt={2}>Sign in</Typography>
-        
-      <Box sx={{ display:"flex", flexDirection: "column", mt:2 }}>
+      <Avatar
+        sx={{ backgroundColor: "#0288d1", color: "white" }}
+        src="/broken-image.jpg"
+      />
+      <Typography variant="h5" mt={2}>
+        Sign in
+      </Typography>
 
+      <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
         <TextField
           sx={{ width: 420 }}
           margin="normal"
@@ -40,11 +44,15 @@ export default function SignUp() {
           id="password"
           autoComplete="current-password"
         />
-        <FormControlLabel sx={{mt: 2}} control={<Checkbox />} label="Sign for the newsletter" />
+        <FormControlLabel
+          sx={{ mt: 2 }}
+          control={<Checkbox />}
+          label="Sign for the newsletter"
+        />
         <Button sx={{ width: 420, mt: 2 }} variant="contained">
           Sign in
         </Button>
-        </Box>
+      </Box>
     </Box>
   );
 }
