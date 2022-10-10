@@ -5,7 +5,7 @@ export class todoApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTodos(id) {
+  getTodos(_id) {
     return axios.get("http://localhost:5200/todos");
   }
 
@@ -17,8 +17,8 @@ export class todoApiService {
     }).then((resp) => resp.json());
   }
 
-  deleteFromServerService(id) {
-    return fetch("http://localhost:5200/todos/delete/" + id, {
+  deleteFromServerService(_id) {
+    return fetch("http://localhost:5200/todos/delete/" + _id, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -26,9 +26,9 @@ export class todoApiService {
   }
 
 
-createUpdatePostService(id, updatedTodoRequest){
-  return fetch("http://localhost:5200/todos/change/" + id,{
-    method: "PUT",
+createUpdatePostService(_id, updatedTodoRequest){
+  return fetch("http://localhost:5200/todos/change/" + _id,{
+    method: "PATCH",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(updatedTodoRequest)
   })

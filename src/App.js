@@ -23,7 +23,7 @@ function App() {
   if (dateValue != null) {
     displayedDate = dateValue.$d.toDateString();
   } else {
-    console.log("dateValue is null");
+    console.log("");
   }
 
   let todoItem = {
@@ -31,40 +31,40 @@ function App() {
     userId: "mikail",
     done: false,
     date: displayedDate,
+    tab: "Arbeit"
   };
 
   return (
     <div className="app-container">
       <Navbar />
       <Sidebar />
-      <TextFeldundButton todoItem={todoItem} />
-
+      <TextFeldundButton todoItem={todoItem} /> 
       <TabPanel value={tabValue} index={0}>
+        <h1>Arbeit</h1>
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
-          updatedTodo={updatedTodo} 
+          updatedTodo={updatedTodo}
           setUpdatedTodo={setUpdatedTodo}
         />
-        <h1>muhammed</h1>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
+      <h1>Schule</h1>
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
           updatedTodo={updatedTodo}
           setUpdatedTodo={setUpdatedTodo}
         />
-        <h1>tschau</h1>
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
+      <h1>Zuhause</h1>
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
           updatedTodo={updatedTodo}
           setUpdatedTodo={setUpdatedTodo}
         />
-        <h1>hello</h1>
       </TabPanel>
       <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />

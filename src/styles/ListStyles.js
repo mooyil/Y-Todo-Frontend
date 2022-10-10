@@ -12,7 +12,7 @@ export const modalStyle = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 410,
+    width: {xs:390, xl:410},
     bgcolor: "beige",
     border: "2px solid #000",
     boxShadow: 24,

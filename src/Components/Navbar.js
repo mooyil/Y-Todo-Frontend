@@ -11,7 +11,7 @@ export default function Navbar() {
   const [sidebar, setSidebar] = React.useContext(SidebarContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ backgroundColor: "#1565c0" }} position="static">
+      <AppBar sx={{ height:65, backgroundColor: "#1565c0", position: "static"}} >
         <Toolbar>
           <IconButton
             onClick={() => setSidebar((prevSidebar) => !prevSidebar)}

@@ -27,50 +27,29 @@ export default function Liste({
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const [count, setCount] = React.useState(0);
 
   const TodoApiService = new todoApiService();
 
-  function deleteFromServer(id) {
-    TodoApiService.deleteFromServerService(id);
+  function deleteFromServer(_id) {
+    TodoApiService.deleteFromServerService(_id);
   }
-
-  console.log(count)
-
-  //Sortieren
-  React.useEffect(() => {
-    function hello(datee, date1) {
-      const dateA = new Date(datee.date);
-      const dateB = new Date(date1.date);
-
-      if (dateA > dateB) {
-        return 1;
-      } else if (dateA < dateB) {
-        return -1;
-      } else {
-        return 0;
-      }
-  }
-    tasks.sort(hello);
-  }, [count]);
-
 
   //Todo lösch Funktion
-  function deleteTodo(id) {
-    const updatedTodo = [...tasks].filter((todo) => todo.id !== id);
+  function deleteTodo(_id) {
+    const updatedTodo = [...tasks].filter((todo) => todo._id !== _id);
     setTasks(updatedTodo);
   }
 
-  function editIt(id, date) {
+  function editIt(_id, date) {
     const updatedTodo = [...tasks].map((todo) => {
-      if (todo.id === id) {
+      if (todo._id === _id) {
         todo.content = updatedInputValue;
         todo.date = displayedDate;
       }
       return todo;
     });
     setTasks(updatedTodo);
-    createUpdatePost(id);
+    createUpdatePost(_id);
     setUpdatedTodo([]);
     setUpdatedInputValue("");
     setOpen(false);
@@ -81,15 +60,12 @@ export default function Liste({
     date: displayedDate,
   };
 
-  function createUpdatePost(id) {
-    TodoApiService.createUpdatePostService(id, updatedTodoRequest);
+  function createUpdatePost(_id) {
+    TodoApiService.createUpdatePostService(_id, updatedTodoRequest);
   }
 
-  console.log(tasks[0])
-
   return (
-    <Box>
-      <button onClick={() => setCount(prevCount => prevCount + 1)}>sort</button>
+    <Box  >
       <Stack alignItems="center">
         <List
           sx={{
@@ -103,15 +79,15 @@ export default function Liste({
           {tasks.map((todo) => {
             return (
               <ListItem
-                sx={{ width: 600, color: "white", height: "60px" }}
-                key={todo.id}
+                sx={{ width: {xs:355,sm:500, xl:670}, color: "white", height: "60px" }}
+                key={todo._id}
                 secondaryAction={
                   <Box>
                     <IconButton
                       sx={{ color: "white" }}
                       onClick={() => {
-                        deleteTodo(todo.id);
-                        deleteFromServer(todo.id);
+                        deleteTodo(todo._id);
+                        deleteFromServer(todo._id);
                       }}
                     >
                       <Delete />
@@ -119,14 +95,14 @@ export default function Liste({
                     <IconButton
                       sx={{ color: "white" }}
                       onClick={() => {
-                        setUpdatedTodo(todo.id);
+                        setUpdatedTodo(todo._id);
                         setOpen(true);
                         setUpdatedInputValue(todo.content);
                       }}
                     >
                       <Edit />
                     </IconButton>
-                    {updatedTodo === todo.id && (
+                    {updatedTodo === todo._id && (
                       <Modal
                         keepMounted
                         open={open}
@@ -148,7 +124,7 @@ export default function Liste({
                             variant="contained"
                             sx={{ color: "white", height: 50, mt: 1 }}
                             onClick={() => {
-                              editIt(todo.id);
+                              editIt(todo._id);
                               setDateValue(null);
                             }}
                           >

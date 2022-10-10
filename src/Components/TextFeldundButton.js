@@ -9,8 +9,14 @@ import { SnackbarContext } from "../Context/SnackbarContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 
 export default function TextFeldundButton({ todoItem }) {
-  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
-    React.useContext(TextFeldundButtonContext);
+  const {
+    todoInputValue,
+    setTodoInputValue,
+    tasks,
+    setTasks,
+    count,
+    setCount,
+  } = React.useContext(TextFeldundButtonContext);
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
 
@@ -26,6 +32,8 @@ export default function TextFeldundButton({ todoItem }) {
       }, 1000);
     }, 200);
   }
+
+  console.log(count);
 
   const TodoApiService = new todoApiService();
 
@@ -89,6 +97,9 @@ export default function TextFeldundButton({ todoItem }) {
         }}
       >
         <Typography variant="button">Add</Typography>
+      </OwnButton>
+      <OwnButton variant="contained" onClick={() => setCount((prevCount) => prevCount + 1)}>
+        sort
       </OwnButton>
     </Stack>
   );
