@@ -35,6 +35,8 @@ export default function Liste({
     TodoApiService.deleteFromServerService(id);
   }
 
+  console.log(count)
+
   //Sortieren
   React.useEffect(() => {
     function hello(datee, date1) {
@@ -48,9 +50,10 @@ export default function Liste({
       } else {
         return 0;
       }
-    }
+  }
     tasks.sort(hello);
   }, [count]);
+
 
   //Todo lösch Funktion
   function deleteTodo(id) {
@@ -82,9 +85,11 @@ export default function Liste({
     TodoApiService.createUpdatePostService(id, updatedTodoRequest);
   }
 
+  console.log(tasks[0])
+
   return (
     <Box>
-      <button onClick={() => setCount(count + 1)}>sort</button>
+      <button onClick={() => setCount(prevCount => prevCount + 1)}>sort</button>
       <Stack alignItems="center">
         <List
           sx={{
