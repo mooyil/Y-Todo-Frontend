@@ -1,4 +1,5 @@
 import React from "react";
+import UpdateTodoModal from "./UpdateTodoModal"
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { todoApiService } from "../services/todoApiService";
@@ -16,17 +17,16 @@ import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
 import { OwnButton } from "../styles/ListStyles";
 import DateAndTimePicker from "./DateAndTimePicker";
+import { TabsContext } from "../Context/TabsContext";
+import { ListeContext } from "../Context/ListeContext";
 
-export default function Liste({
-  updatedTodo,
-  setUpdatedTodo,
-  todoItem,
-  displayedDate,
-}) {
+export default function Liste({ todoItem, displayedDate }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const [updatedInputValue, setUpdatedInputValue] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
+  const { tabValue, setTabValue } = React.useContext(TabsContext);
+  const { updatedTodo, setUpdatedTodo } = React.useContext(ListeContext);
 
   const TodoApiService = new todoApiService();
 
@@ -65,7 +65,7 @@ export default function Liste({
   }
 
   return (
-    <Box  >
+    <Box>
       <Stack alignItems="center">
         <List
           sx={{
@@ -79,7 +79,11 @@ export default function Liste({
           {tasks.map((todo) => {
             return (
               <ListItem
-                sx={{ width: {xs:355,sm:500, xl:670}, color: "white", height: "60px" }}
+                sx={{
+                  width: { xs: 355, sm: 500, xl: 670 },
+                  color: "white",
+                  height: "60px",
+                }}
                 key={todo._id}
                 secondaryAction={
                   <Box>
@@ -102,42 +106,42 @@ export default function Liste({
                     >
                       <Edit />
                     </IconButton>
-                    {updatedTodo === todo._id && (
-                      <Modal
-                        keepMounted
-                        open={open}
-                        aria-labelledby="keep-mounted-modal-title"
-                        aria-describedby="keep-mounted-modal-description"
-                      >
-                        <Box sx={modalStyle}>
-                          <TextField
-                            value={updatedInputValue}
-                            label="Update todo..."
-                            sx={{ backgroundColor: "white", width: 400, mt: 7 }}
-                            onChange={(event) =>
-                              setUpdatedInputValue(event.target.value)
-                            }
-                            type="text"
-                          />
-                          <DateAndTimePicker />
-                          <OwnButton
-                            variant="contained"
-                            sx={{ color: "white", height: 50, mt: 1 }}
-                            onClick={() => {
-                              editIt(todo._id);
-                              setDateValue(null);
-                            }}
-                          >
-                            Update
-                          </OwnButton>
-                          <IconButton
-                            style={modalCloseIconStyle}
-                            onClick={() => setOpen(false)}
-                          >
-                            <Close />
-                          </IconButton>
-                        </Box>
-                      </Modal>
+                    {updatedTodo === todo._id && (<UpdateTodoModal/>
+                      // <Modal
+                      //   keepMounted
+                      //   open={open}
+                      //   aria-labelledby="keep-mounted-modal-title"
+                      //   aria-describedby="keep-mounted-modal-description"
+                      // >
+                      //   <Box sx={modalStyle}>
+                      //     <TextField
+                      //       value={updatedInputValue}
+                      //       label="Update todo..."
+                      //       sx={{ backgroundColor: "white", width: 400, mt: 7 }}
+                      //       onChange={(event) =>
+                      //         setUpdatedInputValue(event.target.value)
+                      //       }
+                      //       type="text"
+                      //     />
+                      //     <DateAndTimePicker />
+                      //     <OwnButton
+                      //       variant="contained"
+                      //       sx={{ color: "white", height: 50, mt: 1 }}
+                      //       onClick={() => {
+                      //         editIt(todo._id);
+                      //         setDateValue(null);
+                      //       }}
+                      //     >
+                      //       Update
+                      //     </OwnButton>
+                      //     <IconButton
+                      //       style={modalCloseIconStyle}
+                      //       onClick={() => setOpen(false)}
+                      //     >
+                      //       <Close />
+                      //     </IconButton>
+                      //   </Box>
+                      // </Modal>
                     )}
                   </Box>
                 }

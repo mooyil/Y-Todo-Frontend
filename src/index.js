@@ -9,11 +9,13 @@ import { SnackbarProvider } from "./Context/SnackbarContext";
 import SignUp from "./Components/SignUp";
 import { DateTimePickerProvider } from "./Context/DateTimePickerContext";
 import { TabsProvider } from "./Context/TabsContext";
+import { ListeProvider } from "./Context/ListeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <TextFeldundButtonProvider>
-    <SidebarProvider>
+    <ListeProvider>
+      <SidebarProvider>
         <SnackbarProvider>
           <DateTimePickerProvider>
             <TabsProvider>
@@ -26,6 +28,7 @@ root.render(
             </TabsProvider>
           </DateTimePickerProvider>
         </SnackbarProvider>
-    </SidebarProvider>
+      </SidebarProvider>
+    </ListeProvider>
   </TextFeldundButtonProvider>
 );

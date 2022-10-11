@@ -33,7 +33,6 @@ export default function TextFeldundButton({ todoItem }) {
     }, 200);
   }
 
-  console.log(count);
 
   const TodoApiService = new todoApiService();
 

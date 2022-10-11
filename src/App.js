@@ -11,19 +11,16 @@ import { DateTimePickerContext } from "./Context/DateTimePickerContext";
 import { TabsContext } from "./Context/TabsContext";
 
 function App() {
-  const [updatedTodo, setUpdatedTodo] = React.useState([]);
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue } = React.useContext(TextFeldundButtonContext);
-  const { tabValue, setTabValue, TabPanel, handleTabsValue } =
+  const { tabValue, setTabValue, TabPanel, handleTabsValue} =
     React.useContext(TabsContext);
 
   let displayedDate;
 
   if (dateValue != null) {
     displayedDate = dateValue.$d.toDateString();
-  } else {
-    console.log("");
   }
 
   let todoItem = {
@@ -40,12 +37,9 @@ function App() {
       <Sidebar />
       <TextFeldundButton todoItem={todoItem} /> 
       <TabPanel value={tabValue} index={0}>
-        <h1>Arbeit</h1>
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
-          updatedTodo={updatedTodo}
-          setUpdatedTodo={setUpdatedTodo}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
@@ -53,8 +47,6 @@ function App() {
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
-          updatedTodo={updatedTodo}
-          setUpdatedTodo={setUpdatedTodo}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
@@ -62,8 +54,6 @@ function App() {
         <Liste
           displayedDate={displayedDate}
           todoItem={todoItem}
-          updatedTodo={updatedTodo}
-          setUpdatedTodo={setUpdatedTodo}
         />
       </TabPanel>
       <TodoButton todoItem={todoItem} />
