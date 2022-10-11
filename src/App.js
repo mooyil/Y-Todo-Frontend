@@ -14,7 +14,7 @@ function App() {
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
-  const { tabValue, setTabValue, TabPanel, handleTabsValue } =
+  const { tabValue, setTabValue, TabPanel, handleTabsValue, currentTab, setCurrentTab } =
     React.useContext(TabsContext);
 
   let displayedDate;
@@ -28,7 +28,7 @@ function App() {
     userId: "mikail",
     done: false,
     date: displayedDate,
-    tab: tabValue,
+    tab: currentTab,
   };
 
   return (

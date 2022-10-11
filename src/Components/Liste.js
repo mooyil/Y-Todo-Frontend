@@ -1,7 +1,5 @@
 import React from "react";
-import UpdateTodoModal from "./UpdateTodoModal";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
-import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { todoApiService } from "../services/todoApiService";
 import {
   TextField,
@@ -14,29 +12,23 @@ import {
   Modal,
 } from "@mui/material";
 import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
-import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
-import { OwnButton } from "../styles/ListStyles";
-import DateAndTimePicker from "./DateAndTimePicker";
-import { TabsContext } from "../Context/TabsContext";
 import { ListeContext } from "../Context/ListeContext";
 import UdateTodoModal from "./UpdateTodoModal";
 import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
+import { TabsContext } from "../Context/TabsContext";
 
 export default function Liste({ todoItem, displayedDate }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
-  // const [open, setOpen] = React.useState(false);
-  const {open, setOpen} = React.useContext(UpdateTodoModalContext)
-  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const { tabValue, setTabValue } = React.useContext(TabsContext);
+  const { open, setOpen } = React.useContext(UpdateTodoModalContext);
   const {
     updatedTodo,
     setUpdatedTodo,
     updatedInputValue,
     setUpdatedInputValue,
   } = React.useContext(ListeContext);
+  const { currentTab, setCurrentTab } = React.useContext(TabsContext);
 
   const TodoApiService = new todoApiService();
-
 
   function deleteFromServer(_id) {
     TodoApiService.deleteFromServerService(_id);
@@ -85,85 +77,54 @@ export default function Liste({ todoItem, displayedDate }) {
           }}
         >
           {tasks.map((todo) => {
-            return (
-              <ListItem
-                sx={{
-                  width: { xs: 355, sm: 580, xl: 580 },
-                  color: "white",
-                  height: "60px",
-                }}
-                key={todo._id}
-                secondaryAction={
-                  <Box>
-                    <IconButton
-                      sx={{ color: "white" }}
-                      onClick={() => {
-                        deleteTodo(todo._id);
-                        deleteFromServer(todo._id);
-                      }}
-                    >
-                      <Delete />
-                    </IconButton>
-                    <IconButton
-                      sx={{ color: "white" }}
-                      onClick={() => {
-                        setUpdatedTodo(todo._id);
-                        setOpen(true);
-                        setUpdatedInputValue(todo.content);
-                      }}
-                    >
-                      <Edit />
-                    </IconButton>
-                    {updatedTodo === todo._id && (
-                      <UdateTodoModal todo={todo} editIt={editIt}/>
-                      // <Modal
-                      //   keepMounted
-                      //   open={open}
-                      //   aria-labelledby="keep-mounted-modal-title"
-                      //   aria-describedby="keep-mounted-modal-description"
-                      // >
-                      //   <Box sx={modalStyle}>
-                      //     <TextField
-                      //       value={updatedInputValue}
-                      //       label="Update todo..."
-                      //       sx={{ backgroundColor: "white", width: 400, mt: 7 }}
-                      //       onChange={(event) =>
-                      //         setUpdatedInputValue(event.target.value)
-                      //       }
-                      //       type="text"
-                      //     />
-                      //     <DateAndTimePicker />
-                      //     <OwnButton
-                      //       variant="contained"
-                      //       sx={{ color: "white", height: 50, mt: 1 }}
-                      //       onClick={() => {
-                      //         editIt(todo._id);
-                      //         setDateValue(null);
-                      //       }}
-                      //     >
-                      //       Update
-                      //     </OwnButton>
-                      //     <IconButton
-                      //       style={modalCloseIconStyle}
-                      //       onClick={() => setOpen(false)}
-                      //     >
-                      //       <Close />
-                      //     </IconButton>
-                      //   </Box>
-                      // </Modal>
-                    )}
-                  </Box>
-                }
-              >
-                <Stack>
-                  <Typography sx={{ display: "flex" }}>
-                    <ListAlt sx={{ marginRight: 0.5 }} />
-                    {todo.content}
-                  </Typography>
-                  <Typography variant="caption">{todo.date}</Typography>
-                </Stack>
-              </ListItem>
-            );
+            {
+              if (todo.tab === currentTab) {
+                return (
+                  <ListItem
+                    sx={{
+                      width: { xs: 355, sm: 580, xl: 580 },
+                      color: "white",
+                      height: "60px",
+                    }}
+                    key={todo._id}
+                    secondaryAction={
+                      <Box>
+                        <IconButton
+                          sx={{ color: "white" }}
+                          onClick={() => {
+                            deleteTodo(todo._id);
+                            deleteFromServer(todo._id);
+                          }}
+                        >
+                          <Delete />
+                        </IconButton>
+                        <IconButton
+                          sx={{ color: "white" }}
+                          onClick={() => {
+                            setUpdatedTodo(todo._id);
+                            setOpen(true);
+                            setUpdatedInputValue(todo.content);
+                          }}
+                        >
+                          <Edit />
+                        </IconButton>
+                        {updatedTodo === todo._id && (
+                          <UdateTodoModal todo={todo} editIt={editIt} />
+                        )}
+                      </Box>
+                    }
+                  >
+                    <Stack>
+                      <Typography sx={{ display: "flex" }}>
+                        <ListAlt sx={{ marginRight: 0.5 }} />
+                        {todo.content}
+                      </Typography>
+                      <Typography variant="caption">{todo.date}</Typography>
+                    </Stack>
+                  </ListItem>
+                );
+              }
+            }
           })}
         </List>
       </Stack>

@@ -10,7 +10,6 @@ import {
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { ListeContext } from "../Context/ListeContext";
 import DateAndTimePicker from "./DateAndTimePicker";
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 
 export default function UdateTodoModal({ todo, editIt }) {
   const { open, setOpen } = React.useContext(UpdateTodoModalContext);
@@ -18,7 +17,7 @@ export default function UdateTodoModal({ todo, editIt }) {
   const { updatedInputValue, setUpdatedInputValue } =
     React.useContext(ListeContext);
   return (
-    <Modal 
+    <Modal
       keepMounted
       open={open}
       aria-labelledby="keep-mounted-modal-title"
@@ -37,7 +36,7 @@ export default function UdateTodoModal({ todo, editIt }) {
           variant="contained"
           sx={{ color: "white", height: 50, mt: 1 }}
           onClick={() => {
-            editIt(todo._id)
+            editIt(todo._id);
             setDateValue(null);
           }}
         >
