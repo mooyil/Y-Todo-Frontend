@@ -14,8 +14,16 @@ function App() {
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
-  const { tabValue, setTabValue, TabPanel, handleTabsValue, currentTab, setCurrentTab } =
-    React.useContext(TabsContext);
+  const {
+    tabValue,
+    setTabValue,
+    TabPanel,
+    handleTabsValue,
+    currentTab,
+    setCurrentTab,
+    listTabs,
+    setListTabs,
+  } = React.useContext(TabsContext);
 
   let displayedDate;
 
@@ -36,15 +44,14 @@ function App() {
       <Navbar />
       <Sidebar />
       <TextFeldundButton todoItem={todoItem} />
-      <TabPanel value={tabValue} index={0}>
-        <Liste displayedDate={displayedDate} todoItem={todoItem} />
-      </TabPanel>
-      <TabPanel value={tabValue} index={1}>
-        <Liste displayedDate={displayedDate} todoItem={todoItem} />
-      </TabPanel>
-      <TabPanel value={tabValue} index={2}>
-        <Liste displayedDate={displayedDate} todoItem={todoItem} />
-      </TabPanel>
+      {listTabs.map((tab, i) => {
+        return (
+          <TabPanel value={tabValue} key={i} index={i}>
+            <Liste displayedDate={displayedDate} todoItem={todoItem} />
+          </TabPanel>
+        );
+      })}
+
       <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />
     </div>

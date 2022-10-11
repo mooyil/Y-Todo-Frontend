@@ -15,18 +15,15 @@ import React from "react";
 import "../styles/Sidebar.css";
 import { SidebarContext } from "../Context/SidebarContext";
 import DateAndTimePicker from "./DateAndTimePicker";
-import { Link } from "react-router-dom";
-import { TabPanel } from "@mui/joy";
 import Liste from "./Liste";
 import { TabsContext } from "../Context/TabsContext";
 
 export default function Sidebar() {
   const [sidebar, setSidebar] = React.useContext(SidebarContext);
-   const {tabValue, setTabValue, TabPanel, handleTabsValue} = React.useContext(TabsContext)
+  const { tabValue, setTabValue, TabPanel, handleTabsValue, listTabs, setListTabs } =
+    React.useContext(TabsContext);
 
-  // function handleTabsValue (event, val) { 
-  //   setTabValue(val)
-  //  }
+
   return (
     <Box>
       <Drawer onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
@@ -39,27 +36,21 @@ export default function Sidebar() {
             <Typography>Y-Todo</Typography>
           </Box>
           <Divider />
-          <List >
-            <ListItem >
-              <Tabs onChange={handleTabsValue} value={tabValue} orientation="vertical" >
-                <Tab label="Arbeit" />
-                <Tab label="Schule" />
-                <Tab label="Zuhause" />
+          <List>
+            <ListItem>
+              <Tabs
+                onChange={handleTabsValue}
+                value={tabValue}
+                orientation="vertical"
+              >
+                {listTabs.map((tab, i) => {
+                  return <Tab key={i} label={tab} />;
+                })}
               </Tabs>
             </ListItem>
           </List>
-          {/* <TabPanel value={tabValue} index={0} >hello</TabPanel>
-          <TabPanel value={tabValue} index={1} >du</TabPanel>
-          <TabPanel value={tabValue} index={2} >hund</TabPanel> */}
         </Box>
       </Drawer>
     </Box>
   );
-  // function TabPanel ({children,value,index}) { 
-  //   return (
-  //     <div>
-  //       {value===index && (<div>{children}</div>) }
-  //     </div>
-  //   )
-  //  }
 }
