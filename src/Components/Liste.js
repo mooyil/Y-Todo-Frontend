@@ -1,5 +1,5 @@
 import React from "react";
-import UpdateTodoModal from "./UpdateTodoModal"
+import UpdateTodoModal from "./UpdateTodoModal";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { todoApiService } from "../services/todoApiService";
@@ -19,16 +19,24 @@ import { OwnButton } from "../styles/ListStyles";
 import DateAndTimePicker from "./DateAndTimePicker";
 import { TabsContext } from "../Context/TabsContext";
 import { ListeContext } from "../Context/ListeContext";
+import UdateTodoModal from "./UpdateTodoModal";
+import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
 
 export default function Liste({ todoItem, displayedDate }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
-  const [updatedInputValue, setUpdatedInputValue] = React.useState("");
   // const [open, setOpen] = React.useState(false);
+  const {open, setOpen} = React.useContext(UpdateTodoModalContext)
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
   const { tabValue, setTabValue } = React.useContext(TabsContext);
-  const { updatedTodo, setUpdatedTodo } = React.useContext(ListeContext);
+  const {
+    updatedTodo,
+    setUpdatedTodo,
+    updatedInputValue,
+    setUpdatedInputValue,
+  } = React.useContext(ListeContext);
 
   const TodoApiService = new todoApiService();
+
 
   function deleteFromServer(_id) {
     TodoApiService.deleteFromServerService(_id);
@@ -80,7 +88,7 @@ export default function Liste({ todoItem, displayedDate }) {
             return (
               <ListItem
                 sx={{
-                  width: { xs: 355, sm: 500, xl: 670 },
+                  width: { xs: 355, sm: 580, xl: 580 },
                   color: "white",
                   height: "60px",
                 }}
@@ -106,7 +114,8 @@ export default function Liste({ todoItem, displayedDate }) {
                     >
                       <Edit />
                     </IconButton>
-                    {updatedTodo === todo._id && (<UpdateTodoModal/>
+                    {updatedTodo === todo._id && (
+                      <UdateTodoModal todo={todo} editIt={editIt}/>
                       // <Modal
                       //   keepMounted
                       //   open={open}

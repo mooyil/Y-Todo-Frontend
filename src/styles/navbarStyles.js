@@ -15,6 +15,7 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 // export default createTheme(navbarTheme);
 
 export const LinkTypography = styled(Typography)({
+  flexGrow: 1,
   color: "white",
   "&:hover": {
     textDecoration: "underline",

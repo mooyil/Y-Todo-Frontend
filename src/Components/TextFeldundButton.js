@@ -81,7 +81,7 @@ export default function TextFeldundButton({ todoItem }) {
       spacing={1}
     >
       <TextField
-        sx={{ maxWidth: 600 }}
+        sx={{ maxWidth: 500 }}
         value={todoInputValue}
         onChange={(event) => setTodoInputValue(event.target.value)}
         fullWidth

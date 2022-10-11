@@ -13,8 +13,8 @@ import { TabsContext } from "./Context/TabsContext";
 function App() {
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
-  const { todoInputValue } = React.useContext(TextFeldundButtonContext);
-  const { tabValue, setTabValue, TabPanel, handleTabsValue} =
+  const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
+  const { tabValue, setTabValue, TabPanel, handleTabsValue } =
     React.useContext(TabsContext);
 
   let displayedDate;
@@ -28,33 +28,22 @@ function App() {
     userId: "mikail",
     done: false,
     date: displayedDate,
-    tab: "Arbeit"
+    tab: tabValue,
   };
 
   return (
     <div className="app-container">
       <Navbar />
       <Sidebar />
-      <TextFeldundButton todoItem={todoItem} /> 
+      <TextFeldundButton todoItem={todoItem} />
       <TabPanel value={tabValue} index={0}>
-        <Liste
-          displayedDate={displayedDate}
-          todoItem={todoItem}
-        />
+        <Liste displayedDate={displayedDate} todoItem={todoItem} />
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-      <h1>Schule</h1>
-        <Liste
-          displayedDate={displayedDate}
-          todoItem={todoItem}
-        />
+        <Liste displayedDate={displayedDate} todoItem={todoItem} />
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-      <h1>Zuhause</h1>
-        <Liste
-          displayedDate={displayedDate}
-          todoItem={todoItem}
-        />
+        <Liste displayedDate={displayedDate} todoItem={todoItem} />
       </TabPanel>
       <TodoButton todoItem={todoItem} />
       <Snackbar Classname={snackbar} />

@@ -10,25 +10,28 @@ import SignUp from "./Components/SignUp";
 import { DateTimePickerProvider } from "./Context/DateTimePickerContext";
 import { TabsProvider } from "./Context/TabsContext";
 import { ListeProvider } from "./Context/ListeContext";
+import { UpdateTodoModalProvider } from "./Context/UpdateTodoModalContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <TextFeldundButtonProvider>
-    <ListeProvider>
-      <SidebarProvider>
-        <SnackbarProvider>
-          <DateTimePickerProvider>
-            <TabsProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<App />} />
-                  <Route path="/signup" element={<SignUp />} />
-                </Routes>
-              </BrowserRouter>
-            </TabsProvider>
-          </DateTimePickerProvider>
-        </SnackbarProvider>
-      </SidebarProvider>
-    </ListeProvider>
+    <UpdateTodoModalProvider>
+      <ListeProvider>
+        <SidebarProvider>
+          <SnackbarProvider>
+            <DateTimePickerProvider>
+              <TabsProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/signup" element={<SignUp />} />
+                  </Routes>
+                </BrowserRouter>
+              </TabsProvider>
+            </DateTimePickerProvider>
+          </SnackbarProvider>
+        </SidebarProvider>
+      </ListeProvider>
+    </UpdateTodoModalProvider>
   </TextFeldundButtonProvider>
 );

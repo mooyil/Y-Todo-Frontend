@@ -1,44 +1,52 @@
+import React from "react";
 import { Close } from "@mui/icons-material";
-import { Box, IconButton, Modal } from "@mui/material";
-import { modalCloseIconStyle, modalStyle, OwnButton } from "../styles/ListStyles";
+import { Box, IconButton, Modal, TextField } from "@mui/material";
+import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
+import {
+  modalCloseIconStyle,
+  modalStyle,
+  OwnButton,
+} from "../styles/ListStyles";
+import { DateTimePickerContext } from "../Context/DateTimePickerContext";
+import { ListeContext } from "../Context/ListeContext";
 import DateAndTimePicker from "./DateAndTimePicker";
+import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 
-export default function UdateTodoModal (params) {
-    return (
-        <Modal
-        keepMounted
-        open={open}
-        aria-labelledby="keep-mounted-modal-title"
-        aria-describedby="keep-mounted-modal-description"
-      >
-        <Box sx={modalStyle}>
-          <TextField
-            value={updatedInputValue}
-            label="Update todo..."
-            sx={{ backgroundColor: "white", width: 400, mt: 7 }}
-            onChange={(event) =>
-              setUpdatedInputValue(event.target.value)
-            }
-            type="text"
-          />
-          <DateAndTimePicker />
-          <OwnButton
-            variant="contained"
-            sx={{ color: "white", height: 50, mt: 1 }}
-            onClick={() => {
-              editIt(todo._id);
-              setDateValue(null);
-            }}
-          >
-            Update
-          </OwnButton>
-          <IconButton
-            style={modalCloseIconStyle}
-            onClick={() => setOpen(false)}
-          >
-            <Close />
-          </IconButton>
-        </Box>
-      </Modal>
-    )
+export default function UdateTodoModal({ todo, editIt }) {
+  const { open, setOpen } = React.useContext(UpdateTodoModalContext);
+  const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
+  const { updatedInputValue, setUpdatedInputValue } =
+    React.useContext(ListeContext);
+  return (
+    <Modal 
+      keepMounted
+      open={open}
+      aria-labelledby="keep-mounted-modal-title"
+      aria-describedby="keep-mounted-modal-description"
+    >
+      <Box sx={modalStyle}>
+        <TextField
+          value={updatedInputValue}
+          label="Update todo..."
+          sx={{ backgroundColor: "white", width: 400, mt: 7 }}
+          onChange={(event) => setUpdatedInputValue(event.target.value)}
+          type="text"
+        />
+        <DateAndTimePicker />
+        <OwnButton
+          variant="contained"
+          sx={{ color: "white", height: 50, mt: 1 }}
+          onClick={() => {
+            editIt(todo._id)
+            setDateValue(null);
+          }}
+        >
+          Update
+        </OwnButton>
+        <IconButton style={modalCloseIconStyle} onClick={() => setOpen(false)}>
+          <Close />
+        </IconButton>
+      </Box>
+    </Modal>
+  );
 }
