@@ -10,11 +10,17 @@ export function TextFeldundButtonProvider(props) {
 
   //Sortieren
   const sortieren = React.useEffect(() => {
-    function hello(datee, date1) {
-      const dateA = new Date(datee.date);
-      const dateB = new Date(date1.date);
+    function hello(date1, date2) {
+      const dateA = new Date(date1.date);
+      const dateB = new Date(date2.date);
+
+      if (!isNaN(dateB.getTime())) {
+        console.log("Hello");
+      }
 
       if (dateA > dateB) {
+        return 1;
+      } else if (isNaN(dateA)) {
         return 1;
       } else if (dateA < dateB) {
         return -1;

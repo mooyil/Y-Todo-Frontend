@@ -5,9 +5,8 @@ export const TabsContext = createContext();
 
 export function TabsProvider(props) {
   const [tabValue, setTabValue] = React.useState(0);
-  const [listTabs, setListTabs] = React.useState(["Arbeit", "Schule", "Zuhause", "Duhund"]);
-  const [currentTab, setCurrentTab] = React.useState(listTabs[0])
-  
+  const [listTabs, setListTabs] = React.useState([{name: "List"}]);
+  const [currentTab, setCurrentTab] = React.useState(listTabs[0].name)
 
   function TabPanel({ children, value, index }) {
     return <div>{value === index && <div>{children}</div>}</div>;
@@ -29,7 +28,7 @@ export function TabsProvider(props) {
         currentTab,
         setCurrentTab,
         listTabs,
-        setListTabs
+        setListTabs,
       }}
     >
       {props.children}

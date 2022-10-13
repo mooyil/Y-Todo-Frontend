@@ -1,10 +1,4 @@
 import styled from "styled-components";
-import { Button } from "@mui/material";
-
-
-
-export const OwnButton = styled(Button)({
-})
 
 export const modalStyle = {
     position: "absolute",
@@ -24,3 +18,5 @@ export const modalStyle = {
     top: 0,
     right: 0
   }
+
+

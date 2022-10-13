@@ -8,8 +8,8 @@ import { todoApiService } from "../services/todoApiService";
 import "../styles/Navbar.css";
 import { TextField, Box, IconButton, Modal } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import { modalStyle, modalCloseIconStyle } from "../styles/ListStyles";
-import { OwnButton } from "../styles/ListStyles";
+import { modalStyle, modalCloseIconStyle } from "../styles/ModalStyle";
+import { OwnButton } from "../styles/ButtonStyle";
 import DateAndTimePicker from "./DateAndTimePicker";
 
 export default function TodoButton({ todoItem }) {

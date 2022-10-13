@@ -1,6 +1,6 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import { OwnButton } from "../styles/ListStyles";
+import { OwnButton } from "../styles/ButtonStyle";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
@@ -32,7 +32,6 @@ export default function TextFeldundButton({ todoItem }) {
       }, 1000);
     }, 200);
   }
-
 
   const TodoApiService = new todoApiService();
 
@@ -97,8 +96,11 @@ export default function TextFeldundButton({ todoItem }) {
       >
         <Typography variant="button">Add</Typography>
       </OwnButton>
-      <OwnButton variant="contained" onClick={() => setCount((prevCount) => prevCount + 1)}>
-        sort
+      <OwnButton
+        variant="contained"
+        onClick={() => setCount((prevCount) => prevCount + 1)}
+      >
+        <Typography variant="button">sort</Typography>
       </OwnButton>
     </Stack>
   );

@@ -2,11 +2,8 @@ import React from "react";
 import { Close } from "@mui/icons-material";
 import { Box, IconButton, Modal, TextField } from "@mui/material";
 import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
-import {
-  modalCloseIconStyle,
-  modalStyle,
-  OwnButton,
-} from "../styles/ListStyles";
+import { OwnButton } from "../styles/ButtonStyle";
+import { modalCloseIconStyle, modalStyle } from "../styles/ModalStyle";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { ListeContext } from "../Context/ListeContext";
 import DateAndTimePicker from "./DateAndTimePicker";

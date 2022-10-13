@@ -10,7 +10,7 @@ import { TabsContext } from "../Context/TabsContext";
 
 export default function Navbar() {
   const {tabValue, setTabvalue, currentTab, setCurrentTab} = React.useContext(TabsContext)
-  const [sidebar, setSidebar] = React.useContext(SidebarContext);
+  const {sidebar, setSidebar} = React.useContext(SidebarContext);
   const [tabTitle, setTabTitle] = React.useState("")
 
   return (

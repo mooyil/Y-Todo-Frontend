@@ -28,7 +28,7 @@ function App() {
   let displayedDate;
 
   if (dateValue != null) {
-    displayedDate = dateValue.$d.toDateString();
+    displayedDate = dateValue.$d.toDateString() + "  " + dateValue.$d.toLocaleTimeString()
   }
 
   let todoItem = {

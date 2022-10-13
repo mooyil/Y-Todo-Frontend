@@ -26,7 +26,8 @@ export default function Liste({ todoItem, displayedDate }) {
     updatedInputValue,
     setUpdatedInputValue,
   } = React.useContext(ListeContext);
-  const { currentTab, setCurrentTab } = React.useContext(TabsContext);
+  const { currentTab, setCurrentTab, listTabs, setListTabs } =
+    React.useContext(TabsContext);
 
   const TodoApiService = new todoApiService();
 
