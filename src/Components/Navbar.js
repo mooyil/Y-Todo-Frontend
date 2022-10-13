@@ -9,16 +9,17 @@ import { SidebarContext } from "../Context/SidebarContext";
 import { TabsContext } from "../Context/TabsContext";
 
 export default function Navbar() {
-  const {tabValue, setTabvalue, currentTab, setCurrentTab} = React.useContext(TabsContext)
+  const {tabValue, setTabvalue, currentTab, setCurrentTab, listTabs} = React.useContext(TabsContext)
   const {sidebar, setSidebar} = React.useContext(SidebarContext);
   const [tabTitle, setTabTitle] = React.useState("")
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ height:65, backgroundColor: "#1565c0", position: "static"}} >
         <Toolbar>
           <IconButton
-            onClick={() => setSidebar((prevSidebar) => !prevSidebar)}
+            onClick={() => setSidebar((true))}
             size="large"
             edge="start"
             color="inherit"

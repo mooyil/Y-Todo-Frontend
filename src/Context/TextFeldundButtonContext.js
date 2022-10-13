@@ -8,15 +8,12 @@ export function TextFeldundButtonProvider(props) {
   const [todoInputValue, setTodoInputValue] = React.useState("");
   const [count, setCount] = React.useState(0);
 
+  let sortedTodos
   //Sortieren
   const sortieren = React.useEffect(() => {
-    function hello(date1, date2) {
+    function sortTodos(date1, date2) {
       const dateA = new Date(date1.date);
       const dateB = new Date(date2.date);
-
-      if (!isNaN(dateB.getTime())) {
-        console.log("Hello");
-      }
 
       if (dateA > dateB) {
         return 1;
@@ -28,7 +25,8 @@ export function TextFeldundButtonProvider(props) {
         return 0;
       }
     }
-    tasks.sort(hello);
+   sortedTodos = tasks.sort(sortTodos);
+   setTasks(sortedTodos)
   }, [count]);
 
   return (

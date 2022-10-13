@@ -40,13 +40,41 @@ export default function Sidebar() {
     TabApiService.getTabs().then((res) => setListTabs(res.data));
   }, []);
 
+  function doesTabExist(tabInputValue) {
+    var doesExist = false;
+    
+    console.log(listTabs.forEach( (tab) => {
+      if (tab.name === tabInputValue) {
+        console.log("existiert")
+        doesExist = true;
+      }
+    }))
+
+    console.log("val of doesexist " + doesExist)
+    return doesExist;
+   
+  }
+
   function add() {
+
+    console.log(listTabs)
+ 
     if (tabInputValue === "") {
       alert("empty");
-    } else {
+      return;
+    }
+
+    console.log(listTabs.includes(tabInputValue))
+
+
+    if (doesTabExist(tabInputValue)) {
+      alert("already existing");
+      return;
+    }
+
       addNewTab();
       setTabInputValue("");
-    }
+    
   }
 
   function addNewTab() {
@@ -56,19 +84,19 @@ export default function Sidebar() {
   }
 
   function deleteTabServer(name) {
-    if(listTabs.length === 1){
-      console.log("you need one list")
-    } else{
-    TabApiService.deleteTabServer(name);
+    if (listTabs.length === 1) {
+      console.log("you need one list");
+    } else {
+      TabApiService.deleteTabServer(name);
     }
   }
 
   function deleteTab(name) {
-    if(listTabs.length === 1){
-      console.log("you need one list")
-    } else{
-    const newTabs = [...listTabs].filter((tab) => tab.name !== name);
-    setListTabs(newTabs);
+    if (listTabs.length === 1) {
+      alert("you need one list");
+    } else {
+      const newTabs = [...listTabs].filter((tab) => tab.name !== name);
+      setListTabs(newTabs);
     }
   }
 
@@ -104,7 +132,7 @@ export default function Sidebar() {
               orientation="vertical"
             >
               {listTabs.map((tab, i) => {
-                return <Tab key={i} label={tab.name} />;
+                return <Tab key={i}  label={tab.name} />;
               })}
             </Tabs>
             <Box
