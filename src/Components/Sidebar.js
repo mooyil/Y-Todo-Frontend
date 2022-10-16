@@ -29,7 +29,7 @@ export default function Sidebar() {
     tabInputValue,
     setTabInputValue,
   } = React.useContext(SidebarContext);
-  const { tabValue, handleTabsValue, listTabs, setListTabs } =
+  const { tabValue, handleTabsValue, listTabs, setListTabs,currentTab, setCurrentTab } =
     React.useContext(TabsContext);
 
   let tabItem = {
@@ -50,14 +50,11 @@ export default function Sidebar() {
       }
     }))
 
-    console.log("val of doesexist " + doesExist)
     return doesExist;
    
   }
 
   function add() {
-
-    console.log(listTabs)
  
     if (tabInputValue === "") {
       alert("empty");
@@ -132,7 +129,7 @@ export default function Sidebar() {
               orientation="vertical"
             >
               {listTabs.map((tab, i) => {
-                return <Tab key={i}  label={tab.name} />;
+                return <Tab onClick={() => setCurrentTab(tab.name)} key={i}  label={tab.name} />;
               })}
             </Tabs>
             <Box

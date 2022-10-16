@@ -42,7 +42,7 @@ export default function TodoButton({ todoItem }) {
   function createPost() {
     TodoApiService.createPostService(todoItem)
       .then((todoItem) => {
-        setTasks([...tasks].concat(todoItem));
+        (setTasks([...tasks].concat(todoItem)));
         snackbarShow("snackbarShowSuccess");
       })
       .catch(() => {

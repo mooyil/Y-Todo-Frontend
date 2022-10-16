@@ -58,13 +58,12 @@ export default function Liste({ todoItem, displayedDate }) {
 
   let updatedTodoRequest = {
     content: updatedInputValue,
-    date: displayedDate,
+    date: displayedDate
   };
 
   function createUpdatePost(_id) {
     TodoApiService.createUpdatePostService(_id, updatedTodoRequest);
   }
-
   return (
     <Box>
       <Stack alignItems="center">

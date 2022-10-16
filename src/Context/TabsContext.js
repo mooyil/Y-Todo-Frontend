@@ -5,8 +5,8 @@ export const TabsContext = createContext();
 
 export function TabsProvider(props) {
   const [tabValue, setTabValue] = React.useState(0);
-  const [listTabs, setListTabs] = React.useState([]);
-  const [currentTab, setCurrentTab] = React.useState()
+  const [listTabs, setListTabs] = React.useState([{name: ""}]);
+  const [currentTab, setCurrentTab] = React.useState(listTabs[0].name)
 
   function TabPanel({ children, value, index }) {
     return <div>{value === index && <div>{children}</div>}</div>;

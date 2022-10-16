@@ -10,7 +10,7 @@ export class tabApiService {
   }
 
   createTabPost(tabItem) {
-    return fetch("http://localhost:5200/tabs/post", {
+    return fetch(`${this.serverUrl}/tabs/post`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(tabItem),

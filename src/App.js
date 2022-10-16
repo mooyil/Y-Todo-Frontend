@@ -28,7 +28,7 @@ function App() {
   let displayedDate;
 
   if (dateValue != null) {
-    displayedDate = dateValue.$d.toDateString() + "  " + dateValue.$d.toLocaleTimeString()
+    displayedDate = dateValue.$d.toDateString() + ",  " + dateValue.$d.toLocaleTimeString()
   }
 
   let todoItem = {
@@ -43,7 +43,7 @@ function App() {
     <div className="app-container">
       <Navbar />
       <Sidebar />
-      <TextFeldundButton todoItem={todoItem} />
+      <TextFeldundButton todoItem={todoItem} displayedDate={displayedDate} />
       {listTabs.map((tab, i) => {
         return (
           <TabPanel value={tabValue} key={i} index={i}>

@@ -7,8 +7,9 @@ import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
+import axios from "axios";
 
-export default function TextFeldundButton({ todoItem }) {
+export default function TextFeldundButton({ todoItem, displayedDate }) {
   const {
     todoInputValue,
     setTodoInputValue,
@@ -19,6 +20,28 @@ export default function TextFeldundButton({ todoItem }) {
   } = React.useContext(TextFeldundButtonContext);
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
+
+   let sortedTodos
+  // Sortieren
+  const sortieren = React.useEffect(() => {
+    function sortTodos(date1, date2) {
+      const dateA = new Date(date1.date);
+      const dateB = new Date(date2.date);
+
+      if (dateA > dateB) {
+        return 1;
+      } else if (isNaN(dateA)) {
+        return 1;
+      } else if (dateA < dateB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+   sortedTodos = tasks.sort(sortTodos);
+   setTasks(sortedTodos)
+  }, [count]);
+
 
   React.useEffect(() => {
     setDateValue(null);
@@ -45,7 +68,9 @@ export default function TextFeldundButton({ todoItem }) {
   }
 
   React.useEffect(() => {
-    TodoApiService.getTodos().then((resp) => setTasks(resp.data));
+    TodoApiService.getTodos().then((resp) => {
+           setTasks(resp.data);
+    });
   }, []);
 
   React.useEffect(() => {
@@ -60,7 +85,6 @@ export default function TextFeldundButton({ todoItem }) {
       document.removeEventListener("keypress", enter);
     };
   });
-
   function createPost() {
     TodoApiService.createPostService(todoItem)
       .then((todoItem) => {
