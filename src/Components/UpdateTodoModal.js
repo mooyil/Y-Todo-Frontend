@@ -33,7 +33,7 @@ export default function UdateTodoModal({ todo, editIt }) {
           variant="contained"
           sx={{ color: "white", height: 50, mt: 1 }}
           onClick={() => {
-            editIt(todo._id);
+            editIt(todo.id);
             setDateValue(null);
           }}
         >

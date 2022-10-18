@@ -31,26 +31,26 @@ export default function Liste({ todoItem, displayedDate }) {
 
   const TodoApiService = new todoApiService();
 
-  function deleteFromServer(_id) {
-    TodoApiService.deleteFromServerService(_id);
+  function deleteFromServer(id) {
+    TodoApiService.deleteFromServerService(id);
   }
 
   //Todo lösch Funktion
-  function deleteTodo(_id) {
-    const updatedTodo = [...tasks].filter((todo) => todo._id !== _id);
+  function deleteTodo(id) {
+    const updatedTodo = [...tasks].filter((todo) => todo.id !== id);
     setTasks(updatedTodo);
   }
 
-  function editIt(_id, date) {
+  function editIt(id, date) {
     const updatedTodo = [...tasks].map((todo) => {
-      if (todo._id === _id) {
+      if (todo.id === id) {
         todo.content = updatedInputValue;
         todo.date = displayedDate;
       }
       return todo;
     });
     setTasks(updatedTodo);
-    createUpdatePost(_id);
+    createUpdatePost(id);
     setUpdatedTodo([]);
     setUpdatedInputValue("");
     setOpen(false);
@@ -61,8 +61,8 @@ export default function Liste({ todoItem, displayedDate }) {
     date: displayedDate
   };
 
-  function createUpdatePost(_id) {
-    TodoApiService.createUpdatePostService(_id, updatedTodoRequest);
+  function createUpdatePost(id) {
+    TodoApiService.createUpdatePostService(id, updatedTodoRequest);
   }
   return (
     <Box>
@@ -86,14 +86,14 @@ export default function Liste({ todoItem, displayedDate }) {
                       color: "white",
                       height: "60px",
                     }}
-                    key={todo._id}
+                    key={todo.id}
                     secondaryAction={
                       <Box>
                         <IconButton
                           sx={{ color: "white" }}
                           onClick={() => {
-                            deleteTodo(todo._id);
-                            deleteFromServer(todo._id);
+                            deleteTodo(todo.id);
+                            deleteFromServer(todo.id);
                           }}
                         >
                           <Delete />
@@ -101,14 +101,14 @@ export default function Liste({ todoItem, displayedDate }) {
                         <IconButton
                           sx={{ color: "white" }}
                           onClick={() => {
-                            setUpdatedTodo(todo._id);
+                            setUpdatedTodo(todo.id);
                             setOpen(true);
                             setUpdatedInputValue(todo.content);
                           }}
                         >
                           <Edit />
                         </IconButton>
-                        {updatedTodo === todo._id && (
+                        {updatedTodo === todo.id && (
                           <UdateTodoModal todo={todo} editIt={editIt} />
                         )}
                       </Box>

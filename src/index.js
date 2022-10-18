@@ -23,8 +23,8 @@ root.render(
               <TabsProvider>
                 <BrowserRouter>
                   <Routes>
-                    <Route path="/" element={<App />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/" element={<App />} />
                   </Routes>
                 </BrowserRouter>
               </TabsProvider>

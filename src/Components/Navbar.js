@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ height:65, backgroundColor: "#1565c0", position: "static"}} >
+      <AppBar sx={{ height:65, backgroundColor: "#1565c0", position: "fixed"}} >
         <Toolbar>
           <IconButton
             onClick={() => setSidebar((true))}

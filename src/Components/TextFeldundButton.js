@@ -1,7 +1,7 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { OwnButton } from "../styles/ButtonStyle";
-import { Add } from "@mui/icons-material";
+import { Add, ConnectingAirportsOutlined } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
@@ -21,27 +21,13 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
 
-   let sortedTodos
+  let sortedTodos;
   // Sortieren
   const sortieren = React.useEffect(() => {
-    function sortTodos(date1, date2) {
-      const dateA = new Date(date1.date);
-      const dateB = new Date(date2.date);
-
-      if (dateA > dateB) {
-        return 1;
-      } else if (isNaN(dateA)) {
-        return 1;
-      } else if (dateA < dateB) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
-   sortedTodos = tasks.sort(sortTodos);
-   setTasks(sortedTodos)
+    axios.get("http://localhost:5200/todos/sort/date")
+    .then(resp => setTasks(resp.data.data))
+    
   }, [count]);
-
 
   React.useEffect(() => {
     setDateValue(null);
@@ -69,7 +55,7 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
 
   React.useEffect(() => {
     TodoApiService.getTodos().then((resp) => {
-           setTasks(resp.data);
+      setTasks(resp.data.data);
     });
   }, []);
 
@@ -88,7 +74,7 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   function createPost() {
     TodoApiService.createPostService(todoItem)
       .then((todoItem) => {
-        setTasks([...tasks].concat(todoItem));
+        setTasks([...tasks].concat(todoItem.data));
         snackbarShow("snackbarShowSuccess");
       })
       .catch(() => {
@@ -98,7 +84,7 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
 
   return (
     <Stack
-      sx={{ marginTop: 12 }}
+      sx={{ marginTop: 20 }}
       direction="row"
       justifyContent="center"
       spacing={1}
