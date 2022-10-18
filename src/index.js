@@ -11,9 +11,11 @@ import { DateTimePickerProvider } from "./Context/DateTimePickerContext";
 import { TabsProvider } from "./Context/TabsContext";
 import { ListeProvider } from "./Context/ListeContext";
 import { UpdateTodoModalProvider } from "./Context/UpdateTodoModalContext";
+import { UserDataProvider } from "./Context/UserDataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <UserDataProvider>
   <TextFeldundButtonProvider>
     <UpdateTodoModalProvider>
       <ListeProvider>
@@ -34,4 +36,5 @@ root.render(
       </ListeProvider>
     </UpdateTodoModalProvider>
   </TextFeldundButtonProvider>
+  </UserDataProvider>
 );

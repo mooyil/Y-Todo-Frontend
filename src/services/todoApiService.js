@@ -5,8 +5,10 @@ export class todoApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTodos(id) {
-    return axios.get(`${this.serverUrl}/todos`);
+  getTodos() {
+    return fetch(`${this.serverUrl}/todos/username/enes@outlook.de`).then(
+      (resp) => resp.json()
+    );
   }
 
   createPostService(todoItem) {
@@ -25,16 +27,13 @@ export class todoApiService {
       .then((data) => console.log(data));
   }
 
-
-createUpdatePostService(id, updatedTodoRequest){
-    return fetch(`${this.serverUrl}/todos/change/` + id,{
-    method: "PATCH",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(updatedTodoRequest)
-  })
-
-  .then((resp) => resp.json())
-  .then((data) => console.log(data))
-}
-
+  createUpdatePostService(id, updatedTodoRequest) {
+    return fetch(`${this.serverUrl}/todos/change/` + id, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedTodoRequest),
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
+  }
 }
