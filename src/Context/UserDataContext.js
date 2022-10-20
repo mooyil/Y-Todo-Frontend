@@ -5,7 +5,7 @@ export const UserDataContext = createContext()
 
 export function UserDataProvider (props) { 
 
-    const [userName, setUserName] = React.useState("muhammed@outlook.de")
+    const [userName, setUserName] = React.useState()
 
     return (
         <UserDataContext.Provider value={{userName, setUserName}}>

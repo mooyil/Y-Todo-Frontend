@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
-import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import { AppBar, Box, Typography, IconButton, Toolbar } from "@mui/material";
 import { LinkTypography } from "../styles/navbarStyles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -34,7 +34,7 @@ export default function Navbar() {
           <Typography sx={{flexGrow: 1}}>
             {currentTab}
           </Typography>
-          <Link className="signup-link" to="/signup" element={<SignUp />}>
+          <Link className="signup-link" to="/signin" element={<SignIn />}>
             <LinkTypography>Sign Up</LinkTypography>
           </Link>
         </Toolbar>

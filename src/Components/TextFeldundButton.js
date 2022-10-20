@@ -22,13 +22,8 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
   const {userName, setUserName} = React.useContext(UserDataContext)
-  // let sortedTodos;
-  // // Sortieren
-  // const sortieren = React.useEffect(() => {
-  //   axios.get("http://localhost:5200/todos/sort/date")
-  //   .then(resp => setTasks(resp.data.data))
-    
-  // }, [count]);
+
+
 
   React.useEffect(() => {
     setDateValue(null);
@@ -56,10 +51,10 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
 
 
   React.useEffect(() => {
-    TodoApiService.getTodos().then((data) => {
+    TodoApiService.getTodos(userName).then((data) => {
       setTasks(data.data);
     });
-  }, []);
+  }, [userName]);
 
   React.useEffect(() => {
     const enter = (event) => {

@@ -9,26 +9,22 @@ import TodoButton from "./Components/TodoButton";
 import { SnackbarContext } from "./Context/SnackbarContext";
 import { DateTimePickerContext } from "./Context/DateTimePickerContext";
 import { TabsContext } from "./Context/TabsContext";
+import { UserDataContext } from "./Context/UserDataContext";
+import SignIn from "./Components/SignIn";
 
 function App() {
   const [snackbar] = React.useContext(SnackbarContext);
   const [dateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
-  const {
-    tabValue,
-    setTabValue,
-    TabPanel,
-    handleTabsValue,
-    currentTab,
-    setCurrentTab,
-    listTabs,
-    setListTabs,
-  } = React.useContext(TabsContext);
+  const { tabValue, TabPanel, currentTab, listTabs } =
+    React.useContext(TabsContext);
+  const { userName } = React.useContext(UserDataContext);
 
   let displayedDate;
 
   if (dateValue != null) {
-    displayedDate = dateValue.$d.toDateString() + ",  " + dateValue.$d.toLocaleTimeString()
+    displayedDate =
+      dateValue.$d.toDateString() + ",  " + dateValue.$d.toLocaleTimeString();
   }
 
   let todoItem = {
@@ -37,8 +33,12 @@ function App() {
     done: false,
     date: displayedDate,
     tab: currentTab,
+    userEmail: userName,
   };
 
+  if (!userName) {
+    return <SignIn />;
+  }
 
   return (
     <div className="app-container">

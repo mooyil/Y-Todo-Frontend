@@ -5,8 +5,8 @@ export class todoApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTodos() {
-    return fetch(`${this.serverUrl}/todos/username/enes@outlook.de`).then(
+  getTodos(userName) {
+    return fetch(`${this.serverUrl}/todos/username/${userName}`).then(
       (resp) => resp.json()
     );
   }
@@ -20,7 +20,7 @@ export class todoApiService {
   }
 
   deleteFromServerService(id) {
-    return fetch(`${this.serverUrl}/todos/delete/` + id, {
+    return fetch(`${this.serverUrl}/todos/delete/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -28,7 +28,7 @@ export class todoApiService {
   }
 
   createUpdatePostService(id, updatedTodoRequest) {
-    return fetch(`${this.serverUrl}/todos/change/` + id, {
+    return fetch(`${this.serverUrl}/todos/change/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedTodoRequest),
