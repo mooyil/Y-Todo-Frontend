@@ -1,14 +1,14 @@
 import React from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
-import SignIn from "./SignIn";
+import Signin from "./Signin";
 import { AppBar, Box, Typography, IconButton, Toolbar } from "@mui/material";
 import { LinkTypography } from "../styles/navbarStyles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarContext } from "../Context/SidebarContext";
 import { TabsContext } from "../Context/TabsContext";
 
-export default function Navbar() {
+export default function Navbar({logout}) {
   const {tabValue, setTabvalue, currentTab, setCurrentTab, listTabs} = React.useContext(TabsContext)
   const {sidebar, setSidebar} = React.useContext(SidebarContext);
   const [tabTitle, setTabTitle] = React.useState("")
@@ -34,8 +34,8 @@ export default function Navbar() {
           <Typography sx={{flexGrow: 1}}>
             {currentTab}
           </Typography>
-          <Link className="signup-link" to="/signin" element={<SignIn />}>
-            <LinkTypography>Sign Up</LinkTypography>
+          <Link onClick={logout} className="signup-link" to="/signin" element={<Signin />}>
+            <LinkTypography>Logout</LinkTypography>
           </Link>
         </Toolbar>
       </AppBar>

@@ -3,39 +3,42 @@ import { Box, TextField, Button, Typography } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Avatar } from "@mui/joy";
-import Signup from "./Signup";
+import Signin from "./Signin";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
-import { SigninContext } from "../Context/SigninContext";
-import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
+import { SignupContext } from "../Context/SignupContext";
 import { UserDataContext } from "../Context/UserDataContext";
 
-export default function Signin() {
+export default function Signup() {
   const { email, setEmail, password, setPassword } =
-    React.useContext(SigninContext);
-    const {tasks, setTasks} = React.useContext(TextFeldundButtonContext)
-    const [userEmail, setUserEmail] = React.useContext(UserDataContext)
+    React.useContext(SignupContext);
+    // const [currentUserEmail, setCurrentUserEmail] = React.useContext(UserDataContext)
 
   const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
     try {
-      await authService.login(email, password).then(
-        () => {
+      await authService.signup(email, password).then(
+        (response) => {
+          if(response === "The user already exists") {
+          } else{
+          // check for token and user already exists with 200
+          //   console.log("Sign up successfully", response);          
           navigate("/");
           window.location.reload();
+        }
         },
         (error) => {
           console.log(error);
         }
       );
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+
     }
   };
 
-console.log(userEmail)
   return (
     <Box
       sx={{
@@ -50,9 +53,9 @@ console.log(userEmail)
         src="/broken-image.jpg"
       />
       <Typography variant="h5" mt={2}>
-        Sign in
+        Sign up
       </Typography>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSignup}>
         <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           <TextField
             sx={{ width: 420 }}
@@ -70,10 +73,10 @@ console.log(userEmail)
             margin="normal"
             required
             fullWidth
+            name="password"
             label="Password"
             type="password"
             id="password"
-            name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -83,10 +86,10 @@ console.log(userEmail)
             label="Sign for the newsletter"
           />
           <Button sx={{ width: 420, mt: 2 }} variant="contained" type="submit">
-            Sign in
+            Sign up
           </Button>
-          <Link to="/signup" element={<Signup />}>
-            <Typography>Sign Up</Typography>
+          <Link to="/signin" element={<Signin />}>
+            <Typography>Sign In</Typography>
           </Link>
         </Box>
       </form>

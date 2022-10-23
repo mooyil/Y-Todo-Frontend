@@ -5,8 +5,8 @@ export class todoApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTodos(userName) {
-    return fetch(`${this.serverUrl}/todos/username/${userName}`).then(
+  getTodos(userEmailStorage) {
+    return fetch(`${this.serverUrl}/todos/username/${userEmailStorage}`).then(
       (resp) => resp.json()
     );
   }

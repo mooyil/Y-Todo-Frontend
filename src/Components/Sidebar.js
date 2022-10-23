@@ -29,8 +29,14 @@ export default function Sidebar() {
     tabInputValue,
     setTabInputValue,
   } = React.useContext(SidebarContext);
-  const { tabValue, handleTabsValue, listTabs, setListTabs,currentTab, setCurrentTab } =
-    React.useContext(TabsContext);
+  const {
+    tabValue,
+    handleTabsValue,
+    listTabs,
+    setListTabs,
+    currentTab,
+    setCurrentTab,
+  } = React.useContext(TabsContext);
 
   let tabItem = {
     name: tabInputValue,
@@ -42,36 +48,34 @@ export default function Sidebar() {
 
   function doesTabExist(tabInputValue) {
     var doesExist = false;
-    
-    console.log(listTabs.forEach( (tab) => {
-      if (tab.name === tabInputValue) {
-        console.log("existiert")
-        doesExist = true;
-      }
-    }))
+
+    console.log(
+      listTabs.forEach((tab) => {
+        if (tab.name === tabInputValue) {
+          console.log("existiert");
+          doesExist = true;
+        }
+      })
+    );
 
     return doesExist;
-   
   }
 
   function add() {
- 
     if (tabInputValue === "") {
       alert("empty");
       return;
     }
 
-    console.log(listTabs.includes(tabInputValue))
-
+    console.log(listTabs.includes(tabInputValue));
 
     if (doesTabExist(tabInputValue)) {
       alert("already existing");
       return;
     }
 
-      addNewTab();
-      setTabInputValue("");
-    
+    addNewTab();
+    setTabInputValue("");
   }
 
   function addNewTab() {
@@ -129,7 +133,13 @@ export default function Sidebar() {
               orientation="vertical"
             >
               {listTabs.map((tab, i) => {
-                return <Tab onClick={() => setCurrentTab(tab.name)} key={i}  label={tab.name} />;
+                return (
+                  <Tab
+                    onClick={() => setCurrentTab(tab.name)}
+                    key={i}
+                    label={tab.name}
+                  />
+                );
               })}
             </Tabs>
             <Box

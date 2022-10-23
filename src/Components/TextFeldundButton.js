@@ -8,6 +8,8 @@ import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import axios from "axios";
+import { SigninContext } from "../Context/SigninContext";
+import { SignupContext } from "../Context/SignupContext";
 import { UserDataContext } from "../Context/UserDataContext";
 
 export default function TextFeldundButton({ todoItem, displayedDate }) {
@@ -21,9 +23,8 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   } = React.useContext(TextFeldundButtonContext);
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const {userName, setUserName} = React.useContext(UserDataContext)
-
-
+  const {email, setEmail} = React.useContext(SignupContext)
+  const [userEmailStorage] = React.useContext(UserDataContext)
 
   React.useEffect(() => {
     setDateValue(null);
@@ -51,10 +52,10 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
 
 
   React.useEffect(() => {
-    TodoApiService.getTodos(userName).then((data) => {
+    TodoApiService.getTodos(userEmailStorage).then((data) => {
       setTasks(data.data);
     });
-  }, [userName]);
+  }, []);
 
   React.useEffect(() => {
     const enter = (event) => {
