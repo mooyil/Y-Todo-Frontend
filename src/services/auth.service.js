@@ -18,9 +18,9 @@ const signup = (email, password) => {
     });
 };
 
-const login = (email, password) => {
+const signin = (email, password) => {
   return axios
-    .post(API_URL + "/login", {
+    .post(API_URL + "/signin", {
       email,
       password,
     })
@@ -45,7 +45,7 @@ const getCurrentUser = () => {
 
 const authService = {
   signup,
-  login,
+  signin,
   logout,
   getCurrentUser,
 };

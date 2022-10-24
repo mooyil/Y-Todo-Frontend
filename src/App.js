@@ -13,6 +13,7 @@ import authService from "./services/auth.service";
 import { SigninContext } from "./Context/SigninContext";
 import { SignupContext } from "./Context/SignupContext";
 import { UserDataContext } from "./Context/UserDataContext";
+import Signin from "./Components/Signin";
 
 function App() {
   const [snackbar] = React.useContext(SnackbarContext);
@@ -20,16 +21,14 @@ function App() {
   const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
   const { tabValue, TabPanel, currentTab, listTabs } =
     React.useContext(TabsContext);
-  const [currentUser, setCurrentUser] = React.useState("");
-  const [userEmailStorage] = React.useContext(UserDataContext)
+  const [currentUser, setCurrentUser] = React.useState(undefined);
+  const [userEmailStorage] = React.useContext(UserDataContext);
 
-  React.useEffect(() => {
-    const user = authService.getCurrentUser();
+  const user = authService.getCurrentUser();
 
-    if (user) {
-      setCurrentUser(user);
-    }
-  }, []);
+  if (!user) {
+    return <Signin />;
+  }
 
   const logout = () => {
     authService.logout();

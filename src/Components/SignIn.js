@@ -18,10 +18,10 @@ export default function Signin() {
 
   const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
+  const handleSignin = async (event) => {
     event.preventDefault();
     try {
-      await authService.login(email, password).then(
+      await authService.signin(email, password).then(
         () => {
           navigate("/");
           window.location.reload();
@@ -52,7 +52,7 @@ console.log(userEmail)
       <Typography variant="h5" mt={2}>
         Sign in
       </Typography>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSignin}>
         <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           <TextField
             sx={{ width: 420 }}

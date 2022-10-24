@@ -5,8 +5,8 @@ export class tabApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTabs() {
-    return axios.get(`${this.serverUrl}/tabs`);
+  getTabs(userEmailStorage) {
+    return axios.get(`${this.serverUrl}/tabs/useremail/${userEmailStorage}`);
   }
 
   createTabPost(tabItem) {
@@ -18,7 +18,7 @@ export class tabApiService {
   }
 
   deleteTabServer(name) {
-    return fetch(`${this.serverUrl}/tabs/delete/` + name, {
+    return fetch(`${this.serverUrl}/tabs/delete/${name}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

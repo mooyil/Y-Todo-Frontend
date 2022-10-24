@@ -16,6 +16,7 @@ import { tab } from "@testing-library/user-event/dist/tab";
 import React from "react";
 import { SidebarContext } from "../Context/SidebarContext";
 import { TabsContext } from "../Context/TabsContext";
+import { UserDataContext } from "../Context/UserDataContext";
 import { tabApiService } from "../services/tabApiService";
 import SidebarModal from "./SidebarModal";
 
@@ -37,13 +38,15 @@ export default function Sidebar() {
     currentTab,
     setCurrentTab,
   } = React.useContext(TabsContext);
+  const [userEmailStorage] = React.useContext(UserDataContext)
 
   let tabItem = {
     name: tabInputValue,
+    userEmail: userEmailStorage
   };
 
   React.useEffect(() => {
-    TabApiService.getTabs().then((res) => setListTabs(res.data));
+    TabApiService.getTabs(userEmailStorage).then((res) => setListTabs(res.data.data));
   }, []);
 
   function doesTabExist(tabInputValue) {
@@ -80,7 +83,7 @@ export default function Sidebar() {
 
   function addNewTab() {
     TabApiService.createTabPost(tabItem).then((data) =>
-      setListTabs([...listTabs].concat(data))
+      setListTabs([...listTabs].concat(data.data))
     );
   }
 
