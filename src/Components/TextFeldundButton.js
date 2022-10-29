@@ -1,5 +1,4 @@
 import { Stack, TextField, Typography } from "@mui/material";
-import dayjs from "dayjs";
 import { OwnButton } from "../styles/ButtonStyle";
 import { Add, ConnectingAirportsOutlined } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
@@ -8,27 +7,59 @@ import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { SnackbarContext } from "../Context/SnackbarContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import axios from "axios";
-import { SigninContext } from "../Context/SigninContext";
-import { SignupContext } from "../Context/SignupContext";
 import { UserDataContext } from "../Context/UserDataContext";
 
 export default function TextFeldundButton({ todoItem, displayedDate }) {
-  const {
-    todoInputValue,
-    setTodoInputValue,
-    tasks,
-    setTasks,
-    count,
-    setCount,
-  } = React.useContext(TextFeldundButtonContext);
+  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
+    React.useContext(TextFeldundButtonContext);
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const {email, setEmail} = React.useContext(SignupContext)
-  const [userEmailStorage] = React.useContext(UserDataContext)
+  const [userEmailStorage] = React.useContext(UserDataContext);
+  const [sorted, setSorted] = React.useState();
+  const TodoApiService = new todoApiService();
 
   React.useEffect(() => {
     setDateValue(null);
   }, []);
+
+  let userConfig = {
+    isSorted: "true",
+  };
+
+  function sortieren() {
+    TodoApiService.sortRequest(userConfig, userEmailStorage).then((data) =>
+      setSorted(data.data.isSorted)
+    );
+  }
+
+  React.useEffect(() => {
+    TodoApiService.getSortedTodos(userEmailStorage).then((resp) =>
+      setSorted(resp.data.data[0].userConfig)
+    );
+  }, []);
+
+  console.log(sorted);
+  // React.useEffect(() => {
+
+  const sortTodos = (date1, date2) => {
+    if (sorted === "true") {
+      let dateA = new Date(date1.date);
+      let dateB = new Date(date2.date);
+      console.log("ich gehe durch");
+      if (dateA > dateB) {
+        return 1;
+      } else if (!dateB) {
+        return 1;
+      } else if (dateA < dateB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+  };
+  tasks.sort(sortTodos);
+  console.log(tasks);
+  // }, [sorted]);
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
@@ -39,8 +70,6 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
     }, 200);
   }
 
-  const TodoApiService = new todoApiService();
-
   function add() {
     if (todoInputValue === "") {
       snackbarShow("snackbarShowEmpty");
@@ -49,7 +78,6 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
       setTodoInputValue("");
     }
   }
-
 
   React.useEffect(() => {
     TodoApiService.getTodos(userEmailStorage).then((data) => {
@@ -106,7 +134,9 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
       </OwnButton>
       <OwnButton
         variant="contained"
-        onClick={() => setCount((prevCount) => prevCount + 1)}
+        onClick={() => {
+          sortieren();
+        }}
       >
         <Typography variant="button">sort</Typography>
       </OwnButton>

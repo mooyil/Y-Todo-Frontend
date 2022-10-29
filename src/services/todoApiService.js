@@ -36,4 +36,19 @@ export class todoApiService {
       .then((resp) => resp.json())
       .then((data) => console.log(data));
   }
+  sortRequest(userConfig, userEmailStorage) {
+    return fetch(
+      `http://localhost:5200/userconfig/change/${userEmailStorage}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userConfig),
+      }
+    ).then((resp) => resp.json());
+  }
+  getSortedTodos(userEmailStorage) {
+    return axios.get(
+      `http://localhost:5200/userconfig/username/${userEmailStorage}`
+    );
+  }
 }

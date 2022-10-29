@@ -49,7 +49,7 @@ export default function Signup() {
       }}
     >
       <Avatar
-        sx={{ backgroundColor: "#0288d1", color: "white" }}
+        sx={{ backgroundColor: "#0288d1", color: "white"}}
         src="/broken-image.jpg"
       />
       <Typography variant="h5" mt={2}>

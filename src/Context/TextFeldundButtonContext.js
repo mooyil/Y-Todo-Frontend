@@ -16,7 +16,6 @@ export function TextFeldundButtonProvider(props) {
         setTodoInputValue,
         tasks,
         setTasks,
-        // sortieren,
         count,
         setCount,
       }}
