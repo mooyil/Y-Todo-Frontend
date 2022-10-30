@@ -10,8 +10,6 @@ import { SnackbarContext } from "./Context/SnackbarContext";
 import { DateTimePickerContext } from "./Context/DateTimePickerContext";
 import { TabsContext } from "./Context/TabsContext";
 import authService from "./services/auth.service";
-import { SigninContext } from "./Context/SigninContext";
-import { SignupContext } from "./Context/SignupContext";
 import { UserDataContext } from "./Context/UserDataContext";
 import Signin from "./Components/Signin";
 
