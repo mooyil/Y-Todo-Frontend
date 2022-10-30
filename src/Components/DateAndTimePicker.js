@@ -15,12 +15,12 @@ export default function DateAndTimePicker() {
       <Stack spacing={3}>
         <DateTimePicker
           disablePast
-          InputProps={{ sx: { "& .MuiSvgIcon-root": { color: "#1565c0" } } }}
+          InputProps={{ sx:{ "& .MuiSvgIcon-root": { color: "#1565c0" } } }}
           inputFormat="DD/MM/YY HH:mm"
           renderInput={(params) => (
             <TextField
               disabled
-              sx={{ backgroundColor: "white", width: 400, mt: 1 }}
+              sx={{ backgroundColor: "white", width: "100%", mt: 1 }}
               {...params}
             />
           )}

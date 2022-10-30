@@ -55,10 +55,9 @@ export default function Signup() {
       <Typography variant="h5" mt={2}>
         Sign up
       </Typography>
-      <form onSubmit={handleSignup}>
-        <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
+      <form style={{display: "flex", flexDirection: "column", width: "100%", alignItems: "center"}} onSubmit={handleSignup}>
           <TextField
-            sx={{ width: 420 }}
+            sx={{ width: "90%", maxWidth: 420 }}
             margin="normal"
             required
             fullWidth
@@ -69,7 +68,7 @@ export default function Signup() {
             onChange={(event) => {setEmail(event.target.value);}}
           />
           <TextField
-            sx={{ width: 420 }}
+            sx={{ width: "90%", maxWidth: 420 }}
             margin="normal"
             required
             fullWidth
@@ -80,18 +79,12 @@ export default function Signup() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <FormControlLabel
-            sx={{ mt: 2 }}
-            control={<Checkbox />}
-            label="Sign for the newsletter"
-          />
-          <Button sx={{ width: 420, mt: 2 }} variant="contained" type="submit">
+          <Button sx={{ width: "90%", maxWidth: 420, mt: 2 }} variant="contained" type="submit">
             Sign up
           </Button>
           <Link to="/signin" element={<Signin />}>
             <Typography>Sign In</Typography>
           </Link>
-        </Box>
       </form>
     </Box>
   );

@@ -107,7 +107,7 @@ export default function Sidebar() {
   return (
     <Box>
       <Drawer onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
-        <Box sx={{ width: 290 }}>
+        <Box sx={{ width: {xl: 240, lg: 240, md: 240, sm: 240, xs: "100%"} }}>
           <Box
             sx={{ display: "flex", backgroundColor: "#1565c0", color: "white" }}
             p={2.5}

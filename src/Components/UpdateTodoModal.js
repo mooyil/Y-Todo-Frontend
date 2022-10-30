@@ -24,7 +24,7 @@ export default function UdateTodoModal({ todo, editIt }) {
         <TextField
           value={updatedInputValue}
           label="Update todo..."
-          sx={{ backgroundColor: "white", width: 400, mt: 7 }}
+          sx={{ backgroundColor: "white", width: "100%", mt: 7 }}
           onChange={(event) => setUpdatedInputValue(event.target.value)}
           type="text"
         />

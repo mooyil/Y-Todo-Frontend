@@ -69,11 +69,12 @@ export default function Liste({ todoItem, displayedDate }) {
       <Stack alignItems="center">
         <List
           sx={{
-            transition: 2,
             bgcolor: "primary.main",
             marginTop: 2,
             marginRight: 12,
             borderRadius: 1,
+            width: "80%",
+            maxWidth: 580
           }}
         >
           {tasks.map((todo) => {
@@ -82,7 +83,6 @@ export default function Liste({ todoItem, displayedDate }) {
                 return (
                   <ListItem
                     sx={{
-                      width: { xs: 355, sm: 580, xl: 580 },
                       color: "white",
                       height: "60px",
                     }}

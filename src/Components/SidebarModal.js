@@ -19,14 +19,14 @@ export default function SidebarModal ({add}) {
           <Close />
         </IconButton>
           <TextField
-          sx={{width: 300, mt: 7}}
+          sx={{width: "80%", mt: 7}}
           label="Add a new List..."
             onChange={(event) => setTabInputValue(event.target.value)}
           />
           <OwnButton
           startIcon={<Add/>}
           variant="contained"
-          sx={{ml:1, height: 55, mt: 7}}
+          sx={{ height: 55, mt: 0.5}}
             onClick={() => {
               add();
               handleClose();

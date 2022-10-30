@@ -67,7 +67,7 @@ export default function TodoButton({ todoItem }) {
             value={todoInputValue}
             onChange={(event) => setTodoInputValue(event.target.value)}
             label="Add todo..."
-            sx={{ backgroundColor: "white", width: 400, mt: 7 }}
+            sx={{ backgroundColor: "white", width: "100%", mt: 7 }}
             type="text"
           />
           <DateAndTimePicker />
