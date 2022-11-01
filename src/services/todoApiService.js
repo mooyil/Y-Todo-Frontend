@@ -38,7 +38,7 @@ export class todoApiService {
   }
   sortRequest(userConfig, userEmailStorage) {
     return fetch(
-      `http://localhost:5200/userconfig/change/${userEmailStorage}`,
+      `${this.serverUrl}/userconfig/change/${userEmailStorage}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +48,7 @@ export class todoApiService {
   }
   getSortedTodos(userEmailStorage) {
     return axios.get(
-      `http://localhost:5200/userconfig/username/${userEmailStorage}`
+      `${this.serverUrl}/userconfig/username/${userEmailStorage}`
     );
   }
 }
