@@ -1,6 +1,5 @@
 import React from "react";
-import { Modal, TextField, Box, IconButton  } from "@mui/material";
-import { OwnButton } from "../styles/ButtonStyle";
+import { Modal, TextField, Box, IconButton, Button  } from "@mui/material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ModalStyle";
 import Add from "@mui/icons-material/Add";
 import { SidebarContext } from "../Context/SidebarContext";
@@ -23,7 +22,7 @@ export default function SidebarModal ({add}) {
           label="Add a new List..."
             onChange={(event) => setTabInputValue(event.target.value)}
           />
-          <OwnButton
+          <Button
           startIcon={<Add/>}
           variant="contained"
           sx={{ height: 55, mt: 0.5}}
@@ -33,7 +32,7 @@ export default function SidebarModal ({add}) {
             }}
           >
             Add
-          </OwnButton>
+          </Button>
         </Box>
       </Modal>
     )

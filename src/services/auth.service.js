@@ -2,32 +2,32 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5200/auth";
 
-const signup = (email, password) => {
+const signup = (username, password) => {
   return axios
     .post(API_URL + "/signup", {
-      email,
+      username,
       password,
     })
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data.accessToken));
-        localStorage.setItem("userEmail", JSON.stringify(response.data.userEmail));
+        localStorage.setItem("userName", JSON.stringify(response.data.userName));
       }
 
       return response.data;
     });
 };
 
-const signin = (email, password) => {
+const signin = (username, password) => {
   return axios
     .post(API_URL + "/signin", {
-      email,
+      username,
       password,
     })
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data.accessToken));
-        localStorage.setItem("userEmail", JSON.stringify(response.data.userEmail));
+        localStorage.setItem("userName", JSON.stringify(response.data.userName));
       }
 
       return response.data;
@@ -36,7 +36,7 @@ const signin = (email, password) => {
 
 const logout = () => {
   localStorage.removeItem("user");
-  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userName");
 };
 
 const getCurrentUser = () => {

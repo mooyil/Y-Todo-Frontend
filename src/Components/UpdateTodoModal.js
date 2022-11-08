@@ -1,8 +1,7 @@
 import React from "react";
 import { Close } from "@mui/icons-material";
-import { Box, IconButton, Modal, TextField } from "@mui/material";
+import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
 import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
-import { OwnButton } from "../styles/ButtonStyle";
 import { modalCloseIconStyle, modalStyle } from "../styles/ModalStyle";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import { ListeContext } from "../Context/ListeContext";
@@ -29,7 +28,7 @@ export default function UdateTodoModal({ todo, editIt }) {
           type="text"
         />
         <DateAndTimePicker />
-        <OwnButton
+        <Button
           variant="contained"
           sx={{ color: "white", height: 50, mt: 1 }}
           onClick={() => {
@@ -38,7 +37,7 @@ export default function UdateTodoModal({ todo, editIt }) {
           }}
         >
           Update
-        </OwnButton>
+        </Button>
         <IconButton style={modalCloseIconStyle} onClick={() => setOpen(false)}>
           <Close />
         </IconButton>

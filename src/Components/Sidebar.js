@@ -2,8 +2,6 @@ import { Add, Delete, ListAlt } from "@mui/icons-material";
 import {
   Divider,
   Drawer,
-  List,
-  ListItem,
   Tab,
   Tabs,
   Typography,
@@ -26,7 +24,6 @@ export default function Sidebar() {
     sidebar,
     setSidebar,
     handleOpen,
-    handleClose,
     tabInputValue,
     setTabInputValue,
   } = React.useContext(SidebarContext);
@@ -35,18 +32,17 @@ export default function Sidebar() {
     handleTabsValue,
     listTabs,
     setListTabs,
-    currentTab,
     setCurrentTab,
   } = React.useContext(TabsContext);
-  const [userEmailStorage] = React.useContext(UserDataContext)
+  const [userNameStorage] = React.useContext(UserDataContext)
 
   let tabItem = {
     name: tabInputValue,
-    userEmail: userEmailStorage
+    userName: userNameStorage
   };
 
   React.useEffect(() => {
-    TabApiService.getTabs(userEmailStorage).then((res) => setListTabs(res.data.data));
+    TabApiService.getTabs(userNameStorage).then((res) => setListTabs(res.data.data));
   }, []);
 
   function doesTabExist(tabInputValue) {
@@ -105,8 +101,8 @@ export default function Sidebar() {
   }
 
   return (
-    <Box>
-      <Drawer onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
+    <Box sx={{backgroundColor: "green"}} >
+      <Drawer  onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
         <Box sx={{ width: {xl: 240, lg: 240, md: 240, sm: 240, xs: "100%"} }}>
           <Box
             sx={{ display: "flex", backgroundColor: "#1565c0", color: "white" }}

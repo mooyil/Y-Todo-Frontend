@@ -1,27 +1,23 @@
 import React from "react";
 import { Box, TextField, Button, Typography } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { Avatar } from "@mui/joy";
 import Signup from "./Signup";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 import { SigninContext } from "../Context/SigninContext";
-import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { UserDataContext } from "../Context/UserDataContext";
 
 export default function Signin() {
-  const { email, setEmail, password, setPassword } =
+  const { username, setusername, password, setPassword } =
     React.useContext(SigninContext);
-  const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
-  const [userEmail, setUserEmail] = React.useContext(UserDataContext);
+  const [userName, setUsername] = React.useContext(UserDataContext);
 
   const navigate = useNavigate();
 
   const handleSignin = async (event) => {
     event.preventDefault();
     try {
-      await authService.signin(email, password).then(
+      await authService.signin(username, password).then(
         () => {
           navigate("/");
           window.location.reload();
@@ -35,7 +31,7 @@ export default function Signin() {
     }
   };
 
-  console.log(userEmail);
+  console.log(userName);
   return (
     <Box
       sx={{
@@ -55,10 +51,7 @@ export default function Signin() {
       </Typography>
       <form
         style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          alignItems: "center",
+          textAlign:"center",
         }}
         onSubmit={handleSignin}
       >
@@ -67,12 +60,12 @@ export default function Signin() {
           margin="normal"
           required
           fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          value={email}
+          id="username"
+          label="Username"
+          name="username"
+          value={username}
           onChange={(event) => {
-            setEmail(event.target.value);
+            setusername(event.target.value);
           }}
         />
         <TextField
@@ -94,10 +87,14 @@ export default function Signin() {
         >
           Sign in
         </Button>
+        <Link to="/signup" element={<Signup />}>
+          <Typography
+            sx={{ padding: 2 }}
+          >
+            Sign Up
+          </Typography>
+        </Link>
       </form>
-      <Link to="/signup" element={<Signup />}>
-        <Typography>Sign Up</Typography>
-      </Link>
     </Box>
   );
 }

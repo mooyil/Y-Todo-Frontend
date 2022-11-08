@@ -2,7 +2,6 @@ import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
 import { todoApiService } from "../services/todoApiService";
 import {
-  TextField,
   Box,
   Stack,
   ListItem,
@@ -10,6 +9,7 @@ import {
   List,
   Typography,
   Modal,
+  Divider,
 } from "@mui/material";
 import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { ListeContext } from "../Context/ListeContext";
@@ -17,7 +17,7 @@ import UdateTodoModal from "./UpdateTodoModal";
 import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
 import { TabsContext } from "../Context/TabsContext";
 
-export default function Liste({ todoItem, displayedDate }) {
+export default function Liste({ displayedDate }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
   const { open, setOpen } = React.useContext(UpdateTodoModalContext);
   const {
@@ -26,8 +26,7 @@ export default function Liste({ todoItem, displayedDate }) {
     updatedInputValue,
     setUpdatedInputValue,
   } = React.useContext(ListeContext);
-  const { currentTab, setCurrentTab, listTabs, setListTabs } =
-    React.useContext(TabsContext);
+  const { currentTab } = React.useContext(TabsContext);
 
   const TodoApiService = new todoApiService();
 
@@ -58,7 +57,7 @@ export default function Liste({ todoItem, displayedDate }) {
 
   let updatedTodoRequest = {
     content: updatedInputValue,
-    date: displayedDate
+    date: displayedDate,
   };
 
   function createUpdatePost(id) {
@@ -74,7 +73,7 @@ export default function Liste({ todoItem, displayedDate }) {
             marginRight: 12,
             borderRadius: 1,
             width: "80%",
-            maxWidth: 580
+            maxWidth: 580,
           }}
         >
           {tasks.map((todo) => {
@@ -84,7 +83,7 @@ export default function Liste({ todoItem, displayedDate }) {
                   <ListItem
                     sx={{
                       color: "white",
-                      height: "60px",
+                      height: {xl: 70, lg: 70, md: 60, sm: 55, xs: 45},
                     }}
                     key={todo.id}
                     secondaryAction={

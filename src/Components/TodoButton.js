@@ -6,17 +6,15 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { todoApiService } from "../services/todoApiService";
 import "../styles/Navbar.css";
-import { TextField, Box, IconButton, Modal, Link, Typography } from "@mui/material";
+import { TextField, Box, IconButton, Modal, Button } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ModalStyle";
-import { OwnButton } from "../styles/ButtonStyle";
 import DateAndTimePicker from "./DateAndTimePicker";
-import Signup from "./Signup";
 
 export default function TodoButton({ todoItem }) {
   const TodoApiService = new todoApiService();
 
-  const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
+  const [snackbar ,setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
   const { todoInputValue, setTodoInputValue, tasks, setTasks } =
     React.useContext(TextFeldundButtonContext);
@@ -43,7 +41,7 @@ export default function TodoButton({ todoItem }) {
   function createPost() {
     TodoApiService.createPostService(todoItem)
       .then((todoItem) => {
-        (setTasks([...tasks].concat(todoItem.data)));
+        setTasks([...tasks].concat(todoItem.data));
         snackbarShow("snackbarShowSuccess");
       })
       .catch(() => {
@@ -71,7 +69,7 @@ export default function TodoButton({ todoItem }) {
             type="text"
           />
           <DateAndTimePicker />
-          <OwnButton
+          <Button
             onClick={() => {
               add();
               setModal(false);
@@ -81,7 +79,7 @@ export default function TodoButton({ todoItem }) {
             sx={{ color: "white", height: 50, mt: 1 }}
           >
             Add
-          </OwnButton>
+          </Button>
           <IconButton
             onClick={() => setModal(false)}
             style={modalCloseIconStyle}

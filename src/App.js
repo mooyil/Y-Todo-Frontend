@@ -20,7 +20,7 @@ function App() {
   const { tabValue, TabPanel, currentTab, listTabs } =
     React.useContext(TabsContext);
   const [currentUser, setCurrentUser] = React.useState(undefined);
-  const [userEmailStorage] = React.useContext(UserDataContext);
+  const [userNameStorage] = React.useContext(UserDataContext);
 
   const user = authService.getCurrentUser();
 
@@ -45,7 +45,7 @@ function App() {
     done: false,
     date: displayedDate,
     tab: currentTab,
-    userEmail: userEmailStorage,
+    userName: userNameStorage,
   };
 
   return (

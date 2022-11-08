@@ -3,7 +3,7 @@ import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import Signin from "./Signin";
 import { AppBar, Box, Typography, IconButton, Toolbar } from "@mui/material";
-import { LinkTypography } from "../styles/navbarStyles";
+import { LinkTypography } from "../styles/NavbarStyles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarContext } from "../Context/SidebarContext";
 import { TabsContext } from "../Context/TabsContext";

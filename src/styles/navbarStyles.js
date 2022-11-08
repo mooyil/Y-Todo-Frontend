@@ -1,14 +1,4 @@
-// import { createTheme } from "@mui/material";
 
-// const navbarTheme = createTheme({
-//   overrides: {
-//     MuiAppBar: {
-//       colorPrimary: {
-//         backgroundColor: "red",
-//       },
-//     },
-//   },
-// });
 import styled from "styled-components";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 

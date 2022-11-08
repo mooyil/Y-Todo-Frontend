@@ -5,8 +5,8 @@ export class tabApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTabs(userEmailStorage) {
-    return axios.get(`${this.serverUrl}/tabs/useremail/${userEmailStorage}`);
+  getTabs(userNameStorage) {
+    return axios.get(`${this.serverUrl}/tabs/userName/${userNameStorage}`);
   }
 
   createTabPost(tabItem) {

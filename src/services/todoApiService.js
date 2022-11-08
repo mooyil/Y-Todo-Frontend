@@ -5,8 +5,8 @@ export class todoApiService {
     this.serverUrl = "http://localhost:5200";
   }
 
-  getTodos(userEmailStorage) {
-    return fetch(`${this.serverUrl}/todos/username/${userEmailStorage}`).then(
+  getTodos(userNameStorage) {
+    return fetch(`${this.serverUrl}/todos/username/${userNameStorage}`).then(
       (resp) => resp.json()
     );
   }
@@ -36,9 +36,9 @@ export class todoApiService {
       .then((resp) => resp.json())
       .then((data) => console.log(data));
   }
-  sortRequest(userConfig, userEmailStorage) {
+  sortRequest(userConfig, userNameStorage) {
     return fetch(
-      `${this.serverUrl}/userconfig/change/${userEmailStorage}`,
+      `${this.serverUrl}/userconfig/change/${userNameStorage}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -46,9 +46,9 @@ export class todoApiService {
       }
     ).then((resp) => resp.json());
   }
-  getSortedTodos(userEmailStorage) {
+  getSortedTodos(userNameStorage) {
     return axios.get(
-      `${this.serverUrl}/userconfig/username/${userEmailStorage}`
+      `${this.serverUrl}/userconfig/username/${userNameStorage}`
     );
   }
 }

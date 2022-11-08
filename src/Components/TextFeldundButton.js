@@ -1,6 +1,5 @@
-import { Stack, TextField, Typography } from "@mui/material";
-import { OwnButton } from "../styles/ButtonStyle";
-import { Add, ConnectingAirportsOutlined } from "@mui/icons-material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
 import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
@@ -8,13 +7,14 @@ import { SnackbarContext } from "../Context/SnackbarContext";
 import { DateTimePickerContext } from "../Context/DateTimePickerContext";
 import axios from "axios";
 import { UserDataContext } from "../Context/UserDataContext";
+import { buttonStyle } from "../styles/ButtonStyle";
 
 export default function TextFeldundButton({ todoItem, displayedDate }) {
   const { todoInputValue, setTodoInputValue, tasks, setTasks } =
     React.useContext(TextFeldundButtonContext);
   const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const [userEmailStorage] = React.useContext(UserDataContext);
+  const [userNameStorage] = React.useContext(UserDataContext);
   const [sorted, setSorted] = React.useState();
   const TodoApiService = new todoApiService();
 
@@ -27,13 +27,13 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   };
 
   function sortieren() {
-    TodoApiService.sortRequest(userConfig, userEmailStorage).then((data) =>
+    TodoApiService.sortRequest(userConfig, userNameStorage).then((data) =>
       setSorted(data.data.isSorted)
     );
   }
 
   React.useEffect(() => {
-    TodoApiService.getSortedTodos(userEmailStorage).then((resp) =>
+    TodoApiService.getSortedTodos(userNameStorage).then((resp) =>
       setSorted(resp.data.data[0].userConfig)
     );
   }, []);
@@ -80,7 +80,7 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   }
 
   React.useEffect(() => {
-    TodoApiService.getTodos(userEmailStorage).then((data) => {
+    TodoApiService.getTodos(userNameStorage).then((data) => {
       setTasks(data.data);
     });
   }, []);
@@ -116,13 +116,15 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
       spacing={1}
     >
       <TextField
-        sx={{ maxWidth: 500 }}
+      inputProps={{sx: {height: {xl: 25, lg: 25, md: 20, sm: 15, xs: 10}}}}
+        sx={{ maxWidth: 500, backgroundColor: "#f0f0f0"}}
         value={todoInputValue}
         onChange={(event) => setTodoInputValue(event.target.value)}
         fullWidth
         label="Write your next Todo..."
       />
-      <OwnButton
+      <Button
+      sx={buttonStyle}
         endIcon={<Add />}
         variant="contained"
         onClick={() => {
@@ -131,15 +133,15 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
         }}
       >
         <Typography variant="button">Add</Typography>
-      </OwnButton>
-      <OwnButton
+      </Button>
+      <Button
         variant="contained"
         onClick={() => {
           sortieren();
         }}
       >
         <Typography variant="button">sort</Typography>
-      </OwnButton>
+      </Button>
     </Stack>
   );
 }
