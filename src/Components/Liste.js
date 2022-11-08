@@ -8,8 +8,6 @@ import {
   IconButton,
   List,
   Typography,
-  Modal,
-  Divider,
 } from "@mui/material";
 import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
 import { ListeContext } from "../Context/ListeContext";

@@ -27,8 +27,8 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   };
 
   function sortieren() {
-    TodoApiService.sortRequest(userConfig, userNameStorage).then((data) =>
-      setSorted(data.data.isSorted)
+    TodoApiService.sortRequest(userConfig, userNameStorage).then((resp) =>
+      setSorted(resp.data.data.isSorted)
     );
   }
 
@@ -38,14 +38,10 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
     );
   }, []);
 
-  console.log(sorted);
-  // React.useEffect(() => {
-
   const sortTodos = (date1, date2) => {
     if (sorted === "true") {
       let dateA = new Date(date1.date);
       let dateB = new Date(date2.date);
-      console.log("ich gehe durch");
       if (dateA > dateB) {
         return 1;
       } else if (!dateB) {
@@ -58,8 +54,6 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
     }
   };
   tasks.sort(sortTodos);
-  console.log(tasks);
-  // }, [sorted]);
 
   function snackbarShow(snackbarClassName) {
     setTimeout(() => {
@@ -80,8 +74,8 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   }
 
   React.useEffect(() => {
-    TodoApiService.getTodos(userNameStorage).then((data) => {
-      setTasks(data.data);
+    TodoApiService.getTodos(userNameStorage).then((resp) => {
+      setTasks(resp.data.data);
     });
   }, []);
 
@@ -99,12 +93,13 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
   });
   function createPost() {
     TodoApiService.createPostService(todoItem)
-      .then((todoItem) => {
-        setTasks([...tasks].concat(todoItem.data));
+      .then((resp) => {
+        setTasks([...tasks].concat(resp.data.data));
         snackbarShow("snackbarShowSuccess");
       })
-      .catch(() => {
+      .catch((err) => {
         snackbarShow("snackbarShowError");
+        console.log(err);
       });
   }
 
@@ -116,15 +111,17 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
       spacing={1}
     >
       <TextField
-      inputProps={{sx: {height: {xl: 25, lg: 25, md: 20, sm: 15, xs: 10}}}}
-        sx={{ maxWidth: 500, backgroundColor: "#f0f0f0"}}
+        inputProps={{
+          sx: { height: { xl: 25, lg: 25, md: 20, sm: 15, xs: 10 } },
+        }}
+        sx={{ maxWidth: 500, backgroundColor: "#f0f0f0" }}
         value={todoInputValue}
         onChange={(event) => setTodoInputValue(event.target.value)}
         fullWidth
         label="Write your next Todo..."
       />
       <Button
-      sx={buttonStyle}
+        sx={buttonStyle}
         endIcon={<Add />}
         variant="contained"
         onClick={() => {
