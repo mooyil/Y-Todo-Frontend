@@ -1,17 +1,17 @@
-import Liste from "./components/Liste";
-import Navbar from "./components/Navbar";
-import Snackbar from "./components/Snackbar";
-import TextFeldundButton from "./components/TextFeldundButton";
+import Liste from "./iwas/Liste";
+import Navbar from "./iwas/Navbar";
+import Snackbar from "./iwas/Snackbar";
+import TextFeldundButton from "./iwas/TextFeldundButton";
 import React from "react";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./iwas/Sidebar";
 import { TextFeldundButtonContext } from "./context/TextFeldundButtonContext";
-import TodoButton from "./components/TodoButton";
+import TodoButton from "./iwas/TodoButton";
 import { SnackbarContext } from "./context/SnackbarContext";
 import { DateTimePickerContext } from "./context/DateTimePickerContext";
 import { TabsContext } from "./context/TabsContext";
 import authService from "./services/auth.service";
 import { UserDataContext } from "./context/UserDataContext";
-import Signin from "./components/Signin";
+import Signin from "./iwas/Signin";
 
 function App() {
   const [snackbar] = React.useContext(SnackbarContext);
