@@ -1,5 +1,5 @@
 import React from "react";
-import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
+import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
 import { todoApiService } from "../services/todoApiService";
 import {
   Box,
@@ -10,10 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
-import { ListeContext } from "../Context/ListeContext";
+import { ListeContext } from "../context/ListeContext";
 import UdateTodoModal from "./UpdateTodoModal";
-import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
-import { TabsContext } from "../Context/TabsContext";
+import { UpdateTodoModalContext } from "../context/UpdateTodoModalContext";
+import { TabsContext } from "../context/TabsContext";
 
 export default function Liste({ displayedDate }) {
   const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);

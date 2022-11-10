@@ -5,8 +5,8 @@ import Signin from "./Signin";
 import { AppBar, Box, Typography, IconButton, Toolbar } from "@mui/material";
 import { LinkTypography } from "../styles/NavbarStyles";
 import MenuIcon from "@mui/icons-material/Menu";
-import { SidebarContext } from "../Context/SidebarContext";
-import { TabsContext } from "../Context/TabsContext";
+import { SidebarContext } from "../context/SidebarContext";
+import { TabsContext } from "../context/TabsContext";
 
 export default function Navbar({logout}) {
   const {tabValue, setTabvalue, currentTab, setCurrentTab, listTabs} = React.useContext(TabsContext)

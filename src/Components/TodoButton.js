@@ -1,7 +1,7 @@
 import * as React from "react";
-import { DateTimePickerContext } from "../Context/DateTimePickerContext";
-import { SnackbarContext } from "../Context/SnackbarContext";
-import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
+import { DateTimePickerContext } from "../context/DateTimePickerContext";
+import { SnackbarContext } from "../context/SnackbarContext";
+import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { todoApiService } from "../services/todoApiService";

@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, TextField, Box, IconButton, Button  } from "@mui/material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ModalStyle";
 import Add from "@mui/icons-material/Add";
-import { SidebarContext } from "../Context/SidebarContext";
+import { SidebarContext } from "../context/SidebarContext";
 import { Close } from "@mui/icons-material";
 
 export default function SidebarModal ({add}) { 

@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { SidebarContext } from "../Context/SidebarContext";
-import { TabsContext } from "../Context/TabsContext";
-import { UserDataContext } from "../Context/UserDataContext";
+import { SidebarContext } from "../context/SidebarContext";
+import { TabsContext } from "../context/TabsContext";
+import { UserDataContext } from "../context/UserDataContext";
 import { tabApiService } from "../services/tabApiService";
 import SidebarModal from "./SidebarModal";
 

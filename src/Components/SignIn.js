@@ -4,8 +4,8 @@ import { Avatar } from "@mui/joy";
 import Signup from "./Signup";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
-import { SigninContext } from "../Context/SigninContext";
-import { UserDataContext } from "../Context/UserDataContext";
+import { SigninContext } from "../context/SigninContext";
+import { UserDataContext } from "../context/UserDataContext";
 
 export default function Signin() {
   const { username, setusername, password, setPassword } =

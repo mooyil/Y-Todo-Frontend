@@ -2,11 +2,11 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
-import { TextFeldundButtonContext } from "../Context/TextFeldundButtonContext";
-import { SnackbarContext } from "../Context/SnackbarContext";
-import { DateTimePickerContext } from "../Context/DateTimePickerContext";
+import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
+import { SnackbarContext } from "../context/SnackbarContext";
+import { DateTimePickerContext } from "../context/DateTimePickerContext";
 import axios from "axios";
-import { UserDataContext } from "../Context/UserDataContext";
+import { UserDataContext } from "../context/UserDataContext";
 import { buttonStyle } from "../styles/ButtonStyle";
 
 export default function TextFeldundButton({ todoItem, displayedDate }) {

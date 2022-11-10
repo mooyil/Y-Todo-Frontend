@@ -1,10 +1,10 @@
 import React from "react";
 import { Close } from "@mui/icons-material";
 import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
-import { UpdateTodoModalContext } from "../Context/UpdateTodoModalContext";
+import { UpdateTodoModalContext } from "../context/UpdateTodoModalContext";
 import { modalCloseIconStyle, modalStyle } from "../styles/ModalStyle";
-import { DateTimePickerContext } from "../Context/DateTimePickerContext";
-import { ListeContext } from "../Context/ListeContext";
+import { DateTimePickerContext } from "../context/DateTimePickerContext";
+import { ListeContext } from "../context/ListeContext";
 import DateAndTimePicker from "./DateAndTimePicker";
 
 export default function UdateTodoModal({ todo, editIt }) {
