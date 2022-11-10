@@ -7,10 +7,8 @@ import {
   Typography,
   Button,
   IconButton,
-  Grid,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { tab } from "@testing-library/user-event/dist/tab";
 import React from "react";
 import { SidebarContext } from "../Context/SidebarContext";
 import { TabsContext } from "../Context/TabsContext";
@@ -20,29 +18,21 @@ import SidebarModal from "./SidebarModal";
 
 export default function Sidebar() {
   const TabApiService = new tabApiService();
-  const {
-    sidebar,
-    setSidebar,
-    handleOpen,
-    tabInputValue,
-    setTabInputValue,
-  } = React.useContext(SidebarContext);
-  const {
-    tabValue,
-    handleTabsValue,
-    listTabs,
-    setListTabs,
-    setCurrentTab,
-  } = React.useContext(TabsContext);
-  const [userNameStorage] = React.useContext(UserDataContext)
+  const { sidebar, setSidebar, handleOpen, tabInputValue, setTabInputValue } =
+    React.useContext(SidebarContext);
+  const { tabValue, handleTabsValue, listTabs, setListTabs, setCurrentTab } =
+    React.useContext(TabsContext);
+  const [userNameStorage] = React.useContext(UserDataContext);
 
   let tabItem = {
     name: tabInputValue,
-    userName: userNameStorage
+    userName: userNameStorage,
   };
 
   React.useEffect(() => {
-    TabApiService.getTabs(userNameStorage).then((res) => setListTabs(res.data.data));
+    TabApiService.getTabs(userNameStorage).then((res) =>
+      setListTabs(res.data.data)
+    );
   }, []);
 
   function doesTabExist(tabInputValue) {
@@ -66,8 +56,6 @@ export default function Sidebar() {
       return;
     }
 
-    console.log(listTabs.includes(tabInputValue));
-
     if (doesTabExist(tabInputValue)) {
       alert("already existing");
       return;
@@ -78,14 +66,13 @@ export default function Sidebar() {
   }
 
   function addNewTab() {
-    TabApiService.createTabPost(tabItem).then((data) =>
-      setListTabs([...listTabs].concat(data.data))
+    TabApiService.createTabPost(tabItem).then((resp) =>
+      setListTabs([...listTabs].concat(resp.data.data))
     );
   }
 
   function deleteTabServer(name) {
     if (listTabs.length === 1) {
-      console.log("you need one list");
     } else {
       TabApiService.deleteTabServer(name);
     }
@@ -101,9 +88,9 @@ export default function Sidebar() {
   }
 
   return (
-    <Box sx={{backgroundColor: "green"}} >
-      <Drawer  onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
-        <Box sx={{ width: {xl: 240, lg: 240, md: 240, sm: 240, xs: "100%"} }}>
+    <Box sx={{ backgroundColor: "green" }}>
+      <Drawer onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
+        <Box sx={{ width: { xl: 240, lg: 240, md: 240, sm: 240, xs: "100%" } }}>
           <Box
             sx={{ display: "flex", backgroundColor: "#1565c0", color: "white" }}
             p={2.5}

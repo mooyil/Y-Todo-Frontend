@@ -10,17 +10,10 @@ export class tabApiService {
   }
 
   createTabPost(tabItem) {
-    return fetch(`${this.serverUrl}/tabs/post`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tabItem),
-    }).then((res) => res.json());
+    return axios.post(`${this.serverUrl}/tabs/post`, tabItem);
   }
 
   deleteTabServer(name) {
-    return fetch(`${this.serverUrl}/tabs/delete/${name}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
+    return axios.delete(`${this.serverUrl}/tabs/delete/${name}`);
   }
 }
