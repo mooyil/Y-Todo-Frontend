@@ -26,4 +26,4 @@ export function SidebarProvider(props) {
       {props.children}
     </SidebarContext.Provider>
   );
-}
+    }

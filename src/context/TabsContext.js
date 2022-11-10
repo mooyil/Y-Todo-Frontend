@@ -34,4 +34,5 @@ export function TabsProvider(props) {
       {props.children}
     </TabsContext.Provider>
   );
+
 }
