@@ -1,4 +1,4 @@
-import Liste from "./components/Liste";
+import Liste from "./components/liste";
 import Navbar from "./components/Navbar";
 import Snackbar from "./components/Snackbar";
 import TextFeldundButton from "./components/TextFeldundButton";
