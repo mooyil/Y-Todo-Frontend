@@ -4,23 +4,25 @@ import { Avatar } from "@mui/joy";
 import Signin from "./Signin";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
-import { SignupContext } from "../context/SignupContext";
+import { MyContext } from "../context/ContextProvider";
 
 export default function Signup() {
-  const { username, setusername, password, setPassword } =
-    React.useContext(SignupContext);
+  const {
+    signupUsername,
+    setSignupUsername,
+    signupPassword,
+    setSignupPassword,
+  } = React.useContext(MyContext);
 
   const navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
     try {
-      await authService.signup(username, password).then(
+      await authService.signup(signupUsername, signupPassword).then(
         (response) => {
           if (response === "The user already exists") {
           } else {
-            // check for token and user already exists with 200
-            //   console.log("Sign up successfully", response);
             navigate("/");
             window.location.reload();
           }
@@ -52,7 +54,7 @@ export default function Signup() {
       </Typography>
       <form
         style={{
-        textAlign: "center"
+          textAlign: "center",
         }}
         onSubmit={handleSignup}
       >
@@ -64,9 +66,9 @@ export default function Signup() {
           id="username"
           label="Username"
           name="username"
-          value={username}
+          value={signupUsername}
           onChange={(event) => {
-            setusername(event.target.value);
+            setSignupUsername(event.target.value);
           }}
         />
         <TextField
@@ -78,8 +80,8 @@ export default function Signup() {
           label="Password"
           type="password"
           id="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          value={signupPassword}
+          onChange={(event) => setSignupPassword(event.target.value)}
         />
         <Button
           sx={{ width: "90%", maxWidth: 420, mt: 2 }}
@@ -89,7 +91,7 @@ export default function Signup() {
           Sign up
         </Button>
         <Link to="/signin" element={<Signin />}>
-          <Typography sx={{padding: 2}}>Sign In</Typography>
+          <Typography sx={{ padding: 2 }}>Sign In</Typography>
         </Link>
       </form>
     </Box>

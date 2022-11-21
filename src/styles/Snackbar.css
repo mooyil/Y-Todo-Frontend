@@ -1,12 +1,22 @@
-
+:root {
+    --text-color: white;
+    --bg-color: #1565c0;
+    --left-position: 10px;
+    --bottom-position: 10px;
+    --width-snackbar: 200px;
+    --height-snackbar: 50px;
+    --padding-top: 25px;
+    --border-radius: 5px;
+  }
+  
 
 .snackbarNotShow{
-    left: 10px;
-    bottom: 10px;
-    color: white;
-    background-color: #1565c0;
-    width: 20%;
-    height: 50px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: hidden;
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
@@ -16,19 +26,19 @@
 }
 
 .snackbarShowSuccess::after{
-    left: 10px;
-    bottom: 10px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
     text-align: center;
-    color: white;
-    background-color: #1565c0;
-    width: 200px;
-    height: 50px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: visible;
     content: "Todo successfully added";
-    padding-top: 25px;
-    border-radius: 5px;
+    padding-top: var(--padding-top);
+    border-radius: var(--border-radius);
     
 
 }
@@ -37,18 +47,18 @@
 
 .snackbarShowError::before{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
-    left: 10px;
-    bottom: 10px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
     text-align: center;
-    color: white;
-    background-color: #1565c0;
-    width: 20%;
-    height: 50px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: visible;
     content: "Server error";
-    padding-top: 25px;
-    border-radius: 5px;
+    padding-top: var(--padding-top);
+    border-radius: var(--border-radius);
 
 }
 
@@ -56,54 +66,54 @@
 
 .snackbarShowEmpty::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
-    left: 10px;
-    bottom: 10px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
     text-align: center;
-    color: white;
-    background-color: #1565c0;
-    width: 20%;
-    height: 50px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: visible;
     content: "Input is empty";
-    padding-top: 25px;
-    border-radius: 5px;
+    padding-top: var(--padding-top);
+    border-radius: var(--border-radius);
 
 }
 
 
 .snackbarSuccessfulDelete::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
-    left: 10px;
-    bottom: 10px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
     text-align: center;
-    color: white;
-    background-color: #1565c0;
-    width: 20%;
-    height: 50px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: visible;
     content: "deleted";
-    padding-top: 25px;
-    border-radius: 5px;
+    padding-top: var(--padding-top);
+    border-radius: var(--border-radius);
 
 }
 
 
 .snackbarFailedDelete::after{
     animation: fadein 0.5s , fadeout 0.5s 2.5s;
-    left: 10px;
-    bottom: 10px;
+    left: var(--left-position);
+    bottom: var(--bottom-position);
     text-align: center;
-    color: white;
-    background-color: #1565c0;
-    width: 20%;
-    height: 50px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: var(--width-snackbar);
+    height: var(--height-snackbar);
     position: fixed;
     visibility: visible;
     content: "delete failed";
-    padding-top: 25px;
-    border-radius: 5px;
+    padding-top: var(--padding-top);
+    border-radius: var(--border-radius);
 
 }
 

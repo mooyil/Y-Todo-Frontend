@@ -1,7 +1,4 @@
 import * as React from "react";
-import { DateTimePickerContext } from "../context/DateTimePickerContext";
-import { SnackbarContext } from "../context/SnackbarContext";
-import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { todoApiService } from "../services/todoApiService";
@@ -10,14 +7,23 @@ import { TextField, Box, IconButton, Modal, Button } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { modalStyle, modalCloseIconStyle } from "../styles/ModalStyle";
 import DateAndTimePicker from "./DateAndTimePicker";
+import { MyContext } from "../context/ContextProvider";
+import { DateTimePickerContext } from "../context/DateTimePickerProvider";
 
 export default function TodoButton({ todoItem }) {
   const TodoApiService = new todoApiService();
 
-  const [snackbar ,setSnackbar] = React.useContext(SnackbarContext);
+  const {
+    snackbar,
+    setSnackbar,
+    todoInputValue,
+    setTodoInputValue,
+    tasks,
+    setTasks,
+  } = React.useContext(MyContext);
+
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
-    React.useContext(TextFeldundButtonContext);
+
   const [modal, setModal] = React.useState(false);
 
   function snackbarShow(snackbarClassName) {
@@ -40,8 +46,8 @@ export default function TodoButton({ todoItem }) {
 
   function createPost() {
     TodoApiService.createPostService(todoItem)
-      .then((todoItem) => {
-        setTasks([...tasks].concat(todoItem.data));
+      .then((resp) => {
+        setTasks([...tasks].concat(resp.data.data));
         snackbarShow("snackbarShowSuccess");
       })
       .catch(() => {
@@ -55,7 +61,6 @@ export default function TodoButton({ todoItem }) {
         <AddIcon onClick={() => setModal(true)} />
       </Fab>
       <Modal
-        keepMounted
         open={modal}
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description"
@@ -65,7 +70,7 @@ export default function TodoButton({ todoItem }) {
             value={todoInputValue}
             onChange={(event) => setTodoInputValue(event.target.value)}
             label="Add todo..."
-            sx={{ backgroundColor: "white", width: "100%", mt: 7 }}
+            sx={{ width: "100%", mt: 7 }}
             type="text"
           />
           <DateAndTimePicker />

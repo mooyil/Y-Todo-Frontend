@@ -10,19 +10,26 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { SidebarContext } from "../context/SidebarContext";
-import { TabsContext } from "../context/TabsContext";
-import { UserDataContext } from "../context/UserDataContext";
+import { MyContext } from "../context/ContextProvider";
 import { tabApiService } from "../services/tabApiService";
 import SidebarModal from "./SidebarModal";
 
 export default function Sidebar() {
   const TabApiService = new tabApiService();
-  const { sidebar, setSidebar, handleOpen, tabInputValue, setTabInputValue } =
-    React.useContext(SidebarContext);
-  const { tabValue, handleTabsValue, listTabs, setListTabs, setCurrentTab } =
-    React.useContext(TabsContext);
-  const [userNameStorage] = React.useContext(UserDataContext);
+  
+  const {
+    sidebar,
+    setSidebar,
+    handleOpen,
+    tabInputValue,
+    setTabInputValue,
+    tabValue,
+    handleTabsValue,
+    listTabs,
+    setListTabs,
+    setCurrentTab,
+    userNameStorage,
+  } = React.useContext(MyContext);
 
   let tabItem = {
     name: tabInputValue,
@@ -88,26 +95,30 @@ export default function Sidebar() {
   }
 
   return (
-    <Box sx={{ backgroundColor: "green" }}>
+    <Box>
       <Drawer onClose={() => setSidebar(false)} anchor="left" open={sidebar}>
-        <Box sx={{ width: { xl: 240, lg: 240, md: 240, sm: 240, xs: "100%" } }}>
+        <Box
+          sx={{
+            width: { xl: 240, lg: 240, md: 240, sm: 240, xs: "100%" },
+          }}
+        >
           <Box
-            sx={{ display: "flex", backgroundColor: "#1565c0", color: "white" }}
+            sx={{ display: "flex", backgroundColor: "primary.main" }}
             p={2.5}
           >
-            <ListAlt sx={{ mr: 1 }} />
-            <Typography>Y-Todo</Typography>
+            <ListAlt sx={{ mr: 1, color: "white" }} />
+            <Typography sx={{color:"white"}}>Y-Todo</Typography>
           </Box>
           <Button
             startIcon={<Add />}
             onClick={handleOpen}
             sx={{ m: 0.5, ml: 0 }}
             size="small"
-            color="primary"
             variant="contained"
-            aria-label="add"
           >
-            <Typography variant="button">Create a new list</Typography>
+            <Typography variant="button">
+              Create a new list
+            </Typography>
           </Button>
           <SidebarModal add={add} />
           <Divider />
@@ -145,9 +156,9 @@ export default function Sidebar() {
                       deleteTab(tab.name);
                       deleteTabServer(tab.name);
                     }}
-                    sx={{ m: 0.5, width: 10, color: "primary.main" }}
+                    sx={{ m: 0.5, width: 10 }}
                   >
-                    <Delete />
+                    <Delete sx={{ color: "primary.main" }} />
                   </IconButton>
                 );
               })}

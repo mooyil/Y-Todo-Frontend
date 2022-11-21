@@ -2,19 +2,22 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { todoApiService } from "../services/todoApiService";
 import React from "react";
-import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
-import { SnackbarContext } from "../context/SnackbarContext";
-import { DateTimePickerContext } from "../context/DateTimePickerContext";
-import axios from "axios";
-import { UserDataContext } from "../context/UserDataContext";
-import { buttonStyle } from "../styles/ButtonStyle";
-
+import { MyContext } from "../context/ContextProvider";
+import { DateTimePickerContext } from "../context/DateTimePickerProvider";
 export default function TextFeldundButton({ todoItem, displayedDate }) {
-  const { todoInputValue, setTodoInputValue, tasks, setTasks } =
-    React.useContext(TextFeldundButtonContext);
-  const [snackbar, setSnackbar] = React.useContext(SnackbarContext);
+
+  const {
+    todoInputValue,
+    setTodoInputValue,
+    tasks,
+    setTasks,
+    snackbar,
+    setSnackbar,
+    userNameStorage,
+  } = React.useContext(MyContext);
+
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const [userNameStorage] = React.useContext(UserDataContext);
+
   const [sorted, setSorted] = React.useState();
   const TodoApiService = new todoApiService();
 
@@ -105,7 +108,7 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
 
   return (
     <Stack
-      sx={{ marginTop: 20 }}
+      sx={{ marginTop: 12, color: "black" }}
       direction="row"
       justifyContent="center"
       spacing={1}
@@ -114,14 +117,13 @@ export default function TextFeldundButton({ todoItem, displayedDate }) {
         inputProps={{
           sx: { height: { xl: 25, lg: 25, md: 20, sm: 15, xs: 10 } },
         }}
-        sx={{ maxWidth: 500, backgroundColor: "#f0f0f0" }}
+        sx={{ maxWidth: 500 }}
         value={todoInputValue}
         onChange={(event) => setTodoInputValue(event.target.value)}
         fullWidth
         label="Write your next Todo..."
       />
       <Button
-        sx={buttonStyle}
         endIcon={<Add />}
         variant="contained"
         onClick={() => {

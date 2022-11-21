@@ -30,7 +30,7 @@ export class todoApiService {
       `${this.serverUrl}/userconfig/change/${userNameStorage}`,
       userConfig
     );
-    return resp.json();
+    return console.log(resp)
   }
   getSortedTodos(userNameStorage) {
     return axios.get(

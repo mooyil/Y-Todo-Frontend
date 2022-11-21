@@ -1,26 +1,31 @@
 import Liste from "./components/Liste";
 import Navbar from "./components/Navbar";
 import Snackbar from "./components/Snackbar";
-import TextFeldundButton from "./components/TextFeldundButton";
+import TextFeldundButton from "./components/TextFieldAndButton";
 import React from "react";
 import Sidebar from "./components/Sidebar";
-import { TextFeldundButtonContext } from "./context/TextFeldundButtonContext";
 import TodoButton from "./components/TodoButton";
-import { SnackbarContext } from "./context/SnackbarContext";
-import { DateTimePickerContext } from "./context/DateTimePickerContext";
-import { TabsContext } from "./context/TabsContext";
 import authService from "./services/auth.service";
-import { UserDataContext } from "./context/UserDataContext";
 import Signin from "./components/Signin";
+import { Box, ThemeProvider } from "@mui/material";
+import { MyContext } from "./context/ContextProvider";
+import { DateTimePickerContext } from "./context/DateTimePickerProvider";
+import { theme } from "./styles/theme";
 
 function App() {
-  const [snackbar] = React.useContext(SnackbarContext);
-  const [dateValue] = React.useContext(DateTimePickerContext);
-  const { todoInputValue, tasks } = React.useContext(TextFeldundButtonContext);
-  const { tabValue, TabPanel, currentTab, listTabs } =
-    React.useContext(TabsContext);
   const [currentUser, setCurrentUser] = React.useState(undefined);
-  const [userNameStorage] = React.useContext(UserDataContext);
+
+  const {
+    snackbar,
+    todoInputValue,
+    tabValue,
+    TabPanel,
+    currentTab,
+    listTabs,
+    userNameStorage,
+  } = React.useContext(MyContext);
+
+  const [dateValue] = React.useContext(DateTimePickerContext);
 
   const user = authService.getCurrentUser();
 
@@ -41,7 +46,6 @@ function App() {
 
   let todoItem = {
     content: todoInputValue,
-    userId: "mikail",
     done: false,
     date: displayedDate,
     tab: currentTab,
@@ -49,20 +53,22 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Navbar logout={logout} />
-      <Sidebar />
-      <TextFeldundButton todoItem={todoItem} displayedDate={displayedDate} />
-      {listTabs.map((tab, i) => {
-        return (
-          <TabPanel value={tabValue} key={i} index={i}>
-            <Liste displayedDate={displayedDate} todoItem={todoItem} />
-          </TabPanel>
-        );
-      })}
-      <TodoButton todoItem={todoItem} />
-      <Snackbar Classname={snackbar} />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box>
+        <Navbar logout={logout} />
+        <Sidebar />
+        <TextFeldundButton todoItem={todoItem} displayedDate={displayedDate} />
+        {listTabs.map((tab, i) => {
+          return (
+            <TabPanel value={tabValue} key={i} index={i}>
+              <Liste displayedDate={displayedDate} todoItem={todoItem} />
+            </TabPanel>
+          );
+        })}
+        <TodoButton todoItem={todoItem} />
+        <Snackbar Classname={snackbar} />
+      </Box>
+    </ThemeProvider>
   );
 }
 

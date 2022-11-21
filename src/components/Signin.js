@@ -4,20 +4,22 @@ import { Avatar } from "@mui/joy";
 import Signup from "./Signup";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
-import { SigninContext } from "../context/SigninContext";
-import { UserDataContext } from "../context/UserDataContext";
+import { MyContext } from "../context/ContextProvider";
 
 export default function Signin() {
-  const { username, setusername, password, setPassword } =
-    React.useContext(SigninContext);
-  const [userName, setUsername] = React.useContext(UserDataContext);
+  const {
+    signinUsername,
+    setSigninUsername,
+    signinPassword,
+    setSigninPassword,
+  } = React.useContext(MyContext);
 
   const navigate = useNavigate();
 
   const handleSignin = async (event) => {
     event.preventDefault();
     try {
-      await authService.signin(username, password).then(
+      await authService.signin(signinUsername, signinPassword).then(
         () => {
           navigate("/");
           window.location.reload();
@@ -31,7 +33,6 @@ export default function Signin() {
     }
   };
 
-  console.log(userName);
   return (
     <Box
       sx={{
@@ -51,7 +52,7 @@ export default function Signin() {
       </Typography>
       <form
         style={{
-          textAlign:"center",
+          textAlign: "center",
         }}
         onSubmit={handleSignin}
       >
@@ -63,9 +64,9 @@ export default function Signin() {
           id="username"
           label="Username"
           name="username"
-          value={username}
+          value={signinUsername}
           onChange={(event) => {
-            setusername(event.target.value);
+            setSigninUsername(event.target.value);
           }}
         />
         <TextField
@@ -77,8 +78,8 @@ export default function Signin() {
           type="password"
           id="password"
           name="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          value={signinPassword}
+          onChange={(event) => setSigninPassword(event.target.value)}
         />
         <Button
           sx={{ width: "90%", maxWidth: 420, mt: 2 }}
@@ -88,11 +89,7 @@ export default function Signin() {
           Sign in
         </Button>
         <Link to="/signup" element={<Signup />}>
-          <Typography
-            sx={{ padding: 2 }}
-          >
-            Sign Up
-          </Typography>
+          <Typography sx={{ padding: 2 }}>Sign Up</Typography>
         </Link>
       </form>
     </Box>

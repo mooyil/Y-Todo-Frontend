@@ -1,5 +1,4 @@
 import React from "react";
-import { TextFeldundButtonContext } from "../context/TextFeldundButtonContext";
 import { todoApiService } from "../services/todoApiService";
 import {
   Box,
@@ -9,22 +8,20 @@ import {
   List,
   Typography,
 } from "@mui/material";
-import { Close, Delete, Edit, ListAlt } from "@mui/icons-material";
-import { ListeContext } from "../context/ListeContext";
-import UdateTodoModal from "./UpdateTodoModal";
-import { UpdateTodoModalContext } from "../context/UpdateTodoModalContext";
-import { TabsContext } from "../context/TabsContext";
+import { Delete, Edit, ListAlt } from "@mui/icons-material";
+import UpdateTodoModal from "./UpdateTodoModal";
+import { MyContext } from "../context/ContextProvider";
 
 export default function Liste({ displayedDate }) {
-  const { tasks, setTasks } = React.useContext(TextFeldundButtonContext);
-  const { open, setOpen } = React.useContext(UpdateTodoModalContext);
   const {
-    updatedTodo,
-    setUpdatedTodo,
-    updatedInputValue,
-    setUpdatedInputValue,
-  } = React.useContext(ListeContext);
-  const { currentTab } = React.useContext(TabsContext);
+    tasks,
+    setTasks,
+    currentTab,
+  } = React.useContext(MyContext);
+
+  const [updatedInputValue, setUpdatedInputValue] = React.useState("");
+  const [updatedTodo, setUpdatedTodo] = React.useState([]);
+  const [openUpdateModal, setOpenUpdateModal] = React.useState(false);
 
   const TodoApiService = new todoApiService();
 
@@ -50,7 +47,7 @@ export default function Liste({ displayedDate }) {
     createUpdatePost(id);
     setUpdatedTodo([]);
     setUpdatedInputValue("");
-    setOpen(false);
+    setOpenUpdateModal(false);
   }
 
   let updatedTodoRequest = {
@@ -62,69 +59,71 @@ export default function Liste({ displayedDate }) {
     TodoApiService.createUpdatePostService(id, updatedTodoRequest);
   }
   return (
-    <Box>
-      <Stack alignItems="center">
-        <List
-          sx={{
-            bgcolor: "primary.main",
-            marginTop: 2,
-            marginRight: 12,
-            borderRadius: 1,
-            width: "80%",
-            maxWidth: 580,
-          }}
-        >
-          {tasks.map((todo) => {
-            {
-              if (todo.tab === currentTab) {
-                return (
-                  <ListItem
-                    sx={{
-                      color: "white",
-                      height: {xl: 70, lg: 70, md: 60, sm: 55, xs: 45},
-                    }}
-                    key={todo.id}
-                    secondaryAction={
-                      <Box>
-                        <IconButton
-                          sx={{ color: "white" }}
-                          onClick={() => {
-                            deleteTodo(todo.id);
-                            deleteFromServer(todo.id);
-                          }}
-                        >
-                          <Delete />
-                        </IconButton>
-                        <IconButton
-                          sx={{ color: "white" }}
-                          onClick={() => {
-                            setUpdatedTodo(todo.id);
-                            setOpen(true);
-                            setUpdatedInputValue(todo.content);
-                          }}
-                        >
-                          <Edit />
-                        </IconButton>
-                        {updatedTodo === todo.id && (
-                          <UdateTodoModal todo={todo} editIt={editIt} />
-                        )}
-                      </Box>
-                    }
-                  >
-                    <Stack>
-                      <Typography sx={{ display: "flex" }}>
-                        <ListAlt sx={{ marginRight: 0.5 }} />
-                        {todo.content}
-                      </Typography>
-                      <Typography variant="caption">{todo.date}</Typography>
-                    </Stack>
-                  </ListItem>
-                );
-              }
+    <Stack alignItems="center">
+      <List
+        sx={{
+          bgcolor: "primary.main",
+          marginTop: 2,
+          marginRight: 12,
+          borderRadius: 1,
+          width: "80%",
+          maxWidth: 580,
+        }}
+      >
+        {tasks.map((todo) => {
+          {
+            if (todo.tab === currentTab) {
+              return (
+                <ListItem
+                  sx={{
+                    height: { xl: 70, lg: 70, md: 60, sm: 55, xs: 45 },
+                  }}
+                  key={todo.id}
+                  secondaryAction={
+                    <Box>
+                      <IconButton
+                        onClick={() => {
+                          deleteTodo(todo.id);
+                          deleteFromServer(todo.id);
+                        }}
+                      >
+                        <Delete />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          setUpdatedTodo(todo.id);
+                          setOpenUpdateModal(true);
+                          setUpdatedInputValue(todo.content);
+                        }}
+                      >
+                        <Edit />
+                      </IconButton>
+                      {updatedTodo === todo.id && (
+                        <UpdateTodoModal
+                          todo={todo}
+                          editIt={editIt}
+                          updatedInputValue={updatedInputValue}
+                          setUpdatedInputValue={setUpdatedInputValue}
+                          openUpdateModal={openUpdateModal}
+                          setOpenUpdateModal={setOpenUpdateModal}
+                        />
+                      )}
+                    </Box>
+                  }
+                >
+                  <Stack>
+                    <Typography sx={{ display: "flex" }}>
+                      <ListAlt sx={{ marginRight: 0.5 }} />
+                      {todo.content}
+                    </Typography>
+                    <Typography variant="caption">{todo.date}</Typography>
+                  </Stack>
+                </ListItem>
+              );
             }
-          })}
-        </List>
-      </Stack>
-    </Box>
+          }
+        })}
+      </List>
+    </Stack>
   );
 }

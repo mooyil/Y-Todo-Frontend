@@ -1,21 +1,27 @@
 import React from "react";
 import { Close } from "@mui/icons-material";
 import { Box, Button, IconButton, Modal, TextField } from "@mui/material";
-import { UpdateTodoModalContext } from "../context/UpdateTodoModalContext";
 import { modalCloseIconStyle, modalStyle } from "../styles/ModalStyle";
-import { DateTimePickerContext } from "../context/DateTimePickerContext";
-import { ListeContext } from "../context/ListeContext";
 import DateAndTimePicker from "./DateAndTimePicker";
+import { MyContext } from "../context/ContextProvider";
+import {
+  DateTimePickerContext,
+} from "../context/DateTimePickerProvider";
+export default function UpdateTodoModal({
+  todo,
+  editIt,
+  updatedInputValue,
+  setUpdatedInputValue,
+  openUpdateModal,
+  setOpenUpdateModal,
+}) {
 
-export default function UdateTodoModal({ todo, editIt }) {
-  const { open, setOpen } = React.useContext(UpdateTodoModalContext);
   const [dateValue, setDateValue] = React.useContext(DateTimePickerContext);
-  const { updatedInputValue, setUpdatedInputValue } =
-    React.useContext(ListeContext);
+
   return (
     <Modal
       keepMounted
-      open={open}
+      open={openUpdateModal}
       aria-labelledby="keep-mounted-modal-title"
       aria-describedby="keep-mounted-modal-description"
     >
@@ -23,7 +29,7 @@ export default function UdateTodoModal({ todo, editIt }) {
         <TextField
           value={updatedInputValue}
           label="Update todo..."
-          sx={{ backgroundColor: "white", width: "100%", mt: 7 }}
+          sx={{ width: "100%", mt: 7 }}
           onChange={(event) => setUpdatedInputValue(event.target.value)}
           type="text"
         />
@@ -38,7 +44,10 @@ export default function UdateTodoModal({ todo, editIt }) {
         >
           Update
         </Button>
-        <IconButton style={modalCloseIconStyle} onClick={() => setOpen(false)}>
+        <IconButton
+          style={modalCloseIconStyle}
+          onClick={() => setOpenUpdateModal(false)}
+        >
           <Close />
         </IconButton>
       </Box>
