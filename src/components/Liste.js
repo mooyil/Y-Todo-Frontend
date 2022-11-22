@@ -29,7 +29,6 @@ export default function Liste({ displayedDate }) {
     TodoApiService.deleteFromServerService(id);
   }
 
-  //Todo lösch Funktion
   function deleteTodo(id) {
     const updatedTodo = [...tasks].filter((todo) => todo.id !== id);
     setTasks(updatedTodo);
@@ -76,6 +75,7 @@ export default function Liste({ displayedDate }) {
               return (
                 <ListItem
                   sx={{
+                    color:"white",
                     height: { xl: 70, lg: 70, md: 60, sm: 55, xs: 45 },
                   }}
                   key={todo.id}
@@ -87,7 +87,7 @@ export default function Liste({ displayedDate }) {
                           deleteFromServer(todo.id);
                         }}
                       >
-                        <Delete />
+                        <Delete sx={{color:"white"}} />
                       </IconButton>
                       <IconButton
                         onClick={() => {
@@ -96,7 +96,7 @@ export default function Liste({ displayedDate }) {
                           setUpdatedInputValue(todo.content);
                         }}
                       >
-                        <Edit />
+                        <Edit sx={{color:"white"}} />
                       </IconButton>
                       {updatedTodo === todo.id && (
                         <UpdateTodoModal
@@ -112,7 +112,7 @@ export default function Liste({ displayedDate }) {
                   }
                 >
                   <Stack>
-                    <Typography sx={{ display: "flex" }}>
+                    <Typography color="inherit" sx={{ display: "flex", }}>
                       <ListAlt sx={{ marginRight: 0.5 }} />
                       {todo.content}
                     </Typography>

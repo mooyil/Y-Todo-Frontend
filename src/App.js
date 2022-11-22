@@ -1,72 +1,39 @@
-import Liste from "./components/Liste";
-import Navbar from "./components/Navbar";
-import Snackbar from "./components/Snackbar";
-import TextFeldundButton from "./components/TextFieldAndButton";
 import React from "react";
-import Sidebar from "./components/Sidebar";
-import TodoButton from "./components/TodoButton";
-import authService from "./services/auth.service";
 import Signin from "./components/Signin";
 import { Box, ThemeProvider } from "@mui/material";
-import { MyContext } from "./context/ContextProvider";
-import { DateTimePickerContext } from "./context/DateTimePickerProvider";
-import { theme } from "./styles/theme";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from "./components/Signup";
+import TodoApp from "./components/TodoApp";
+import { createTheme } from "@mui/material";
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState(undefined);
 
-  const {
-    snackbar,
-    todoInputValue,
-    tabValue,
-    TabPanel,
-    currentTab,
-    listTabs,
-    userNameStorage,
-  } = React.useContext(MyContext);
+const [mode, setMode] = React.useState("light")
 
-  const [dateValue] = React.useContext(DateTimePickerContext);
-
-  const user = authService.getCurrentUser();
-
-  if (!user) {
-    return <Signin />;
-  }
-
-  const logout = () => {
-    authService.logout();
-  };
-
-  let displayedDate;
-
-  if (dateValue != null) {
-    displayedDate =
-      dateValue.$d.toDateString() + ",  " + dateValue.$d.toLocaleTimeString();
-  }
-
-  let todoItem = {
-    content: todoInputValue,
-    done: false,
-    date: displayedDate,
-    tab: currentTab,
-    userName: userNameStorage,
-  };
-
+  const theme = createTheme({
+    palette: {
+      mode: mode,
+      primary: {
+        light: "#311b92",
+        dark: "#221266",
+        main: "#5a48a7",
+      },
+    },
+  });
   return (
     <ThemeProvider theme={theme}>
-      <Box>
-        <Navbar logout={logout} />
-        <Sidebar />
-        <TextFeldundButton todoItem={todoItem} displayedDate={displayedDate} />
-        {listTabs.map((tab, i) => {
-          return (
-            <TabPanel value={tabValue} key={i} index={i}>
-              <Liste displayedDate={displayedDate} todoItem={todoItem} />
-            </TabPanel>
-          );
-        })}
-        <TodoButton todoItem={todoItem} />
-        <Snackbar Classname={snackbar} />
+      <Box
+        sx={{ height: "100vh" }}
+        bgcolor={"background.default"}
+        color={"text.primary"}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<TodoApp mode={mode} setMode={setMode} />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </BrowserRouter>
       </Box>
     </ThemeProvider>
   );

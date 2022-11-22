@@ -5,6 +5,8 @@ import Signin from "./Signin";
 import { Link, useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 import { MyContext } from "../context/ContextProvider";
+import { deepOrange } from "@mui/material/colors";
+import { AccountCircle } from "@mui/icons-material";
 
 export default function Signup() {
   const {
@@ -39,16 +41,13 @@ export default function Signup() {
   return (
     <Box
       sx={{
-        marginTop: 8,
+        pt: 10,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
       }}
     >
-      <Avatar
-        sx={{ backgroundColor: "#0288d1", color: "white" }}
-        src="/broken-image.jpg"
-      />
+      <AccountCircle sx={{height:55, width:55, color:"primary.main"}}/>
       <Typography variant="h5" mt={2}>
         Sign up
       </Typography>

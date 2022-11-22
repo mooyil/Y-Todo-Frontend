@@ -11,7 +11,7 @@ export const modalStyle = {
     border: "2px solid #000",
     boxShadow: 24,
     p: 5,
-    bgcolor: "primary.light"
+    bgcolor: "#f0f0f0"
   };
 
   export const modalCloseIconStyle = {
