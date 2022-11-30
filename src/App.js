@@ -14,9 +14,9 @@ const [mode, setMode] = React.useState("light")
     palette: {
       mode: mode,
       primary: {
-        light: "#311b92",
-        dark: "#221266",
-        main: "#5a48a7",
+        light: "#f6685e",
+        dark: "#aa2e25",
+        main: "#f44336",
       },
     },
   });
